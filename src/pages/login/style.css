@@ -1,109 +1,114 @@
 :root {
-    --themeColor: #005356;
-  }
-  
-  body {
-    font-family: "Source Sans Pro", sans-serif;
-    font-size: 1em;
-    background-color: #f0f7f6;
-  }
-  
-  /* Form Contents */
-  .formContents {
-    display: flex;
-    min-height: 100vh;
-  }
-  .formContents .brandSide {
-    width: 55%;
-    background-image: url("../../assets/img/form-bg.png");
-    background-size: cover;
-    background-position: center;
-    text-align: center;
-    padding: 3em 0;
-  }
-  .formContents .formSide {
-    width: 45%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .formContents .logo {
-    height: 120px;
-  }
-  .formContents .formParents {
-    width: 100%;
-    max-width: 350px;
-    margin: auto;
-  }
-  .formContents .formInput {
-    width: 100%;
-    color: var(--themeColor);
-    font-weight: 600;
-    padding: 0.7em 0.4em;
-    border: 2px solid rgba(0, 0, 0, 0.1);
-    border-width: 0 0 1px 0;
-    background-color: transparent;
-    margin-bottom: 1em;
-    outline: none;
-  }
-  .formContents .formInput::placeholder {
-    color: var(--themeColor);
-    font-weight: 600;
-  }
-  .formContents .fromHeading {
-    text-align: center;
-    font-size: 1.7em;
-    font-weight: 700;
-    color: var(--themeColor);
-    letter-spacing: 5px;
-    margin-bottom: 1.5em;
-  }
-  .formContents .commonText {
-    color: var(--themeColor);
-    font-weight: 500;
-  }
-  .formContents a.commonText {
-    font-weight: 600;
-  }
-  .formContents .formFooter {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin: 2em 0;
-  }
-  .formContents .formFooter input {
-    height: 1em;
-    width: 1em;
-    margin-right: 0.8em;
-    vertical-align: middle;
-  }
-  .formContents .formBtn {
-    display: block;
-    width: 100%;
-    background-color: #80c340;
-    color: white;
-    padding: 0.8em 0;
-    text-align: center;
-    border: none;
-    border-radius: 0.3em;
-    margin-top: 3em;
-  }
-  .formContents .formLogo {
+  --themeColor: #005356;
+}
+
+body {
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: 1em;
+  background-color: #f0f7f6;
+}
+
+/* Form Contents */
+.formContents {
+  display: flex;
+  min-height: 100vh;
+}
+.formContents .brandSide {
+  width: 55%;
+  background-image: url("../../assets/img/form-bg.png");
+  background-size: cover;
+  background-position: center;
+  text-align: center;
+  padding: 3em 0;
+}
+.formContents .formSide {
+  width: 45%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.formContents .logo {
+  height: 120px;
+}
+.formContents .formParents {
+  width: 100%;
+  max-width: 350px;
+  margin: auto;
+}
+.formContents .formInput {
+  width: 100%;
+  color: var(--themeColor);
+  font-weight: 600;
+  padding: 0.7em 0.4em;
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  border-width: 0 0 1px 0;
+  background-color: transparent;
+  margin-bottom: 1em;
+  outline: none;
+}
+.formContents .formInput::placeholder {
+  color: var(--themeColor);
+  font-weight: 600;
+}
+.formContents .fromHeading {
+  text-align: center;
+  font-size: 1.7em;
+  font-weight: 700;
+  color: var(--themeColor);
+  letter-spacing: 5px;
+  margin-bottom: 1.5em;
+}
+.formContents .commonText {
+  color: var(--themeColor);
+  font-weight: 500;
+}
+.formContents a.commonText {
+  font-weight: 600;
+}
+.formContents .formFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 2em 0;
+}
+.formContents .formFooter input {
+  height: 1em;
+  width: 1em;
+  margin-right: 0.8em;
+  vertical-align: middle;
+}
+.formContents .formBtn {
+  display: block;
+  width: 100%;
+  background-color: #80c340;
+  color: white;
+  padding: 0.8em 0;
+  text-align: center;
+  border: none;
+  border-radius: 0.3em;
+  margin-top: 3em;
+}
+.formContents .formLogo {
+  display: none;
+}
+
+/* Media Query */
+@media (max-width: 768px) {
+  .brandSide {
     display: none;
   }
-  
-  /* Media Query */
-  @media (max-width: 768px) {
-    .brandSide {
-      display: none;
-    }
-    .formContents .formSide {
-      width: 100%;
-    }
-    .formContents .formLogo {
-      display: block;
-      height: 120px;
-      margin: 4em auto auto auto;
-    }
+  .formContents .formSide {
+    width: 100%;
   }
-  
+  .formContents .formLogo {
+    display: block;
+    height: 120px;
+    margin: 4em auto auto auto;
+  }
+}
+
+.span-error {
+  color: red;
+  font-size: 12px;
+  margin-bottom: 5px;
+}
