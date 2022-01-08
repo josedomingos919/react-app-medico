@@ -6,12 +6,15 @@ import "./style.css";
 import { Logo } from "../../assets";
 import { useAuth } from "../../context/auth";
 import { initialFormData, isValidForm } from "./util";
+import { loginRequest } from "../../service";
+import { toast } from "../../utilities/functions";
 
 export function Login() {
   const { sigIn } = useAuth();
   const { register, handleSubmit, reset } = useForm();
 
   const [formError, __setFormError] = useState(initialFormData);
+
   const setFormError = (data) =>
     __setFormError((prev) => ({ ...prev, ...data }));
 
@@ -25,9 +28,15 @@ export function Login() {
       return;
     }
 
+    const loginResponse = await loginRequest(data);
+    console.log("loginResponse", loginResponse);
+    if (loginResponse?.status !== 200) {
+      toast().success("Usuário ou senha não encontrado!");
+      return;
+    }
+
+    sigIn(loginResponse.data);
     reset();
-    sigIn(data);
-    console.log(data, "data=> ");
   };
 
   return (
