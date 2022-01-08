@@ -10,11 +10,9 @@ import { Dashboard } from "../../pages/dashboard";
 
 export function PrivateRoutes() {
   return (
-    <Router>
-      <Routes>
-        <Route exact path="/dashboard" element={<Dashboard />} />
-        <Route path="*" element={<Navigate to="/dashboard" />} />
-      </Routes>
-    </Router>
+    <Routes>
+      <Route exact path="/dashboard" element={<Dashboard />} />
+      <Route path="*" element={<Navigate to="/dashboard" />} />
+    </Routes>
   );
 }

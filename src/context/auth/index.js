@@ -1,4 +1,6 @@
-import { useState, useMemo, useContext, createContext } from "react";
+import { useState, useMemo, useContext, createContext, useEffect } from "react";
+import { isEmpty } from "../../utilities/functions";
+import { session } from "./util";
 
 const AuthContext = createContext();
 
@@ -7,18 +9,25 @@ export function AuthProvider({ children }) {
   const [user, setUser] = useState({});
 
   const sigIn = (user) => {
+    session.save(user);
     setUser(user);
     setIsLogged(true);
   };
 
-  const sinOut = () => {
+  const singOut = () => {
+    session.clear();
     setUser({});
-    setIsLogged({});
+    setIsLogged(false);
   };
 
+  useEffect(() => {
+    const user = session.get();
+    if (!isEmpty(user)) sigIn(user);
+  }, []);
+
   const providerValue = useMemo(
-    () => ({ isLogged, user, sinOut, sigIn }),
-    [isLogged, user, sigIn, sinOut]
+    () => ({ isLogged, user, singOut, sigIn }),
+    [isLogged, user, sigIn, singOut]
   );
 
   return (

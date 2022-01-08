@@ -4,10 +4,12 @@ import { useForm } from "react-hook-form";
 import "./style.css";
 
 import { Logo } from "../../assets";
+import { useAuth } from "../../context/auth";
 import { initialFormData, isValidForm } from "./util";
 
 export function Login() {
-  const { register, handleSubmit } = useForm();
+  const { sigIn } = useAuth();
+  const { register, handleSubmit, reset } = useForm();
 
   const [formError, __setFormError] = useState(initialFormData);
   const setFormError = (data) =>
@@ -23,6 +25,8 @@ export function Login() {
       return;
     }
 
+    reset();
+    sigIn(data);
     console.log(data, "data=> ");
   };
 
