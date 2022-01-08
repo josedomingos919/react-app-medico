@@ -1,10 +1,7 @@
- 
-import { Login } from './pages/login'
+import { RootRouter } from "./routes";
 
 function App() {
-  return (
-    <Login />
-  );
+  return <RootRouter />;
 }
 
 export default App;

@@ -4,7 +4,7 @@ export const initialFormData = { email: "", password: "" };
 
 export const isValidForm = ({ email, password }) => {
   let status = true;
-  let response = initialFormData;
+  let response = { ...initialFormData };
 
   if (!isEmail(email)) {
     status = false;
