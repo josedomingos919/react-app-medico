@@ -1,0 +1,839 @@
+@font-face {
+  font-family: "perpetua";
+  src: url("../../assets/fonts/perpetua.TTF");
+}
+
+:root {
+  --themeColor: #005356;
+}
+
+body {
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: 1em;
+  background-color: #f0f7f6;
+}
+
+/* Body Wrapper */
+.bodyWrapper {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* Side Menu */
+.sideMenu {
+  width: 300px;
+  min-height: 100vh;
+  background-color: var(--themeColor);
+  transition: 500ms ease-in-out;
+}
+.sideMenu .sideMenuBrand {
+  text-align: center;
+  background-color: #004a4c;
+  padding: 0.5em 0;
+}
+.sideMenu .sideMenuBrand .brandLink {
+  display: inline-block;
+}
+.sideMenu .sideMenuBrand .brandLink img {
+  height: 70px;
+}
+.sideMenu .sideMenuLinks {
+  background-color: #004a4c;
+  margin-top: 0.6em;
+}
+.sideMenu .sideMenuLink {
+  display: block;
+  padding: 1.2em 2em;
+  color: white;
+  font-weight: 500;
+  text-decoration: none;
+  transition: 250ms all ease-in-out;
+  border-left: 4px solid transparent;
+}
+.sideMenu .sideMenuLink span {
+  display: inline-block;
+  width: 30px;
+}
+.sideMenu .sideMenuLink.active,
+.sideMenu .sideMenuLink:hover {
+  background-color: #004244;
+  border-color: #80c340;
+}
+
+/* Page Contents */
+.pageContents {
+  width: calc(100% - 300px);
+}
+.pageContents .dashboardHeader {
+  text-align: right;
+  background-color: white;
+  padding: 1.2em 1.5em;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
+}
+.pageContents .dashboardHeader .headerBtn {
+  border: none;
+  background-color: transparent;
+  color: #4d4f5c;
+  font-size: 0.9em;
+  font-weight: 600;
+}
+.pageContents .dashboardHeader .headerBtn i {
+  color: #a4afb7;
+  margin: 0 0.5em;
+}
+.pageContents .dashboardHeader .dropdown-menu {
+  border: none;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+.pageContents .mainText {
+  color: #4d4f5c;
+  font-family: "perpetua";
+}
+.pageContents .bodyContents {
+  padding: 1.2em;
+}
+.pageContents .calanderChart {
+  background-color: white;
+  padding: 1em;
+}
+.pageContents .calanderChart .calanderBtn {
+  color: #4d4f5c;
+  display: inline-block;
+  text-decoration: none;
+  border: 1px solid #caced5;
+  padding: 0.5em 1.2em;
+  font-size: 0.9em;
+  margin-left: -0.2em;
+  transition: 200ms all ease-in-out;
+  box-shadow: 0 5px 8px rgba(0, 0, 0, 0.06);
+}
+.pageContents .calanderChart .calanderBtn.active,
+.pageContents .calanderChart .calanderBtn:hover {
+  color: #004a4c;
+}
+.pageContents .calanderChart .calanderButtons .calanderBtn:first-child {
+  border-right: none;
+  border-radius: 0.4em 0 0 0.4em;
+}
+.pageContents .calanderChart .calanderButtons .calanderBtn:last-child {
+  border-left: none;
+  border-radius: 0 0.4em 0.4em 0;
+}
+.pageContents .calanderChart .calanderButtons.rightBtns .calanderBtn.active,
+.pageContents .calanderChart .calanderButtons.rightBtns .calanderBtn:hover {
+  background-color: var(--themeColor);
+  color: white;
+  border-color: var(--themeColor);
+}
+.pageContents .calanderChart .calanderButtons .calanderBtn:nth-of-type(3) {
+  border-left: none;
+}
+.pageContents .calanderChart .calanderHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 0.5em;
+}
+.pageContents .calanderChart .oddText {
+  color: #4d4f5c;
+}
+.pageContents .calanderChart .linesCalandar .line {
+  border-top: 1px solid #ececec;
+  border-bottom: 1px solid #ececec;
+  padding: 0.8em 0;
+}
+.pageContents .calanderChart .linesCalandar .dateRow :first-child,
+.pageContents .calanderChart .linesCalandar .numbersRow :first-child {
+  border-top: none;
+}
+.pageContents
+  .calanderChart
+  .linesCalandar
+  .numbersRow
+  .line:nth-of-type(even) {
+  padding: 2px 0;
+}
+.pageContents .calanderChart .linesCalandar .dateRow :last-child,
+.pageContents .calanderChart .linesCalandar .numbersRow :last-child {
+  border-bottom: none;
+}
+.pageContents .calanderChart .linesCalandar .dateRow.active {
+  background-color: #f0f7f6;
+  color: var(--themeColor);
+}
+.pageContents .calanderChart .linesCalandar .numbersRow .line {
+  text-align: right;
+  padding-right: 0.4em !important;
+}
+.pageContents .calanderChart .linesCalandar {
+  display: flex;
+  margin-top: 1em;
+}
+.pageContents .calanderChart .linesCalandar .numbersRow {
+  width: 9%;
+}
+.pageContents .calanderChart .linesCalandar .dateRow {
+  width: 16%;
+  border-left: 1px solid #b8b8b8;
+  position: relative !important;
+}
+.pageContents .calanderChart .linesCalandar .dateRow .line {
+  font-size: 0.9em;
+  text-align: center;
+}
+.pageContents .calanderChart .linesCalandar .dateRow :first-child {
+  padding: 3px 0;
+}
+.pageContents .calanderChart .pactente {
+  height: 110px;
+  width: 83%;
+  background-color: #80c340;
+  padding: 0.4em 0.7em !important;
+  border-radius: 0.3em;
+  color: white;
+  font-size: 0.8em;
+  position: absolute;
+}
+.pageContents .calanderChart .pactente.green {
+  background-color: #00b7b0;
+}
+.pageContents .calanderChart .dateRow.secondRow .pactente {
+  top: 16%;
+  left: 0;
+}
+.pageContents .calanderChart .dateRow.secondRow .pactente.green {
+  top: 18.5%;
+  left: 38px;
+}
+.pageContents .calanderChart .dateRow.thirdRow .pactente.green {
+  top: 10%;
+  left: 0;
+}
+.pageContents .calanderChart .dateRow.thirdRow .pactente {
+  top: 25%;
+  left: 36px;
+}
+.pageContents .calanderChart .linesCalandar {
+  border: 1px solid #f0f7f6;
+}
+.pageContents .calanderChart .dateRow.fourthRow .pactente.green {
+  top: 83%;
+  left: 35px;
+}
+.pageContents .calanderChart .dateRow.fifthRow .pactente {
+  top: 19%;
+  left: 0;
+}
+
+/* Hide Header */
+.pageContents .hideHeader {
+  position: relative;
+  padding: 1em;
+  text-align: center;
+  background-color: #004a4c;
+  display: none;
+}
+.pageContents .hideHeader .hideHeaderLogo {
+  display: inline-block;
+  text-align: none;
+}
+.pageContents .hideHeader .hideHeaderLogo img {
+  height: 50px;
+}
+.hideHeader #sideMenuBtn {
+  position: absolute;
+  color: white;
+  left: 25px;
+  font-size: 1.4em;
+  top: 30px;
+  cursor: pointer;
+}
+
+/* User Info */
+.sideMenu .userInfo {
+  display: none;
+  position: relative;
+}
+.sideMenu .userInfo .name {
+  font-weight: 700;
+  color: white;
+  font-size: 0.9em;
+  line-height: 1;
+}
+.sideMenu .userInfo .emailText {
+  font-size: 0.8em;
+  color: rgba(255, 255, 255, 0.4);
+}
+.sideMenu .userInfo #closedMenuBtn {
+  color: white;
+  font-size: 1.4em;
+  cursor: pointer;
+  position: absolute;
+  right: 30px;
+  top: 25px;
+}
+
+/* Exam Page */
+.mainHeading {
+  font-size: 1.5em;
+  color: var(--themeColor);
+}
+.tableContents {
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+  background-color: white;
+  padding: 1.3em;
+  margin-top: 1em;
+  min-height: 100vh;
+}
+.subHeading {
+  font-size: 1.2em;
+  color: var(--themeColor);
+}
+.tableContents .dataTable {
+  font-family: "Open Sans", sans-serif;
+  width: 100%;
+  color: #a3a6b4;
+  font-size: 0.9em;
+  margin-top: 1em;
+}
+.tableContents .dataTable thead th {
+  font-weight: 400;
+}
+.tableContents .dataTable thead tr {
+  background-color: #f0f7f6;
+}
+.tableContents .dataTable thead tr th {
+  padding: 1em;
+  font-size: 0.9em;
+}
+.tableContents .dataTable tbody tr td {
+  padding: 2.2em 1em 1.7em 1em;
+}
+.tableContents .dataTable tbody tr td {
+  font-size: 0.9em;
+}
+.tableContents .dataTable tbody tr {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+.tableContents .dataTable tbody tr td:last-child {
+  text-align: center;
+}
+.tableContents .dataTable .tableLink {
+  color: #a3a6b4;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 1.4em;
+}
+.mainBtn {
+  display: inline-block;
+  text-decoration: none;
+  font-weight: 600;
+  color: white;
+  background-color: #80c340;
+  padding: 0.6em;
+  text-align: center;
+  width: 180px;
+  border-radius: 0.3em;
+  transition: 200ms ease-in-out;
+}
+.mainBtn.red {
+  background-color: #c34040;
+}
+.mainBtn:hover {
+  opacity: 0.7;
+  text-decoration: none;
+  color: white;
+}
+.pageContents .mainBtn.disabledBtn {
+  pointer-events: none;
+  opacity: 0.5;
+}
+.pageContents .row.odd {
+  align-items: center;
+}
+
+/* Treatment Page */
+.pageContents .smHeading {
+  color: var(--themeColor);
+  margin-bottom: 0.4em;
+  font-family: "Open Sans", sans-serif;
+}
+.pageContents .smText {
+  font-size: 0.9em;
+  color: #919191;
+  line-height: 1.4;
+  font-family: "Open Sans", sans-serif;
+}
+.pageContents .treatmentContents {
+  margin-bottom: 2.5em;
+}
+.pageContents .treatmentContents .examLink {
+  text-decoration: none;
+  display: inline-block;
+  font-size: 0.9em;
+  display: block;
+  color: #919191;
+  line-height: 1.4;
+}
+.pageContents .treatmentContents .examLink:nth-of-type(even) {
+  color: #00b6af;
+}
+.pageContents .allInputs {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  padding-bottom: 1.8em;
+  margin-bottom: 1em;
+}
+.pageContents .allInputs .commonLabel {
+  color: var(--themeColor);
+  margin-bottom: 0.5em;
+  font-family: "Open Sans", sans-serif;
+  font-size: 0.9em;
+}
+.pageContents .allInputs .commonInput {
+  width: 100%;
+  border-radius: 0.3em;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 0.5em 1em;
+  outline: none;
+  font-size: 0.9em;
+}
+.pageContents .allInputs .inputArea {
+  margin-right: 0.7em;
+}
+.pageContents .allInputs :last-child.inputArea {
+  margin-right: 0;
+}
+.pageContents .allInputs .multiInput {
+  display: flex;
+  align-items: center;
+}
+.pageContents .allInputs .multiInput .commonInput:first-child {
+  width: 60%;
+}
+.pageContents .plusIcon {
+  display: inline-block;
+  text-decoration: none;
+  background-color: #80c340;
+  color: white;
+  height: 32px;
+  width: 32px;
+  text-align: center;
+  border-radius: 50%;
+  line-height: 2;
+}
+.pageContents .allInputs .commonInput.time {
+  width: 32%;
+}
+.modal.recusar textarea {
+  width: 100%;
+  border-radius: 0.5em;
+  border: 2px solid rgba(0, 0, 0, 0.2);
+  padding: 0.8em;
+  outline: none;
+  margin-bottom: 0.8em;
+  resize: none;
+}
+.modal.recusar .modal-body {
+  padding: 1em 2em;
+}
+
+/* Employees */
+.pageContents .tableContents .tableLinkTab {
+  display: inline-block;
+  text-decoration: none;
+  color: var(--themeColor);
+  background-color: #f5f6fa;
+  padding: 0.4em 1.3em;
+  border-radius: 0.3em;
+  margin-right: 0.4em;
+  font-family: "Open Sans", sans-serif;
+  font-size: 0.9em;
+}
+.pageContents .tableContents .tableInput {
+  background-color: #f5f6fa;
+  outline: none;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  border-radius: 0.3em;
+  padding: 0.4em 1em;
+}
+
+/* Register Page */
+.registerInput {
+  width: 100%;
+  padding: 0.5em 1em;
+  outline: none;
+  border: 1px solid #cccccc;
+  border-radius: 0.3em;
+  font-size: 0.9em;
+}
+.registerInput::placeholder {
+  color: black;
+}
+.pageContents .borderLine {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+}
+.pageContents .row.hoursRow {
+  align-items: center;
+  text-align: center;
+  padding-left: 1em;
+  margin-bottom: 0.5em;
+}
+.pageContents .row.hoursRow .registerInput {
+  padding: 0.1em 0.4em;
+}
+.pageContents .row.hoursRow .registerInput::placeholder {
+  text-align: center;
+}
+.pageContents .row.hoursRow .reisterLabel {
+  color: var(--themeColor);
+  font-size: 1.1em;
+  text-align: left;
+  display: block;
+}
+.pageContents .row.hoursRow .smText {
+  color: black;
+  font-size: 1em;
+}
+
+/* custom checkbox start */
+.container-checkbox.todo-list-text {
+  color: rgb(102, 102, 102);
+  font-weight: 500;
+  font-size: 1.1em;
+}
+.container-checkbox input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+.container-radio-button {
+  display: block;
+  position: relative;
+  padding-left: 30px;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  font-family: "Open Sans", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: black;
+  margin-bottom: 0;
+}
+.custom-radio-button {
+  font-size: 1.4em;
+  font-weight: 600;
+  cursor: pointer;
+}
+.container-radio-button input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+.checkmark {
+  position: absolute;
+  top: 4px;
+  left: 0px;
+  height: 16px;
+  width: 16px;
+  background-color: transparent;
+  border-radius: 50%;
+  border: 1px solid #43425d;
+}
+.container-radio-button input:checked ~ .checkmark {
+  background-color: var(--themeColor);
+}
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+.container-radio-button input:checked ~ .checkmark:after {
+  display: block;
+}
+.container-radio-button .checkmark:after {
+  top: 9px;
+  left: 9px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+.pageContents .registerRadioBtn {
+  border: 1px solid #cccccc;
+  border-radius: 0.3em;
+  padding: 0.6em 1em;
+}
+
+/* Schedule Page */
+.subHeading.odd {
+  font-size: 1em;
+  color: #43425d;
+  font-family: "Open Sans", sans-serif;
+}
+.registerInput.odd {
+  background-color: #eeeeee;
+  border-color: #eeeeee;
+}
+.registerInput.odd::placeholder {
+  color: #acacac;
+}
+.registerRadioBtn.odd .checkmark {
+  border-color: #80c340;
+}
+.registerRadioBtn.odd {
+  height: 100%;
+}
+.registerRadioBtn.odd .container-radio-button {
+  font-size: 13px;
+  padding-left: 25px;
+}
+.registerRadioBtn.odd .container-radio-button input:checked ~ .checkmark {
+  background-color: #80c340;
+}
+.pageContents .uploadLink {
+  display: inline-block;
+  text-decoration: none;
+  color: #9b9b9b;
+  font-size: 1.1em;
+  margin-top: 0.3em;
+}
+
+/* Hide Table */
+.hideTable {
+  display: none;
+}
+.hideTable .hideTableHeader {
+  background-color: #f5faf8;
+  padding: 1.5em;
+}
+.hideTable .collapseContents {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.8em;
+}
+.hideTable .collapseContents .carouselHeading {
+  font-weight: 700;
+  color: #a3a6b4;
+  font-family: "Open Sans", sans-serif;
+}
+.hideTable .collapseContents .carouselText {
+  color: #a3a6b4;
+}
+.hideTable .hideTableHeading {
+  display: inline-block;
+  color: #a3a6b4;
+  font-family: "Open Sans", sans-serif;
+  width: 140px;
+}
+.hideTable .collapseLink {
+  display: inline-block;
+  text-decoration: none;
+  color: #a3a6b4;
+}
+.hideTable .hideTableHeading:first-child {
+  width: 80px;
+}
+.hideTable button.accordion {
+  background-color: white;
+  color: var(--theme-color);
+  cursor: pointer;
+  padding: 1.5em;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  border-bottom: 1px solid #dcdcdc;
+}
+.hideTable > .container .custom-collapse:last-child button.accordion {
+  border-bottom: none;
+}
+.hideTable > .container .custom-collapse:last-child .panel p {
+  padding-top: 0;
+}
+.hideTable div.panel {
+  padding: 1em 1em 0 1em;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+}
+.hideTable button.accordion:after {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  content: "\f077";
+  color: black;
+  font-size: 1em;
+  float: right;
+  margin-left: 5px;
+}
+.hideTable .accordion {
+  color: var(--secondary-color);
+}
+.hideTable.accordion.active {
+  color: var(--primary-color);
+  font-weight: 600;
+  border-bottom: none;
+  padding-bottom: 6px;
+}
+.hideTable button.accordion.active:after {
+  content: "\f078";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  color: black;
+}
+.tableContents.medication .accordion::after {
+  content: unset !important;
+}
+.tableContents.medication .subHeading {
+  /*display: none;*/
+}
+.tableContents.medication .accordion {
+  background-color: white;
+  color: var(--theme-color);
+  cursor: pointer;
+  padding: 1.5em;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  border-bottom: 1px solid #dcdcdc;
+}
+.bodyContents.registerMedi .mainHeading {
+  padding: 0;
+  background-color: transparent;
+}
+.bodyContents.registerMedi .mainBtn {
+  width: 120px;
+  padding: 0.4em;
+}
+
+@media (max-width: 768px) {
+  .sideMenu {
+    position: fixed;
+    z-index: 100;
+    left: -100%;
+    top: 0;
+  }
+  .pageContents {
+    width: 100%;
+  }
+  .pageContents .dashboardHeader {
+    display: none;
+  }
+  .pageContents .hideHeader {
+    display: block;
+  }
+  .sideMenu .sideMenuBrand .brandLink {
+    display: none;
+  }
+  .sideMenu .userInfo {
+    display: flex;
+    align-items: center;
+    padding: 1em;
+  }
+  .sideMenu .userInfo img {
+    margin-right: 1em;
+  }
+  .sideMenu .sideMenuBrand {
+    text-align: left;
+    background-color: none;
+  }
+  .pageContents .chartParent {
+    width: 980px;
+  }
+  .pageContents .calanderChart {
+    overflow-x: scroll;
+  }
+  .dataTable {
+    display: none;
+  }
+  .pageContents.exam .subHeading {
+    display: none;
+  }
+  .pageContents .mainHeading {
+    padding: 1em 1.5em;
+    color: #4d4f5c;
+    background-color: white;
+  }
+  .tableContents {
+    padding: 0;
+    box-shadow: none;
+  }
+  .pageContents .bodyContents {
+    padding: 0;
+  }
+  /* Hide Table */
+  .hideTable {
+    display: block;
+  }
+  .bodyContents.exam2 .subHeading,
+  .bodyContents.list .subHeading {
+    display: none;
+  }
+  .tableContents.medication {
+    margin-top: 0;
+  }
+  .bodyContents.registerMedi {
+    padding: 1em;
+    min-height: unset;
+  }
+  .bodyContents.registerMedi .tableContents {
+    min-height: unset;
+    padding: 1em;
+  }
+  .bodyContents.registerMedi.odd {
+    padding: 0 !important;
+  }
+  .bodyContents.registerMedi.odd .row.odd {
+    padding: 1em;
+  }
+  .bodyContents.registerMedi.treat .row.odd {
+    padding: 1em !important;
+  }
+  .pageContents .row.hoursRow .smText {
+    margin: 0.3em 0;
+  }
+  .pageContents .row.hoursRow .reisterLabel {
+    margin-top: 1.5em;
+  }
+  .bodyContents.registerMedi.treat {
+    padding: 0;
+  }
+  .bodyContents.registerMedi.treat .allInputs {
+    display: block;
+    padding: 1em;
+  }
+  .bodyContents.registerMedi.treat .commonInput.time {
+    width: 40%;
+  }
+  .bodyContents.registerMedi.treat .allInputs .commonLabel {
+    margin-top: 1.5em;
+  }
+  .bodyContents.registerMedi.treat .mobileView {
+    display: flex;
+    justify-content: space-between;
+    background-color: #f0f7f6;
+    margin: -1em -1em 0 -1em;
+    padding: 1em;
+  }
+  .bodyContents.registerMedi.treat .mobileView .treatmentContents {
+    width: 50%;
+  }
+  .bodyContents.registerMedi.treat .mobileView .treatmentContents:last-child {
+    text-align: left;
+  }
+}
+@media (max-width: 1550px) {
+  .pageContents .calanderChart .dateRow.secondRow .pactente.green,
+  .pageContents .calanderChart .dateRow.fourthRow .pactente.green,
+  .pageContents .calanderChart .dateRow.thirdRow .pactente {
+    left: 22px;
+  }
+}

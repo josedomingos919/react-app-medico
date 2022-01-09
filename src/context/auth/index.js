@@ -12,7 +12,7 @@ import { session } from "./util";
 const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
-  const [isLogged, setIsLogged] = useState(false);
+  const [isLogged, setIsLogged] = useState(true);
   const [user, setUser] = useState({});
 
   const sigIn = useCallback(

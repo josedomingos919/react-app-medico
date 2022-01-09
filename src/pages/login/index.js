@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 
 import "./style.css";
 
@@ -7,31 +8,36 @@ import { Logo } from "../../assets";
 import { useAuth } from "../../context/auth";
 import { initialFormData, isValidForm } from "./util";
 import { loginRequest } from "../../service";
-import { toast } from "../../utilities/functions";
+import { Loader } from "./../../components";
 
 export function Login() {
   const { sigIn } = useAuth();
   const { register, handleSubmit, reset } = useForm();
 
   const [formError, __setFormError] = useState(initialFormData);
+  const [isLoading, setIsLoading] = useState(false);
 
   const setFormError = (data) =>
     __setFormError((prev) => ({ ...prev, ...data }));
 
   const onSubmit = async (data) => {
+    setIsLoading(true);
     setFormError(initialFormData);
 
     const isValid = isValidForm(data);
 
     if (!isValid.status) {
       setFormError(isValid.response);
+      setIsLoading(false);
       return;
     }
 
     const loginResponse = await loginRequest(data);
-    console.log("loginResponse", loginResponse);
+
+    setIsLoading(false);
+
     if (loginResponse?.status !== 200) {
-      toast().success("Usuário ou senha não encontrado!");
+      toast.error("Usuário ou senha não encontrado!");
       return;
     }
 
@@ -86,7 +92,7 @@ export function Login() {
                 type="submit"
                 className="formBtn"
               >
-                Login
+                {isLoading ? <Loader /> : "Login"}
               </button>
             </form>
             <img className="formLogo" src={Logo} alt="" />
