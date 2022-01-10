@@ -1,5 +1,10 @@
+import { AppProvider } from "./app";
 import { AuthProvider } from "./auth";
 
 export const ApplicationContext = ({ children }) => {
-  return <AuthProvider>{children}</AuthProvider>;
+  return (
+    <AuthProvider>
+      <AppProvider>{children}</AppProvider>
+    </AuthProvider>
+  );
 };
