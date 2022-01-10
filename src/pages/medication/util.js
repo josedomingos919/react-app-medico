@@ -29,5 +29,9 @@ export const tableData = {
     edit: {
       label: "Editar",
     },
+    add: {
+      label: "Nava Medicação",
+      path: "/dashboard/medication/add",
+    },
   },
 };

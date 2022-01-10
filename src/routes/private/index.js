@@ -9,7 +9,6 @@ export function PrivateRoutes() {
       {[...menuData, ...routes].map(({ path, element: Element }) => (
         <Route key={path} exact path={path} element={<Element />} />
       ))}
-
       <Route path="*" element={<Navigate to="/dashboard/home" />} />
     </Routes>
   );

@@ -15,7 +15,7 @@ export function Table({
       {add ? (
         <div className="mt-3">
           <a class="mainBtn" href={add?.path}>
-            Novo colaborador
+            {add?.label}
           </a>
         </div>
       ) : (

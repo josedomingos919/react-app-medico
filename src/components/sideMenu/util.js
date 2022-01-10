@@ -54,6 +54,7 @@ export const menuData = [
     path: "/dashboard/novo-paciente",
     label: "Novo paciente",
     img: NewIcon,
+    element: Medication,
   },
 ];
 

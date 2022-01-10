@@ -1,6 +1,9 @@
 import { Avatar, Logo } from "../../assets";
+import { useAuth } from "./../../context/auth";
 
 export function DashboardHeader() {
+  const { singOut } = useAuth();
+
   return (
     <>
       <div className="hideHeader">
@@ -23,15 +26,9 @@ export function DashboardHeader() {
             <img src={Avatar} alt="" />
           </button>
           <div className="dropdown-menu" aria-labelledby="triggerId">
-            <a className="dropdown-item" href="#">
-              Action 1
-            </a>
-            <a className="dropdown-item" href="#">
-              Action 2
-            </a>
-            <a className="dropdown-item" href="#">
-              Action 3
-            </a>
+            <button onClick={() => singOut()} className="dropdown-item">
+              Sair
+            </button>
           </div>
         </div>
       </div>

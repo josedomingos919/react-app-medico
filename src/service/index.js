@@ -1,5 +1,7 @@
 import { api } from "./api";
 
+import * as medicine from "./medicine";
+
 export const loginRequest = async (data = {}) => {
   try {
     return api()
@@ -12,3 +14,5 @@ export const loginRequest = async (data = {}) => {
     return error;
   }
 };
+
+export const services = { medicine };

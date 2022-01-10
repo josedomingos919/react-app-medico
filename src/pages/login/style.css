@@ -112,3 +112,12 @@ body {
   font-size: 12px;
   margin-bottom: 5px;
 }
+
+button {
+  outline: none;
+  border: none;
+}
+
+input::placeholder {
+  color: rgba(0, 0, 0, 0.1);
+}
