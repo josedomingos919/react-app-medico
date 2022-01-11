@@ -1,0 +1,21 @@
+.table-loading {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #a3a6b4;
+}
+
+.no-table-data {
+  margin-top: 25px;
+  color: #a3a6b4;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.large-tb-icon {
+  color: #f5f6fa;
+  font-size: 50px;
+}

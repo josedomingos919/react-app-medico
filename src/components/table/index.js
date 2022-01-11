@@ -1,71 +1,76 @@
+import { isEmpty } from "../../utilities/functions";
+import "./style.css";
+
 export function Table({
   fields = [],
   data = [],
   title = "",
   subTitle = "",
   hasBody = false,
+  isLoading = false,
   optios = {},
 }) {
   const { edit, add } = optios;
 
   const getTableContent = () => (
     <>
-      <h1 class="mainHeading">{title}</h1>
-
+      <h1 className="mainHeading">{title}</h1>
       {add ? (
         <div className="mt-3">
-          <a class="mainBtn" href={add?.path}>
+          <a className="mainBtn" href={add?.path}>
             {add?.label}
           </a>
         </div>
       ) : (
         <></>
       )}
-
-      <div class="tableContents">
-        <div class="smHeading">{subTitle}</div>
-        <div class="row odd">
-          <div class="col-lg-6">
-            <a class="tableLinkTab" href="#">
+      <div className="tableContents">
+        <div className="smHeading">{subTitle}</div>
+        <div className="row odd">
+          <div className="col-lg-6">
+            <a className="tableLinkTab" href="#">
               PDF
             </a>
-            <a class="tableLinkTab" href="#">
+            <a className="tableLinkTab" href="#">
               CSV
             </a>
-            <a class="tableLinkTab" href="#">
+            <a className="tableLinkTab" href="#">
               XLS
             </a>
           </div>
-          <div class="col-lg-6 text-right">
-            <input class="tableInput" type="text" placeholder="Pesquisar por" />
+          <div className="col-lg-6 text-right">
+            <input
+              className="tableInput"
+              type="text"
+              placeholder="Pesquisar por"
+            />
           </div>
         </div>
-        <table class="dataTable">
+        <table className="dataTable">
           <colgroup>
-            {fields.map(({ width = "" }) => (
-              <col width={width} />
+            {fields.map(({ width = "" }, index) => (
+              <col width={width} key={index} />
             ))}
           </colgroup>
           <thead>
             <tr>
-              {fields.map(({ label = "" }) => (
-                <th>{label}</th>
+              {fields.map(({ label = "" }, index) => (
+                <th key={index}>{label}</th>
               ))}
               {edit ? <th>{edit?.label}</th> : ""}
             </tr>
           </thead>
           <tbody>
-            {data.map((item) => {
+            {data.map((item, index) => {
               return (
-                <tr>
-                  {fields.map(({ name = "" }) => (
-                    <td>{item?.[name] ?? "-"}</td>
+                <tr key={index}>
+                  {fields.map(({ name = "" }, index) => (
+                    <td key={index}>{item?.[name] ?? "-"}</td>
                   ))}
-
                   {edit ? (
                     <td>
-                      <a class="tableLink" href="#">
-                        <i class={edit?.iconName ?? "far fa-edit"}></i>
+                      <a className="tableLink" href="#">
+                        <i className={edit?.iconName ?? "far fa-edit"}></i>
                       </a>
                     </td>
                   ) : (
@@ -76,10 +81,25 @@ export function Table({
             })}
           </tbody>
         </table>
+        {isLoading ? (
+          <div className="table-loading">
+            <div className="spinner-border text-success" role="status">
+              <span className="sr-only">Loading...</span>
+            </div>
+            <div>Carregando...</div>
+          </div>
+        ) : !isLoading && isEmpty(data) ? (
+          <div className="no-table-data">
+            <i className="fas fa-box-open large-tb-icon"></i>{" "}
+            <span>Nenhum dado encontrado!...</span>
+          </div>
+        ) : (
+          <></>
+        )}
       </div>
     </>
   );
 
-  if (hasBody) return <div class="bodyContents">{getTableContent()}</div>;
+  if (hasBody) return <div className="bodyContents">{getTableContent()}</div>;
   else return getTableContent();
 }

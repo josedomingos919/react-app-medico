@@ -7,6 +7,7 @@ export const loginRequest = async (data = {}) => {
     return api()
       .post("auth/login", data)
       .catch((error) => {
+        console.log(error);
         console.log(error?.response?.data?.error);
       });
   } catch (error) {
