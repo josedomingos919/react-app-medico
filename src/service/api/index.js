@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { session } from "../context/auth/util";
+import { session } from "../../context/auth/util";
 
 export const api = (props = {}) => {
   const { headers = {} } = props;

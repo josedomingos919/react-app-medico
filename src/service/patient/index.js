@@ -1,9 +1,9 @@
-import { api } from "./api";
+import { api } from "./../api";
 
 export function add(data = {}) {
   try {
     return api()
-      .post("dashboard/medicine/add", data)
+      .post("dashboard/patient/add", data)
       .catch((error) => console.log(error));
   } catch (error) {
     console.log("error=> ", error);
@@ -14,7 +14,7 @@ export function add(data = {}) {
 export function update(data = {}) {
   try {
     return api()
-      .put("dashboard/medicine/update", data)
+      .post("dashboard/patient/update", data)
       .catch((error) => console.log(error));
   } catch (error) {
     console.log("error=> ", error);
@@ -25,7 +25,7 @@ export function update(data = {}) {
 export function destroy(data = {}) {
   try {
     return api()
-      .put("dashboard/medicine/delete", data)
+      .post("dashboard/patient/delete", data)
       .catch((error) => console.log(error));
   } catch (error) {
     console.log("error=> ", error);
@@ -36,7 +36,7 @@ export function destroy(data = {}) {
 export function get() {
   try {
     return api()
-      .get("dashboard/medicine")
+      .get("dashboard/patient")
       .catch((error) => console.log(error));
   } catch (error) {
     console.log("error=> ", error);
@@ -44,10 +44,10 @@ export function get() {
   }
 }
 
-export function getOne({ id = 0 }) {
+export function getOne(id = 0) {
   try {
     return api()
-      .get(`dashboard/medicine/${id}/info`)
+      .get(`dashboard/patient/${id}/info`)
       .catch((error) => console.log(error));
   } catch (error) {
     console.log("error=> ", error);

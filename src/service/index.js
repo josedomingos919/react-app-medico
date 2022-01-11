@@ -1,19 +1,5 @@
-import { api } from "./api";
-
+import * as auth from "./auth";
+import * as patient from "./patient";
 import * as medicine from "./medicine";
 
-export const loginRequest = async (data = {}) => {
-  try {
-    return api()
-      .post("auth/login", data)
-      .catch((error) => {
-        console.log(error);
-        console.log(error?.response?.data?.error);
-      });
-  } catch (error) {
-    console.log("error=> ", error);
-    return error;
-  }
-};
-
-export const services = { medicine };
+export const services = { auth, medicine, patient };

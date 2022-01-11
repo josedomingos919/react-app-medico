@@ -7,7 +7,7 @@ import "./style.css";
 import { Logo } from "../../assets";
 import { useAuth } from "../../context/auth";
 import { initialFormData, isValidForm } from "./util";
-import { loginRequest } from "../../service";
+import { services } from "../../service";
 import { Loader } from "./../../components";
 
 export function Login() {
@@ -32,7 +32,7 @@ export function Login() {
       return;
     }
 
-    const loginResponse = await loginRequest(data);
+    const loginResponse = await services.auth.login(data);
 
     setIsLoading(false);
 
