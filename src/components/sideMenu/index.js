@@ -13,7 +13,7 @@ export function SideMenu({ activePath }) {
             <div className="emailText">admin@admin.com.br</div>
           </div>
         </div>
-        <a className="brandLink" href="#">
+        <a className="brandLink" href="https://teste.com.br">
           <img src={Logo} alt="" />
         </a>
       </div>

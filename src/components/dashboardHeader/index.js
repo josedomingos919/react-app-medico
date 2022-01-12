@@ -8,7 +8,7 @@ export function DashboardHeader() {
     <>
       <div className="hideHeader">
         <i id="sideMenuBtn" className="fas fa-bars"></i>
-        <a className="hideHeaderLogo" href="#">
+        <a className="hideHeaderLogo" href="https://teste.com.br">
           <img src={Logo} alt="" />
         </a>
       </div>

@@ -9,7 +9,7 @@ export function AddEmployees() {
             <h1 className="mainHeading">Cadastrar Colaborador</h1>
           </div>
           <div className="col-6 text-center text-lg-right">
-            <a className="mainBtn" href="#">
+            <a className="mainBtn" href="https://teste.com.br">
               Salvar
             </a>
           </div>

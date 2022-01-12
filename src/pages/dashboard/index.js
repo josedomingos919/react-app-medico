@@ -1,11 +1,8 @@
 import { AppContent } from "../../components";
-import { useAuth } from "../../context/auth";
 
 import "./style.css";
 
 export function Dashboard() {
-  const { singOut } = useAuth();
-
   return (
     <AppContent>
       <div className="calanderChart">
@@ -13,28 +10,28 @@ export function Dashboard() {
           <div className="mainText">Todas as consultas</div>
           <div className="calanderHeader">
             <div className="calanderButtons">
-              <a className="calanderBtn active" href="#">
+              <a className="calanderBtn active" href="https://teste.com.br">
                 Hoje
               </a>
-              <a className="calanderBtn" href="#">
+              <a className="calanderBtn" href="https://teste.com.br">
                 Ontem
               </a>
-              <a className="calanderBtn" href="#">
+              <a className="calanderBtn" href="https://teste.com.br">
                 Amanhã
               </a>
             </div>
             <div className="oddText">Semana 06/12 - 10/12</div>
             <div className="calanderButtons rightBtns">
-              <a className="calanderBtn" href="#">
+              <a className="calanderBtn" href="https://teste.com.br">
                 Mês
               </a>
-              <a className="calanderBtn" href="#">
+              <a className="calanderBtn" href="https://teste.com.br">
                 Semana
               </a>
-              <a className="calanderBtn" href="#">
+              <a className="calanderBtn" href="https://teste.com.br">
                 Dia
               </a>
-              <a className="calanderBtn active" href="#">
+              <a className="calanderBtn active" href="https://teste.com.br">
                 Agenda
               </a>
             </div>

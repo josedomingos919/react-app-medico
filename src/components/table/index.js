@@ -29,13 +29,13 @@ export function Table({
         <div className="smHeading">{subTitle}</div>
         <div className="row odd">
           <div className="col-lg-6">
-            <a className="tableLinkTab" href="#">
+            <a className="tableLinkTab" href="https://teste.com.br">
               PDF
             </a>
-            <a className="tableLinkTab" href="#">
+            <a className="tableLinkTab" href="https://teste.com.br">
               CSV
             </a>
-            <a className="tableLinkTab" href="#">
+            <a className="tableLinkTab" href="https://teste.com.br">
               XLS
             </a>
           </div>
@@ -80,13 +80,16 @@ export function Table({
                   )}
                   {optios?.delete ? (
                     <td className="td-item-center">
-                      <a className="tableLink" onClick={() => onDelete(item)}>
+                      <label
+                        className="tableLink"
+                        onClick={() => onDelete(item)}
+                      >
                         <i
                           className={
                             optios?.delete?.iconName ?? "fa fa-trash fa-4"
                           }
                         ></i>
-                      </a>
+                      </label>
                     </td>
                   ) : (
                     <></>

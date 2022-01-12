@@ -33,7 +33,7 @@ export function Medication() {
           onClick: async () => {
             const response = await services.medicine.destroy({ id });
 
-            if (response?.status == 200) {
+            if (response?.status === 200) {
               toast.success("Eliminado com sucesso!");
               getMedicines();
             } else {
