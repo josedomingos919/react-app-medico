@@ -1,4 +1,6 @@
 export const tableData = {
+  title: "Listas de medicação",
+  subTitle: "Verificar todas as medicações",
   fields: [
     {
       label: "ID",
@@ -23,4 +25,8 @@ export const tableData = {
   },
 };
 
-export const getEditUrl = (id) => `medication/add/${id}`;
+export const formatData = (data = []) =>
+  data?.map((item) => ({
+    ...item,
+    edit: `medication/add/${item?.id}`,
+  })) ?? [];

@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { AppContent, Table } from "../../components";
 import { services } from "../../service";
-import { tableData, getEditUrl } from "./util";
+import { tableData, formatData } from "./util";
 import { useApp } from "./../../context/app";
 import { toast } from "react-toastify";
 import { confirmAlert } from "react-confirm-alert";
@@ -23,30 +23,33 @@ export function Medication() {
     setIsLoading(false);
   }, [setMedicineData, setIsLoading]);
 
-  const handleDelete = ({ id = "", medicamento = "" }) => {
-    confirmAlert({
-      title: "Atenção",
-      message: `Está presta a eliminar a medicação: '${medicamento}' ?`,
-      buttons: [
-        {
-          label: "Sim",
-          onClick: async () => {
-            const response = await services.medicine.destroy({ id });
+  const handleDelete = useCallback(
+    ({ id = "", medicamento = "" }) => {
+      confirmAlert({
+        title: "Atenção",
+        message: `Está presta a eliminar a medicação: '${medicamento}' ?`,
+        buttons: [
+          {
+            label: "Sim",
+            onClick: async () => {
+              const response = await services.medicine.destroy({ id });
 
-            if (response?.status === 200) {
-              toast.success("Eliminado com sucesso!");
-              getMedicines();
-            } else {
-              toast.error("Falha ao eliminar!");
-            }
+              if (response?.status === 200) {
+                toast.success("Eliminado com sucesso!");
+                getMedicines();
+              } else {
+                toast.error("Falha ao eliminar!");
+              }
+            },
           },
-        },
-        {
-          label: "Não",
-        },
-      ],
-    });
-  };
+          {
+            label: "Não",
+          },
+        ],
+      });
+    },
+    [getMedicines]
+  );
 
   useEffect(() => {
     getMedicines();
@@ -56,15 +59,12 @@ export function Medication() {
     <AppContent>
       <Table
         isLoading={isLoading}
-        title="Listas de medicação"
-        subTitle="Verificar todas as medicações"
+        title={tableData.title}
+        subTitle={tableData.subTitle}
         fields={tableData.fields}
-        data={medicineData.map((item) => ({
-          ...item,
-          edit: getEditUrl(item?.id),
-        }))}
+        data={formatData(medicineData)}
         optios={tableData.optios}
-        onDelete={(e) => handleDelete(e)}
+        onDelete={handleDelete}
       />
     </AppContent>
   );
