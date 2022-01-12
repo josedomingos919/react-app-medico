@@ -19,3 +19,17 @@
   color: #f5f6fa;
   font-size: 50px;
 }
+
+.td-item-center {
+  text-align: left !important;
+}
+
+.td-item-center i:hover {
+  transition: 0.4s;
+  color: red;
+  transform: scale(1.5);
+}
+
+.td-item-center i:active {
+  transition: scale(0);
+}

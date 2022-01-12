@@ -841,3 +841,8 @@ body {
 input::placeholder {
   color: rgba(0, 0, 0, 0.1);
 }
+
+.react-confirm-alert-body h1 {
+  font-weight: bold;
+  margin-bottom: 15px;
+}

@@ -9,6 +9,7 @@ export function Table({
   hasBody = false,
   isLoading = false,
   optios = {},
+  onDelete = () => {},
 }) {
   const { edit, add } = optios;
 
@@ -58,6 +59,7 @@ export function Table({
                 <th key={index}>{label}</th>
               ))}
               {edit ? <th>{edit?.label}</th> : ""}
+              {optios?.delete ? <th>{optios?.delete?.label}</th> : ""}
             </tr>
           </thead>
           <tbody>
@@ -69,8 +71,21 @@ export function Table({
                   ))}
                   {edit ? (
                     <td>
-                      <a className="tableLink" href="#">
+                      <a className="tableLink" href={item?.edit}>
                         <i className={edit?.iconName ?? "far fa-edit"}></i>
+                      </a>
+                    </td>
+                  ) : (
+                    <></>
+                  )}
+                  {optios?.delete ? (
+                    <td className="td-item-center">
+                      <a className="tableLink" onClick={() => onDelete(item)}>
+                        <i
+                          className={
+                            optios?.delete?.iconName ?? "fa fa-trash fa-4"
+                          }
+                        ></i>
                       </a>
                     </td>
                   ) : (

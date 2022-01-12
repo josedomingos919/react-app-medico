@@ -6,23 +6,7 @@ export const tableData = {
     },
     {
       label: "Medicação",
-      name: "text",
-    },
-    {
-      label: "Data da criação",
-      name: "date",
-    },
-  ],
-  data: [
-    {
-      id: 1,
-      text: "cosentyx 150 / 300 mg",
-      date: "20/12/2021",
-    },
-    {
-      id: 2,
-      text: "cosentyx 150 / 300 mg",
-      date: "20/12/2021",
+      name: "medicamento",
     },
   ],
   optios: {
@@ -33,5 +17,10 @@ export const tableData = {
       label: "Nava Medicação",
       path: "/dashboard/medication/add",
     },
+    delete: {
+      label: "Eliminar",
+    },
   },
 };
+
+export const getEditUrl = (id) => `medication/add/${id}`;
