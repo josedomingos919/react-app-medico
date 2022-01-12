@@ -33,3 +33,10 @@
 .td-item-center i:active {
   transition: scale(0);
 }
+
+.div-content-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center; 
+}

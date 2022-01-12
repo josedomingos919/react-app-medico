@@ -15,16 +15,18 @@ export function Table({
 
   const getTableContent = () => (
     <>
+    <div className="div-content-header"> 
       <h1 className="mainHeading">{title}</h1>
       {add ? (
-        <div className="mt-3">
+        <div>
           <a className="mainBtn" href={add?.path}>
             {add?.label}
           </a>
         </div>
       ) : (
         <></>
-      )}
+      )} 
+    </div>
       <div className="tableContents">
         <div className="smHeading">{subTitle}</div>
         <div className="row odd">
