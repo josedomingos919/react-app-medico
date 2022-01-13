@@ -60,3 +60,9 @@ export const tableData = {
     },
   },
 };
+
+export const formatData = (data = []) =>
+  data?.map((item) => ({
+    ...item,
+    edit: `colaborators/add/${item?.user_id}`,
+  })) ?? [];

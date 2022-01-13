@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 import { AppContent, Table } from "../../components";
 import { useApp } from "../../context/app";
 import { services } from "../../service";
-import { tableData } from "./util";
+import { formatData, tableData } from "./util";
 
 export function Employees() {
   const { doctorsData, setDoctorsData } = useApp();
@@ -29,7 +29,7 @@ export function Employees() {
   return (
     <AppContent>
       <Table
-        data={doctorsData}
+        data={formatData(doctorsData)}
         isLoading={isLoading}
         title={tableData.title}
         fields={tableData.fields}

@@ -56,3 +56,9 @@ export const validateDayWeeks = (data = []) => {
 
 export const getUserProfileValue = (val = false) =>
   val ? "Equipe de atendimento" : "Médico Plantonista";
+
+export const getUserProfileValueByString = (val = "") =>
+  val === "Equipe de atendimento" ? true : false;
+
+export const getDayWeek = (day, data = []) =>
+  data.find((e) => e.day_week === day);

@@ -1,17 +1,22 @@
 import { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
+import { useParams } from "react-router-dom";
 
 import { AppContent, Loader } from "../../components";
 import { services } from "../../service";
 import {
   dayWeeksInitialState,
+  getDayWeek,
   getUserProfileValue,
+  getUserProfileValueByString,
   validateDayWeeks,
 } from "./util";
 import { validateInput, validation } from "./validation";
+import { isEmpty } from "../../utilities/functions";
 
 export function AddEmployees() {
+  const { id: userId } = useParams();
   const [isLoading, setIsLoading] = useState();
   const [errosDayWeek, setErrosDayWeek] = useState({});
   const [dayWeeks, __setDayWeeks] = useState(dayWeeksInitialState);
@@ -49,6 +54,7 @@ export function AddEmployees() {
   }, [watch("user_perfil")]);
 
   const onSubmit = async (data) => {
+    let doctorsResponse = {};
     setErrosDayWeek({});
 
     const validationResponse = validateDayWeeks(dayWeeks);
@@ -61,20 +67,22 @@ export function AddEmployees() {
     data.user_perfil = getUserProfileValue(data.user_perfil);
     data.day_weeks = dayWeeks;
 
-    console.log("data=> ", data);
-
     setIsLoading(true);
 
-    const doctorsResponse = await services.doctors.add(data);
+    if (userId) {
+      data.user_id = userId;
+      doctorsResponse = await services.doctors.update(data);
+    } else {
+      doctorsResponse = await services.doctors.add(data);
+    }
 
-    console.log("doctorsResponse=> ", doctorsResponse);
     setIsLoading(false);
 
     if (!doctorsResponse?.data?.success) {
-      toast.error("Falha ao adicionar colaborador!");
+      toast.error("Falha ao salvar colaborador!");
       return;
     } else {
-      toast.success("Colaborador adicionado com sucesso!");
+      toast.success("Colaborador salvo com sucesso!");
     }
 
     __setDayWeeks([...dayWeeksInitialState]);
@@ -83,6 +91,34 @@ export function AddEmployees() {
 
   const handleChangeProfile = () =>
     setValue("user_perfil", !watch("user_perfil"));
+
+  const getUserData = useCallback(async () => {
+    if (isEmpty(userId)) return;
+
+    const responseDoctor = await services.doctors.getOne(userId);
+
+    if (responseDoctor?.data?.success) {
+      const formData = responseDoctor?.data?.payload;
+
+      __setDayWeeks(formData.day_weeks);
+      delete formData.day_weeks;
+
+      setValue(
+        "user_perfil",
+        getUserProfileValueByString(formData?.perfil_name)
+      );
+      setValue("user_email", formData?.user_mail);
+      setValue("user_name", formData?.user_name);
+      setValue("user_cellphone", formData?.user_cellphone);
+      setValue("user_rgb", formData.user_rgb);
+    } else {
+      toast.error("Falha ao carregar os dados do colaborador!");
+    }
+  }, []);
+
+  useEffect(() => {
+    getUserData();
+  }, []);
 
   return (
     <AppContent activePath="/dashboard/colaborators">
@@ -113,6 +149,7 @@ export function AddEmployees() {
               </div>
               <div className="col-lg-3 my-3 my-lg-0">
                 <input
+                  disabled={!isEmpty(userId)}
                   className="registerInput"
                   type="text"
                   {...register("user_email", validation.user_email)}
@@ -133,17 +170,20 @@ export function AddEmployees() {
                   {validateInput("user_cellphone", errors?.user_cellphone)}
                 </span>
               </div>
-              <div className="col-lg-3">
-                <input
-                  className="registerInput"
-                  type="password"
-                  {...register("user_password", validation.user_password)}
-                  placeholder="Password"
-                />
-                <span className="span-error">
-                  {validateInput("user_password", errors?.user_password)}
-                </span>
-              </div>
+
+              {!userId && (
+                <div className="col-lg-3">
+                  <input
+                    className="registerInput"
+                    type="password"
+                    {...register("user_password", validation.user_password)}
+                    placeholder="Password"
+                  />
+                  <span className="span-error">
+                    {validateInput("user_password", errors?.user_password)}
+                  </span>
+                </div>
+              )}
             </div>
 
             <div className="borderLine my-4"></div>
@@ -157,6 +197,7 @@ export function AddEmployees() {
                   className="registerInput"
                   type="time"
                   placeholder="00:00"
+                  value={getDayWeek("monday", dayWeeks)?.time_start}
                   onChange={(e) =>
                     setDayWeeks("monday", { time_start: e?.target?.value })
                   }
@@ -174,6 +215,7 @@ export function AddEmployees() {
                   onChange={(e) =>
                     setDayWeeks("monday", { time_end: e?.target?.value })
                   }
+                  value={getDayWeek("monday", dayWeeks)?.time_end}
                   type="time"
                   placeholder="00:00"
                 />
@@ -190,6 +232,7 @@ export function AddEmployees() {
                 <input
                   className="registerInput"
                   type="time"
+                  value={getDayWeek("tuesday", dayWeeks)?.time_start}
                   onChange={(e) =>
                     setDayWeeks("tuesday", { time_start: e?.target?.value })
                   }
@@ -206,6 +249,7 @@ export function AddEmployees() {
                 <input
                   className="registerInput"
                   type="time"
+                  value={getDayWeek("tuesday", dayWeeks)?.time_end}
                   onChange={(e) =>
                     setDayWeeks("tuesday", { time_end: e?.target?.value })
                   }
@@ -224,6 +268,7 @@ export function AddEmployees() {
                 <input
                   className="registerInput"
                   type="time"
+                  value={getDayWeek("wednesday", dayWeeks)?.time_start}
                   onChange={(e) =>
                     setDayWeeks("wednesday", { time_start: e?.target?.value })
                   }
@@ -240,6 +285,7 @@ export function AddEmployees() {
                 <input
                   className="registerInput"
                   type="time"
+                  value={getDayWeek("wednesday", dayWeeks)?.time_end}
                   onChange={(e) =>
                     setDayWeeks("wednesday", { time_end: e?.target?.value })
                   }
@@ -258,6 +304,7 @@ export function AddEmployees() {
                 <input
                   className="registerInput"
                   type="time"
+                  value={getDayWeek("thursday", dayWeeks)?.time_start}
                   onChange={(e) =>
                     setDayWeeks("thursday", { time_start: e?.target?.value })
                   }
@@ -274,6 +321,7 @@ export function AddEmployees() {
                 <input
                   className="registerInput"
                   type="time"
+                  value={getDayWeek("thursday", dayWeeks)?.time_end}
                   onChange={(e) =>
                     setDayWeeks("thursday", { time_end: e?.target?.value })
                   }
@@ -292,6 +340,7 @@ export function AddEmployees() {
                 <input
                   className="registerInput"
                   type="time"
+                  value={getDayWeek("friday", dayWeeks)?.time_start}
                   onChange={(e) =>
                     setDayWeeks("friday", { time_start: e?.target?.value })
                   }
@@ -308,6 +357,7 @@ export function AddEmployees() {
                 <input
                   className="registerInput"
                   type="time"
+                  value={getDayWeek("friday", dayWeeks)?.time_end}
                   onChange={(e) =>
                     setDayWeeks("friday", { time_end: e?.target?.value })
                   }
@@ -326,6 +376,7 @@ export function AddEmployees() {
                 <input
                   className="registerInput"
                   type="time"
+                  value={getDayWeek("saturday", dayWeeks)?.time_start}
                   onChange={(e) =>
                     setDayWeeks("saturday", { time_start: e?.target?.value })
                   }
@@ -342,6 +393,7 @@ export function AddEmployees() {
                 <input
                   className="registerInput"
                   type="time"
+                  value={getDayWeek("saturday", dayWeeks)?.time_end}
                   onChange={(e) =>
                     setDayWeeks("saturday", { time_end: e?.target?.value })
                   }
@@ -360,6 +412,7 @@ export function AddEmployees() {
                 <input
                   className="registerInput"
                   type="time"
+                  value={getDayWeek("sunday", dayWeeks)?.time_start}
                   onChange={(e) =>
                     setDayWeeks("sunday", { time_start: e?.target?.value })
                   }
@@ -376,6 +429,7 @@ export function AddEmployees() {
                 <input
                   className="registerInput"
                   type="time"
+                  value={getDayWeek("sunday", dayWeeks)?.time_end}
                   onChange={(e) =>
                     setDayWeeks("sunday", { time_end: e?.target?.value })
                   }

@@ -7,6 +7,10 @@ export const routes = [
     element: AddEmployees,
   },
   {
+    path: "/dashboard/colaborators/add/:id",
+    element: AddEmployees,
+  },
+  {
     path: "/dashboard/medication/add/:id",
     element: AddMedication,
   },
