@@ -47,6 +47,7 @@ export const tableData = {
   optios: {
     add: {
       label: "Novo Paciente",
+      path: "/dashboard/patient/add",
     },
     edit: {
       label: "Editar",
@@ -60,5 +61,5 @@ export const tableData = {
 export const formatData = (data = []) =>
   data?.map((item) => ({
     ...item,
-    edit: `patients/add/${item?.id}`,
+    edit: `patients/add/${item?.user_id}`,
   })) ?? [];

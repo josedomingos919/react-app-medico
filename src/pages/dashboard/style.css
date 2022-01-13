@@ -850,3 +850,14 @@ input::placeholder {
 .checkmark.active {
   background-color: #004244;
 }
+
+.form-check.edit_password {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin-top: 5px;
+}
+.form-check.edit_password input {
+  width: 28px;
+  transform: scale(1.3);
+}

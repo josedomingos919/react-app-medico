@@ -1,5 +1,6 @@
 import { AddEmployees } from "../../pages/addEmployees";
 import { AddMedication } from "../../pages/addMedication";
+import { AddPatient } from "../../pages/addPatient";
 
 export const routes = [
   {
@@ -17,5 +18,13 @@ export const routes = [
   {
     path: "/dashboard/medication/add",
     element: AddMedication,
+  },
+  {
+    path: "/dashboard/patient/add",
+    element: AddPatient,
+  },
+  {
+    path: "/dashboard/patients/add/:id",
+    element: AddPatient,
   },
 ];
