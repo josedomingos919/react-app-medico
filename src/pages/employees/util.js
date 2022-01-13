@@ -55,7 +55,8 @@ export const tableData = {
       path: "/dashboard/colaborators/add",
     },
     delete: {
-      label: "Eliminar",
+      label: "Desativar",
+      iconName: "fa fa-ban",
     },
   },
 };
