@@ -846,3 +846,7 @@ input::placeholder {
   font-weight: bold;
   margin-bottom: 15px;
 }
+
+.checkmark.active {
+  background-color: #004244;
+}

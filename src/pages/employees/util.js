@@ -1,20 +1,29 @@
 export const tableData = {
+  title: "Todos os colaboradores cadastrados",
   fields: [
     {
+      label: "ID",
+      name: "user_id",
+    },
+    {
       label: "Nome",
-      name: "name",
+      name: "user_name",
     },
     {
       label: "E-mail",
-      name: "email",
+      name: "user_mail",
     },
     {
       label: "Telefone",
-      name: "phone",
+      name: "user_cellphone",
+    },
+    {
+      label: "Perfil",
+      name: "perfil_name",
     },
     {
       label: "Tipo",
-      name: "type",
+      name: "user_status",
     },
   ],
   data: [
@@ -44,6 +53,9 @@ export const tableData = {
     add: {
       label: "Novo colaborador",
       path: "/dashboard/colaborators/add",
+    },
+    delete: {
+      label: "Eliminar",
     },
   },
 };
