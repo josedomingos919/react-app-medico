@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
+import { confirmAlert } from "react-confirm-alert";
 import { toast } from "react-toastify";
 import { AppContent, Table } from "../../components";
 import { useApp } from "../../context/app";
@@ -22,6 +23,34 @@ export function Employees() {
     setIsLoading(false);
   }, [setDoctorsData, setIsLoading]);
 
+  const handleDisabled = useCallback(
+    ({ user_id = "", user_name = "" }) => {
+      confirmAlert({
+        title: "Atenção",
+        message: `Está presta a desabilitar um colaborador: '${user_name}' ?`,
+        buttons: [
+          {
+            label: "Sim",
+            onClick: async () => {
+              const response = await services.doctors.disable({ user_id });
+
+              if (response?.status === 200) {
+                toast.success("Desabilitado com sucesso!");
+                getEmployees();
+              } else {
+                toast.error("Falha ao desabilitar!");
+              }
+            },
+          },
+          {
+            label: "Não",
+          },
+        ],
+      });
+    },
+    [getEmployees]
+  );
+
   useEffect(() => {
     getEmployees();
   }, [getEmployees]);
@@ -34,6 +63,7 @@ export function Employees() {
         title={tableData.title}
         fields={tableData.fields}
         optios={tableData.optios}
+        onDelete={handleDisabled}
       />
     </AppContent>
   );
