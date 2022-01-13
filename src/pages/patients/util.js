@@ -1,16 +1,30 @@
 export const tableData = {
+  title: "Pacientes",
+  subTitle: "Todos os pacientes cadastrados",
   fields: [
     {
-      label: "Nome",
-      name: "name",
+      label: "ID",
+      name: "user_id",
     },
     {
-      label: "E-mail",
-      name: "email",
+      label: "Nome",
+      name: "user_name",
     },
     {
       label: "Telefone",
-      name: "phone",
+      name: "user_cellphone",
+    },
+    {
+      label: "E-mail",
+      name: "user_mail",
+    },
+    {
+      label: "Estado",
+      name: "user_status",
+    },
+    {
+      label: "Perfil",
+      name: "perfil_name",
     },
   ],
   data: [
@@ -37,5 +51,14 @@ export const tableData = {
     edit: {
       label: "Editar",
     },
+    delete: {
+      label: "Eliminar",
+    },
   },
 };
+
+export const formatData = (data = []) =>
+  data?.map((item) => ({
+    ...item,
+    edit: `patients/add/${item?.id}`,
+  })) ?? [];

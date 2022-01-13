@@ -2,27 +2,31 @@ export const tableData = {
   fields: [
     {
       label: "ID",
-      name: "id",
+      name: "exame_id",
     },
     {
-      label: "Pacientes",
-      name: "email",
+      label: "Preferência",
+      name: "preference",
     },
     {
-      label: "Equipe",
-      name: "phone",
+      label: "Endereço",
+      name: "address",
     },
     {
-      label: "Medico Plantonista",
-      name: "type",
+      label: "Nome",
+      name: "user_name",
     },
     {
-      label: "Data/Hora",
-      name: "type",
+      label: "Estado",
+      name: "status_name",
     },
     {
-      label: "Tratamento",
-      name: "type",
+      label: "Estado  rgb",
+      name: "status_rgb",
+    },
+    {
+      label: "Nome",
+      name: "name_plan",
     },
   ],
   data: [

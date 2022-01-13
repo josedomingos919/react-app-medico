@@ -5,10 +5,25 @@ const AppContext = createContext();
 export function AppProvider({ children }) {
   const [medicineData, setMedicineData] = useState([]);
   const [doctorsData, setDoctorsData] = useState([]);
+  const [patientData, setPatientData] = useState([]);
 
   const providerValue = useMemo(
-    () => ({ medicineData, setMedicineData, doctorsData, setDoctorsData }),
-    [medicineData, setMedicineData, doctorsData, setDoctorsData]
+    () => ({
+      medicineData,
+      setMedicineData,
+      doctorsData,
+      setDoctorsData,
+      patientData,
+      setPatientData,
+    }),
+    [
+      medicineData,
+      setMedicineData,
+      doctorsData,
+      setDoctorsData,
+      patientData,
+      setPatientData,
+    ]
   );
 
   return (
