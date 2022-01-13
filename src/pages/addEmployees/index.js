@@ -14,9 +14,11 @@ import {
 } from "./util";
 import { validateInput, validation } from "./validation";
 import { isEmpty } from "../../utilities/functions";
+import { useNavigate } from "react-router-dom";
 
 export function AddEmployees() {
   const { id: userId } = useParams();
+  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState();
   const [errosDayWeek, setErrosDayWeek] = useState({});
   const [dayWeeks, __setDayWeeks] = useState(dayWeeksInitialState);
@@ -83,6 +85,7 @@ export function AddEmployees() {
       return;
     } else {
       toast.success("Colaborador salvo com sucesso!");
+      navigate("/dashboard/colaborators");
     }
 
     __setDayWeeks([...dayWeeksInitialState]);
