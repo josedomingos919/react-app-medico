@@ -31,6 +31,9 @@ export const tableData = {
     },
   ],
   optios: {
+    add: {
+      label: "Novo Paciente",
+    },
     edit: {
       label: "Editar",
     },

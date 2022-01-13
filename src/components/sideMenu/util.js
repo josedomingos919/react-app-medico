@@ -9,7 +9,6 @@ import {
   ConsultasIcon,
   HomeIcon,
   MedicacoesIcon,
-  NewIcon,
   SolicitacoesIcon,
 } from "./../../assets";
 
@@ -48,12 +47,6 @@ export const menuData = [
     path: "/dashboard/medication",
     label: "Medicações",
     img: MedicacoesIcon,
-    element: Medication,
-  },
-  {
-    path: "/dashboard/novo-paciente",
-    label: "Novo paciente",
-    img: NewIcon,
     element: Medication,
   },
 ];

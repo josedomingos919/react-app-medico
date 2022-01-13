@@ -8,7 +8,7 @@ export function Patient() {
         title="Pacientes"
         subTitle="Todos os pacientes cadastrados"
         fields={tableData.fields}
-        data={tableData.data}
+        data={[]}
         optios={tableData.optios}
       />
     </AppContent>
