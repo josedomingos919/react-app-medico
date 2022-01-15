@@ -73,8 +73,10 @@ export function Patient() {
   return (
     <AppContent>
       <Table
-        totalData={patientData?.totalData}
         page={page}
+        limit={limit}
+        onChangeLimit={setLimit}
+        totalData={patientData?.totalData}
         totalPage={patientData?.totalPage}
         onChangePage={setPage}
         isLoading={isLoading}

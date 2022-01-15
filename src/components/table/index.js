@@ -1,4 +1,6 @@
 import { isEmpty } from "../../utilities/functions";
+import { limits } from "./util";
+
 import "./style.css";
 
 export function Table({
@@ -6,6 +8,7 @@ export function Table({
   data = [],
   title = "",
   subTitle = "",
+  limit = 5,
   hasBody = false,
   isLoading = false,
   totalPage = 0,
@@ -14,13 +17,14 @@ export function Table({
   totalData = 0,
   onDelete = () => {},
   onChangePage = () => {},
+  onChangeLimit = () => {},
 }) {
   const { edit, add } = optios;
 
   const renderPagination = () => {
     const results = [];
 
-    if (totalPage <= 0) return <></>;
+    if (totalPage <= 1) return <></>;
 
     for (let i = 0; i < totalPage; i++) {
       results.push(
@@ -86,11 +90,32 @@ export function Table({
               XLS
             </a>
           </div>
-          <div className="col-lg-6 text-right">
+          <div className="col-lg-6 d-flex text-right">
+            <select
+              style={{
+                width: 80,
+              }}
+              onChange={(e) => onChangeLimit(+e?.target?.value)}
+              class="custom-select mr-4"
+            >
+              {limits.map((val, index) => (
+                <option
+                  {...(val === limit ? { selected: true } : {})}
+                  key={index}
+                  value={val}
+                >
+                  {val}
+                </option>
+              ))}
+            </select>
+
             <input
+              style={{
+                width: "100%",
+              }}
               className="tableInput"
               type="text"
-              placeholder="Pesquisar por"
+              placeholder="Pesquisar por..."
             />
           </div>
         </div>
@@ -161,10 +186,11 @@ export function Table({
         ) : (
           <></>
         )}
-
         <div className="mt-4 footer-pagination">
           {renderPagination()}
-          <div>Total de Registros: {totalData}</div>
+          <div className="d-flex">
+            <div>Total de Registros: {totalData}</div>
+          </div>
         </div>
       </div>
     </>
