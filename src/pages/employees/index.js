@@ -4,24 +4,38 @@ import { toast } from "react-toastify";
 import { AppContent, Table } from "../../components";
 import { useApp } from "../../context/app";
 import { services } from "../../service";
+import { getPagination } from "../../utilities/functions";
 import { formatData, tableData } from "./util";
 
 export function Employees() {
   const { doctorsData, setDoctorsData } = useApp();
+  const [doctors, setDoctors] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [limit, setLimit] = useState(5);
+  const [page, setPage] = useState(1);
 
   const getEmployees = useCallback(async () => {
     setIsLoading(true);
-    setDoctorsData([]);
+    setDoctors([]);
 
     const responseData = await services.doctors.get();
 
     if (!responseData?.data?.success)
       toast.error("Falha ao carregar os colaboradores!");
-    else setDoctorsData(responseData?.data?.payload ?? []);
+    else setDoctors(responseData?.data?.payload ?? []);
 
     setIsLoading(false);
-  }, [setDoctorsData, setIsLoading]);
+  }, [setDoctors, setIsLoading]);
+
+  useEffect(() => {
+    setDoctorsData(
+      getPagination({
+        data: doctors,
+        limit,
+        page,
+      })
+    );
+  }, [doctors, page, limit]);
 
   const handleDisabled = useCallback(
     ({ user_id = "", user_name = "" }) => {
@@ -58,12 +72,18 @@ export function Employees() {
   return (
     <AppContent>
       <Table
-        data={formatData(doctorsData)}
+        page={page}
+        limit={limit}
+        totalPage={doctorsData?.totalPage}
+        totalData={doctorsData?.totalData}
         isLoading={isLoading}
         title={tableData.title}
         fields={tableData.fields}
         optios={tableData.optios}
+        data={formatData(doctorsData?.data)}
         onDelete={handleDisabled}
+        onChangeLimit={setLimit}
+        onChangePage={setPage}
       />
     </AppContent>
   );

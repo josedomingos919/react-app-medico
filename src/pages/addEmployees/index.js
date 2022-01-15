@@ -59,12 +59,12 @@ export function AddEmployees() {
     let doctorsResponse = {};
     setErrosDayWeek({});
 
+    /*
     const validationResponse = validateDayWeeks(dayWeeks);
-
     if (validationResponse) {
       setErrosDayWeek(validationResponse);
       return;
-    }
+    } */
 
     data.user_perfil = getUserProfileValue(data.user_perfil);
     data.day_weeks = dayWeeks;

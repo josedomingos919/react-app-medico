@@ -28,9 +28,9 @@ export function Table({
 
     for (let i = 0; i < totalPage; i++) {
       results.push(
-        <li class="page-item">
+        <li className="page-item" key={i}>
           <label
-            class={`page-link ${page == i + 1 && "active"}`}
+            className={`page-link ${page == i + 1 && "active"}`}
             onClick={() => onChangePage(i + 1)}
           >
             {i + 1}
@@ -41,12 +41,12 @@ export function Table({
 
     return (
       <nav aria-label="...">
-        <ul class="pagination">
+        <ul className="pagination">
           <li className={`page-item ${page - 1 <= 0 && "disabled"}`}>
             <label
               onClick={() => onChangePage(page - 1)}
               className="page-link"
-              tabindex="-1"
+              tabIndex="-1"
             >
               Anterior
             </label>
@@ -95,15 +95,13 @@ export function Table({
               style={{
                 width: 80,
               }}
+              defaultValue={limit}
               onChange={(e) => onChangeLimit(+e?.target?.value)}
-              class="custom-select mr-4"
+              className="custom-select mr-4"
+              defaultValue={limit}
             >
               {limits.map((val, index) => (
-                <option
-                  {...(val === limit ? { selected: true } : {})}
-                  key={index}
-                  value={val}
-                >
+                <option key={index} value={val}>
                   {val}
                 </option>
               ))}
@@ -135,7 +133,7 @@ export function Table({
             </tr>
           </thead>
           <tbody>
-            {data.map((item, index) => {
+            {data?.map((item, index) => {
               return (
                 <tr key={index}>
                   {fields.map(({ name = "" }, index) => (
