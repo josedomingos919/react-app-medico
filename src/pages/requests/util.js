@@ -1,28 +1,37 @@
+import { Status } from "../../components";
+import { formatDate } from "../../utilities/functions";
+
 export const tableData = {
+  title: "Visualizar os dados do recituário e exames",
+  subTitle: "Verificar dados do recituário e exames",
   fields: [
     {
       label: "ID",
-      name: "id",
+      name: "exame_id",
     },
     {
-      label: "Medicação",
-      name: "text",
+      label: "Paciente",
+      name: "user_name",
     },
     {
-      label: "Data da criação",
-      name: "date",
-    },
-  ],
-  data: [
-    {
-      id: 1,
-      text: "cosentyx 150 / 300 mg",
-      date: "20/12/2021",
+      label: "Convênio",
+      name: "name_plan",
     },
     {
-      id: 2,
-      text: "cosentyx 150 / 300 mg",
-      date: "20/12/2021",
+      label: "Preferência",
+      name: "preference",
+    },
+    {
+      label: "Endereço",
+      name: "address_name",
+    },
+    {
+      label: "Data/Hora",
+      name: "date_start",
+    },
+    {
+      label: "Estado",
+      name: "status_name",
     },
   ],
   optios: {
@@ -30,4 +39,16 @@ export const tableData = {
       label: "Editar",
     },
   },
+};
+
+export const formatData = (data = []) => {
+  return data.map((item) => ({
+    ...item,
+    status_name: (
+      <Status backgroundColor={item?.status_rgb} label={item?.status_name} />
+    ),
+    name_plan: item?.plan?.name_plan,
+    address_name: item?.address?.address ?? item.address,
+    date_start: formatDate(item?.date_start),
+  }));
 };

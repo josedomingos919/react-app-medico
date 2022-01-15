@@ -127,7 +127,7 @@ export function AddPatient() {
               </div>
 
               {userId && (
-                <div class="form-check edit_password col-lg-4">
+                <div className="form-check edit_password col-lg-4">
                   <div>
                     <input
                       className="registerInput"
@@ -137,7 +137,7 @@ export function AddPatient() {
                     />
                   </div>
                   <div>
-                    <label class="form-check-label">
+                    <label className="form-check-label">
                       Pretende Atualizar a senha ?
                     </label>
                   </div>

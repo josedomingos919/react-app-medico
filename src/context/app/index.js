@@ -6,6 +6,7 @@ export function AppProvider({ children }) {
   const [medicineData, setMedicineData] = useState([]);
   const [doctorsData, setDoctorsData] = useState([]);
   const [patientData, setPatientData] = useState([]);
+  const [requestData, setRequestData] = useState([]);
 
   const providerValue = useMemo(
     () => ({
@@ -15,6 +16,8 @@ export function AppProvider({ children }) {
       setDoctorsData,
       patientData,
       setPatientData,
+      requestData,
+      setRequestData,
     }),
     [
       medicineData,
@@ -23,6 +26,8 @@ export function AppProvider({ children }) {
       setDoctorsData,
       patientData,
       setPatientData,
+      requestData,
+      setRequestData,
     ]
   );
 

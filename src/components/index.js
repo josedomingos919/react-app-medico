@@ -6,8 +6,10 @@ import { Loader } from "./loader";
 import { PageContent } from "./pageContent";
 import { SideMenu } from "./sideMenu";
 import { Table } from "./table";
+import { Status } from "./status";
 
 export {
+  Status,
   Table,
   AppContent,
   Loader,

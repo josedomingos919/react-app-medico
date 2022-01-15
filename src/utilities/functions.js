@@ -25,3 +25,6 @@ export const isEmpty = (val) => {
     return r;
   }
 };
+
+export const formatDate = (stringDate = "") =>
+  new Date(stringDate).toLocaleString();
