@@ -10,7 +10,6 @@ import {
   getDayWeek,
   getUserProfileValue,
   getUserProfileValueByString,
-  validateDayWeeks,
 } from "./util";
 import { validateInput, validation } from "./validation";
 import { isEmpty } from "../../utilities/functions";
