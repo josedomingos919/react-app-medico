@@ -3,10 +3,10 @@ import { useState, useMemo, useContext, createContext } from "react";
 const AppContext = createContext();
 
 export function AppProvider({ children }) {
-  const [medicineData, setMedicineData] = useState([]);
-  const [doctorsData, setDoctorsData] = useState([]);
-  const [patientData, setPatientData] = useState([]);
-  const [requestData, setRequestData] = useState([]);
+  const [medicineData, setMedicineData] = useState({});
+  const [doctorsData, setDoctorsData] = useState({});
+  const [patientData, setPatientData] = useState({});
+  const [requestData, setRequestData] = useState({});
 
   const providerValue = useMemo(
     () => ({

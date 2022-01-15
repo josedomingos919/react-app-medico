@@ -28,3 +28,15 @@ export const isEmpty = (val) => {
 
 export const formatDate = (stringDate = "") =>
   new Date(stringDate).toLocaleString();
+
+export const getPagination = ({ data = [], limit = 5, page = 1 }) => {
+  const startIndex = (page - 1) * limit;
+  const endIndex = startIndex + limit;
+
+  return {
+    data: data.slice(startIndex, endIndex),
+    totalPage: Math.ceil(data.length / limit),
+    totalData: data.length,
+    currentPage: page,
+  };
+};

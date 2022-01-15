@@ -8,10 +8,55 @@ export function Table({
   subTitle = "",
   hasBody = false,
   isLoading = false,
+  totalPage = 0,
   optios = {},
+  page = 0,
+  totalData = 0,
   onDelete = () => {},
+  onChangePage = () => {},
 }) {
   const { edit, add } = optios;
+
+  const renderPagination = () => {
+    const results = [];
+
+    if (totalPage <= 0) return <></>;
+
+    for (let i = 0; i < totalPage; i++) {
+      results.push(
+        <li class="page-item">
+          <label
+            class={`page-link ${page == i + 1 && "active"}`}
+            onClick={() => onChangePage(i + 1)}
+          >
+            {i + 1}
+          </label>
+        </li>
+      );
+    }
+
+    return (
+      <nav aria-label="...">
+        <ul class="pagination">
+          <li className={`page-item ${page - 1 <= 0 && "disabled"}`}>
+            <label
+              onClick={() => onChangePage(page - 1)}
+              className="page-link"
+              tabindex="-1"
+            >
+              Anterior
+            </label>
+          </li>
+          {results}
+          <li className={`page-item ${page + 1 > totalPage && "disabled"}`}>
+            <label className="page-link" onClick={() => onChangePage(page + 1)}>
+              Próximo
+            </label>
+          </li>
+        </ul>
+      </nav>
+    );
+  };
 
   const getTableContent = () => (
     <>
@@ -116,6 +161,11 @@ export function Table({
         ) : (
           <></>
         )}
+
+        <div className="mt-4 footer-pagination">
+          {renderPagination()}
+          <div>Total de Registros: {totalData}</div>
+        </div>
       </div>
     </>
   );

@@ -5,21 +5,25 @@ import { toast } from "react-toastify";
 import { AppContent, Table } from "../../components";
 import { useApp } from "../../context/app";
 import { services } from "../../service";
+import { getPagination } from "../../utilities/functions";
 import { formatData, tableData } from "./util";
 
 export function Patient() {
   const { patientData, setPatientData } = useApp();
+  const [patients, setPatients] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(5);
 
   const getPatients = useCallback(async () => {
     setIsLoading(true);
-    setPatientData([]);
+    setPatientData({});
 
     const responseData = await services.patient.get();
 
     if (!responseData?.data?.success)
       toast.error("Falha ao carregar os dados!");
-    else setPatientData(responseData?.data?.payload ?? []);
+    else setPatients(responseData?.data?.payload ?? []);
 
     setIsLoading(false);
   }, [setPatientData, setIsLoading]);
@@ -53,17 +57,31 @@ export function Patient() {
   );
 
   useEffect(() => {
+    setPatientData(
+      getPagination({
+        data: patients,
+        limit,
+        page,
+      })
+    );
+  }, [patients, page, limit]);
+
+  useEffect(() => {
     getPatients();
   }, [getPatients]);
 
   return (
     <AppContent>
       <Table
+        totalData={patientData?.totalData}
+        page={page}
+        totalPage={patientData?.totalPage}
+        onChangePage={setPage}
         isLoading={isLoading}
         title={tableData.title}
         subTitle={tableData.subTitle}
         fields={tableData.fields}
-        data={formatData(patientData)}
+        data={formatData(patientData?.data)}
         optios={tableData.optios}
         onDelete={handleDelete}
       />
