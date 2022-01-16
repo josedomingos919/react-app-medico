@@ -44,6 +44,7 @@ export const tableData = {
 export const formatData = (data = []) => {
   return data.map((item) => ({
     ...item,
+    edit: `/dashboard/treatment/add/${item?.exame_id}`,
     status_name: (
       <Status backgroundColor={item?.status_rgb} label={item?.status_name} />
     ),

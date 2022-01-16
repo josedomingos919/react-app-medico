@@ -1,6 +1,7 @@
 import { AddEmployees } from "../../pages/addEmployees";
 import { AddMedication } from "../../pages/addMedication";
 import { AddPatient } from "../../pages/addPatient";
+import { AddTreatment } from "../../pages/addTreatment";
 
 export const routes = [
   {
@@ -26,5 +27,9 @@ export const routes = [
   {
     path: "/dashboard/patients/add/:id",
     element: AddPatient,
+  },
+  {
+    path: "/dashboard/treatment/add/:id",
+    element: AddTreatment,
   },
 ];
