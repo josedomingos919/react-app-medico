@@ -6,85 +6,72 @@ import { services } from "../../service";
 import { toast } from "react-toastify";
 import { useParams } from "react-router-dom";
 import { RightSide, LeftSide } from "./components";
+import { useApp } from "./../../context/app";
+import { useForm } from "react-hook-form";
 
 import "./style.css";
 
 export function AddTreatment() {
-  const { id: medicamentoId } = useParams();
-  const [medicine, setMedicine] = useState("");
-  const [error, setError] = useState("");
+  const { id: tratmentId } = useParams();
+  const { setMedicines, setTeams, setDoctors, registerForm } = useApp();
   const [isLoading, setIsLoading] = useState(false);
 
-  const getMedicine = useCallback(async () => {
-    const response = await services.medicine.getOne(medicamentoId);
-    setMedicine(response?.data?.payload?.medicamento);
-  }, [medicamentoId]);
+  const handleSave = (data) => {
+    console.log("data=> ", data);
+  };
 
-  const handleSave = useCallback(async () => {
-    let responseMedicine = {};
+  const getMedicines = useCallback(async () => {
+    const response = await services.medicine.get();
+    if (response?.data?.success) setMedicines(response.data.payload ?? []);
+    else toast.error("Falha ao carregar os medicamentos!");
+  }, []);
 
-    setIsLoading(true);
-    setError("");
+  const getTeam = useCallback(async () => {
+    const response = await services.waiting.getTeam();
+    if (response?.data?.success) setTeams(response.data.payload ?? []);
+    else toast.error("Falha ao carregar a equipe!");
+  }, []);
 
-    if (isEmpty(medicine)) {
-      setIsLoading(false);
-      setError("*Campo obrigatório!");
-
-      return;
-    }
-
-    if (isEmpty(medicamentoId)) {
-      responseMedicine = await services.medicine.add({
-        medicamento: medicine,
-      });
-    } else {
-      responseMedicine = await services.medicine.update({
-        id: medicamentoId,
-        medicamento: medicine,
-      });
-    }
-
-    if (responseMedicine?.status !== 200) {
-      toast.error("Falha ao salvar!");
-      setIsLoading(false);
-      return;
-    }
-
-    toast.success("Medicação salva com sucesso!");
-    setMedicine("");
-    setIsLoading(false);
-  }, [medicine, medicamentoId]);
+  const getDoctors = useCallback(async () => {
+    const response = await services.waiting.getDoctors();
+    if (response?.data?.success) setDoctors(response.data.payload ?? []);
+    else toast.error("Falha ao carregar os médicos plantonista!");
+  }, []);
 
   useEffect(() => {
-    getMedicine();
-  }, [getMedicine]);
+    getTeam();
+    getDoctors();
+    getMedicines();
+  }, [getMedicines]);
+
+  useEffect(() => {
+    // setRegisterTreatment(register);
+  }, []);
 
   return (
     <AppContent activePath="/dashboard/medication">
-      <div className=" registerMedi odd">
-        <div className="row odd">
-          <div className="col-6">
-            <h1 className="mainHeading">Criar um tratamento</h1>
+      <form onSubmit={registerForm.handleSubmit(handleSave)}>
+        <div className=" registerMedi odd">
+          <div className="row odd">
+            <div className="col-6">
+              <h1 className="mainHeading">Criar um tratamento</h1>
+            </div>
+            <div className="col-6 text-center text-lg-right">
+              <button disabled={isLoading} type="submit" className="mainBtn">
+                {isLoading ? <Loader /> : "Enviar"}
+              </button>
+            </div>
           </div>
-          <div className="col-6 text-center text-lg-right">
-            <button
-              disabled={isLoading}
-              className="mainBtn"
-              onClick={handleSave}
-            >
-              {isLoading ? <Loader /> : "Enviar"}
-            </button>
-          </div>
-        </div>
-        <div className="tableContents">
-          <div className="col-12">
-            <div className="row">
-              <LeftSide />
-              <RightSide />
+          <div className="tableContents">
+            <div className="col-12">
+              <div className="row">
+                <LeftSide />
+                <RightSide />
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </form>
     </AppContent>
   );
 }

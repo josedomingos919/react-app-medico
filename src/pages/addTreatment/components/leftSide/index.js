@@ -42,7 +42,7 @@ export const LeftSide = () => {
             background: "#dc4245",
           }}
           type="button"
-          class="btn btn-danger"
+          className="btn btn-danger"
         >
           Recusar
         </button>

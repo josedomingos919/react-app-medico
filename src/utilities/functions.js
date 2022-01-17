@@ -40,3 +40,6 @@ export const getPagination = ({ data = [], limit = 5, page = 1 }) => {
     currentPage: page,
   };
 };
+
+export const getSelectData = ({ data = [], labelKey = "", valueKey = "id" }) =>
+  data.map(({ [labelKey]: label, [valueKey]: value }) => ({ label, value }));
