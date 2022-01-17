@@ -1,3 +1,5 @@
+import "../../style.css";
+
 export const LeftSide = () => {
   return (
     <div className="col-3 left-side-menu">
@@ -34,7 +36,14 @@ export const LeftSide = () => {
         <p className="dark-text">Data do priméiro período: 30/01/2021</p>
       </div>
       <div className="mb-5">
-        <button type="button" class="btn btn-danger">
+        <button
+          style={{
+            border: "none",
+            background: "#dc4245",
+          }}
+          type="button"
+          class="btn btn-danger"
+        >
           Recusar
         </button>
       </div>

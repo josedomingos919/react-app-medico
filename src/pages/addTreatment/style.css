@@ -17,3 +17,36 @@
 .light-green {
   color: #57c8c3;
 }
+.btn:not(:disabled):not(.disabled) {
+  background: white;
+  border: 1px solid #cccccc;
+}
+
+.dropdown.bootstrap-select {
+  width: 100% !important;
+}
+
+.btn-add.green {
+  border: none !important;
+  background-color: #28a745 !important;
+  border-radius: 40px;
+  height: 40px;
+  width: 40px;
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.footer-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.div.row {
+  border-bottom: 1px solid #a3a6b44a;
+  padding-bottom: 34px;
+}

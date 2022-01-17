@@ -80,7 +80,7 @@ export function AddTreatment() {
           <div className="col-12">
             <div className="row">
               <LeftSide />
-              <div className="col-8">12345</div>
+              <RightSide />
             </div>
           </div>
         </div>
