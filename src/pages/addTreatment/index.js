@@ -63,27 +63,14 @@ export function AddTreatment() {
 
   const getTeam = useCallback(async () => {
     const response = await services.waiting.getTeam();
-    //TUDO: API DEVE DEVOLVER O USER ID
-    if (response?.data?.success)
-      setTeams(
-        response.data.payload.map((e, index) => ({
-          ...e,
-          user_id: index + 1,
-        })) ?? []
-      );
+    if (response?.data?.success) setTeams(response.data.payload ?? []);
     else toast.error("Falha ao carregar a equipe!");
   }, [setTeams]);
 
   const getDoctors = useCallback(async () => {
     const response = await services.waiting.getDoctors();
-    //TUDO: API DEVE DEVOLVER O USER ID
-    if (response?.data?.success)
-      setDoctors(
-        response.data.payload.map((e, index) => ({
-          ...e,
-          user_id: index + 1,
-        })) ?? []
-      );
+
+    if (response?.data?.success) setDoctors(response.data.payload ?? []);
     else toast.error("Falha ao carregar os médicos plantonista!");
   }, [setDoctors]);
 

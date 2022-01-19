@@ -1,60 +1,54 @@
+import { Status } from "../../components";
+import { formatDate } from "../../utilities/functions";
+
 export const tableData = {
+  title: "Consulta em lista",
+  subTitle: "Verificar todas as consultas",
   fields: [
     {
       label: "ID",
       name: "exame_id",
     },
     {
-      label: "Preferência",
-      name: "preference",
+      label: "Paciente",
+      name: "patient_name",
     },
     {
-      label: "Endereço",
-      name: "address",
+      label: "Equipe",
+      name: "equipe_name",
     },
     {
-      label: "Nome",
-      name: "user_name",
+      label: "Data/Hora",
+      name: "date_input",
+    },
+    {
+      label: "Medicamento",
+      name: "medicamento",
     },
     {
       label: "Estado",
       name: "status_name",
-    },
-    {
-      label: "Estado  rgb",
-      name: "status_rgb",
-    },
-    {
-      label: "Nome",
-      name: "name_plan",
-    },
-  ],
-  data: [
-    {
-      id: 1,
-      name: "José Domingos",
-      email: "example@terra.com.br",
-      phone: "(11) 99922-3343",
-      type: "Enfermeiro",
-    },
-    {
-      id: 2,
-      name: "Genilson Domingos",
-      email: "example@terra.com.br",
-      phone: "(11) 99922-3343",
-      type: "Médico Plantonista",
-    },
-    {
-      id: 3,
-      name: "Kwenda Domingos",
-      email: "example@terra.com.br",
-      phone: "(11) 99922-3343",
-      type: "Médico Plantonista",
     },
   ],
   optios: {
     edit: {
       label: "Editar",
     },
+    add: {
+      label: "Nova Consulta",
+    },
   },
+};
+
+export const formatData = (data = []) => {
+  return data.map((item) => ({
+    ...item,
+    edit: `/dashboard/treatment/add/${item?.exame_id}`,
+    status_name: (
+      <Status backgroundColor={item?.status_rgb} label={item?.status_name} />
+    ),
+    name_plan: item?.plan?.name_plan,
+    address_name: item?.address?.address ?? item.address,
+    date_start: formatDate(item?.date_start),
+  }));
 };

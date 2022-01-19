@@ -8,6 +8,7 @@ export function AppProvider({ children }) {
   const [doctorsData, setDoctorsData] = useState({});
   const [patientData, setPatientData] = useState({});
   const [requestData, setRequestData] = useState({});
+  const [medicalExameData, setMedicalExameData] = useState({});
 
   //forms
   const [medicines, setMedicines] = useState([]);
@@ -36,6 +37,8 @@ export function AppProvider({ children }) {
       setTeams,
       treatmentError,
       setTreatmentError,
+      medicalExameData,
+      setMedicalExameData,
     }),
     [
       treatment,
@@ -56,6 +59,8 @@ export function AppProvider({ children }) {
       setMedicines,
       treatmentError,
       setTreatmentError,
+      medicalExameData,
+      setMedicalExameData,
     ]
   );
 
