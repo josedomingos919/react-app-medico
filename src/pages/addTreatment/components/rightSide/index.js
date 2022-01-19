@@ -1,30 +1,23 @@
 import { useState, useEffect } from "react";
+import { useApp } from "../../../../context/app";
 import { Row } from "./row";
 
 export const RightSide = () => {
-  const initialState = {
-    exame_id: "",
-    date_input: "",
-    equipe_name: "",
-    doctor_name: "",
-    dose: "",
-    medicamento: "",
-  };
+  const { treatment, setTreatment } = useApp();
 
-  const [treatment, setTreatment] = useState([{ ...initialState }]);
-
-  const handleClick = () => {
-    setTreatment((prev) => [...prev, initialState]);
+  const handleClick = (e) => {
+    e.preventDefault();
+    setTreatment((prev) => [...prev, {}]);
   };
 
   return (
     <div className="col-9">
       {treatment.map(({}, index) => (
-        <Row key={index} />
+        <Row key={index} index={index} />
       ))}
       <div className="footer-btn">
         <button
-          onClick={() => handleClick()}
+          onClick={(e) => handleClick(e)}
           className="btn btn-success btn-add green"
         >
           +

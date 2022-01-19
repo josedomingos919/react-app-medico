@@ -1,20 +1,32 @@
+import { useEffect } from "react";
 import Select from "react-select";
-import { useForm } from "react-hook-form";
 
 import { useApp } from "../../../../context/app";
 import { getSelectData, isEmpty } from "../../../../utilities/functions";
-import { validation } from "./validation";
 
-export const Row = () => {
-  const { medicines = [], teams = [], doctors = [], registerForm } = useApp();
-
+export const Row = ({ index }) => {
   const {
-    watch,
-    formState: { errors },
-    register,
-  } = registerForm;
+    medicines = [],
+    teams = [],
+    doctors = [],
+    treatment,
+    setTreatment: __setTreatment,
+    treatmentError,
+  } = useApp();
 
-  console.log("errors=> ", errors);
+  const setTreatMent = (key = "", value = "") => {
+    const obj = [...treatment];
+    obj[index] = { ...(obj[index] ?? {}), [key]: value };
+    __setTreatment(obj);
+  };
+
+  const { date_input, doctor_id, equipe_id, medicine_id, dose } =
+    treatment[index] ?? {};
+
+  useEffect(
+    () => console.log("treatment=> ", treatment, " ****", index),
+    [treatment]
+  );
 
   return (
     <div className="col-12 mb-5">
@@ -22,55 +34,74 @@ export const Row = () => {
         <div className="col-4 mb-3 ">
           <h2 className="green-text mb-2">Horários</h2>
           <input
-            {...register("date_input", validation.date_input)}
             className="registerInput"
             type="datetime-local"
+            value={date_input}
+            onChange={(e) => setTreatMent("date_input", e?.target?.value)}
           />
-          <span className="span-error">{errors?.date_input?.message}</span>
+          <span className="span-error">
+            {treatmentError && !date_input && "*Campo obrigatório!"}
+          </span>
         </div>
         <div className="col-4">
           <h2 className="green-text mb-2">Equipe</h2>
           <Select
-            {...register("equipe_name", { required: true })}
-            onChange={() => {}}
+            value={equipe_id}
+            onChange={(val) => setTreatMent("equipe_id", val)}
             isDisabled={isEmpty(teams)}
             options={getSelectData({
               data: teams,
               labelKey: "user_name",
-              valueKey: "user_name",
+              valueKey: "user_id",
             })}
           />
+
+          <span className="span-error">
+            {treatmentError && !equipe_id?.value && "*Campo obrigatório!"}
+          </span>
         </div>
         <div className="col-4">
           <h2 className="green-text mb-2">Médico Platonista</h2>
           <Select
-            //            {...register("doctor_name", { required: true })}
+            value={doctor_id}
+            onChange={(val) => setTreatMent("doctor_id", val)}
             isDisabled={isEmpty(doctors)}
             options={getSelectData({
               data: doctors,
               labelKey: "user_name",
-              valueKey: "user_name",
+              valueKey: "user_id",
             })}
           />
+          <span className="span-error">
+            {treatmentError && !doctor_id?.value && "*Campo obrigatório!"}
+          </span>
         </div>
         <div className="col-4">
           <h2 className="green-text mb-2">Medicação</h2>
           <Select
-            //{...register("medicamento", { required: true })}
+            value={medicine_id}
+            onChange={(val) => setTreatMent("medicine_id", val)}
             isDisabled={isEmpty(medicines)}
             options={getSelectData({
               data: medicines,
               labelKey: "medicamento",
             })}
           />
+          <span className="span-error">
+            {treatmentError && !medicine_id?.value && "*Campo obrigatório!"}
+          </span>
         </div>
         <div className="col-4">
           <h2 className="green-text mb-2">Dose</h2>
           <input
-            //{...register("dose", { required: true })}
+            value={dose}
+            onChange={(e) => setTreatMent("dose", e?.target?.value)}
             className="registerInput"
             type="text"
           />
+          <span className="span-error">
+            {treatmentError && !dose && "*Campo obrigatório!"}
+          </span>
         </div>
       </div>
     </div>

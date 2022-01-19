@@ -1,5 +1,4 @@
 import { useState, useMemo, useContext, createContext } from "react";
-import { useForm } from "react-hook-form";
 
 const AppContext = createContext();
 
@@ -14,12 +13,13 @@ export function AppProvider({ children }) {
   const [medicines, setMedicines] = useState([]);
   const [teams, setTeams] = useState([]);
   const [doctors, setDoctors] = useState([]);
-
-  const registerForm = useForm();
+  const [treatment, setTreatment] = useState([{}]);
+  const [treatmentError, setTreatmentError] = useState(false);
 
   const providerValue = useMemo(
     () => ({
-      registerForm,
+      treatment,
+      setTreatment,
       doctors,
       setDoctors,
       medicines,
@@ -34,9 +34,12 @@ export function AppProvider({ children }) {
       setRequestData,
       teams,
       setTeams,
+      treatmentError,
+      setTreatmentError,
     }),
     [
-      registerForm,
+      treatment,
+      setTreatment,
       doctors,
       setDoctors,
       teams,
@@ -51,6 +54,8 @@ export function AppProvider({ children }) {
       setRequestData,
       medicines,
       setMedicines,
+      treatmentError,
+      setTreatmentError,
     ]
   );
 
