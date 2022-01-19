@@ -17,7 +17,8 @@
 .light-green {
   color: #57c8c3;
 }
-.btn:not(:disabled):not(.disabled) {
+
+.teste .btn:not(:disabled):not(.disabled) {
   background: white;
   border: 1px solid #cccccc;
 }

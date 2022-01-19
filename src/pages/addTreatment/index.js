@@ -46,15 +46,13 @@ export function AddTreatment() {
     setIsLoading(true);
     const response = await services.waiting.create(formData);
     setIsLoading(false);
-    console.log("response=> ", response?.data);
+
     if (response?.data?.success) {
       toast.success("Tratamento criado com sucesso!");
       navigate("/dashboard/requests");
     } else {
       toast.error("Falha ao carregar os medicamentos!");
     }
-
-    console.log("data=> ", formData);
   }, [treatment, setTreatmentError]);
 
   const getMedicines = useCallback(async () => {
