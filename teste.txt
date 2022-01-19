@@ -1,6 +1,0 @@
-== FILAS ==
-- Uma fila é um conjunto de itens onde a inserção é feita em uma estremidade que nós chamamos fim da fila;
-- E a liminação é feita na outra estremidade que nos chamamos inicio da fila
-
-- É uma estrutura de dado do tipo [ fifo first in , first out ]
-- 
