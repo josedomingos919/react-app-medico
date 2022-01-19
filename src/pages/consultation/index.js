@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useState } from "react";
-import { confirmAlert } from "react-confirm-alert";
 import { toast } from "react-toastify";
 import { AppContent, Table } from "../../components";
 import { useApp } from "../../context/app";
