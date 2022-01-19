@@ -53,7 +53,7 @@ export function AddTreatment() {
     } else {
       toast.error("Falha ao carregar os medicamentos!");
     }
-  }, [treatment, setTreatmentError]);
+  }, [treatment, setTreatmentError, navigate, tratmentId]);
 
   const getMedicines = useCallback(async () => {
     const response = await services.medicine.get();

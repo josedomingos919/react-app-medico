@@ -1,6 +1,7 @@
 import axios from "axios";
 
 import { session } from "../../context/auth/util";
+import { baseURL } from "./util";
 
 export const api = (props = {}) => {
   const { headers = {} } = props;
@@ -10,7 +11,7 @@ export const api = (props = {}) => {
   if (token) headers.Authorization = `Bearer ${token}`;
 
   const instance = axios.create({
-    baseURL: "http://caiu.com.br/appmedico/",
+    baseURL,
     timeout: 9000,
     headers,
   });

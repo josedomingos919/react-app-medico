@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import Select from "react-select";
 
 import { useApp } from "../../../../context/app";
@@ -22,11 +21,6 @@ export const Row = ({ index }) => {
 
   const { date_input, doctor_id, equipe_id, medicine_id, dose } =
     treatment[index] ?? {};
-
-  useEffect(
-    () => console.log("treatment=> ", treatment, " ****", index),
-    [treatment]
-  );
 
   return (
     <div className="col-12 mb-5">

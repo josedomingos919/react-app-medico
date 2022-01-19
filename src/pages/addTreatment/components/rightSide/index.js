@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import { useApp } from "../../../../context/app";
 import { Row } from "./row";
 
@@ -12,7 +11,7 @@ export const RightSide = () => {
 
   return (
     <div className="col-9">
-      {treatment.map(({}, index) => (
+      {treatment.map((_, index) => (
         <Row key={index} index={index} />
       ))}
       <div className="footer-btn">
