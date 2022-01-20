@@ -1,332 +1,58 @@
-import { AppContent } from "../../components";
+import React, { useCallback, useEffect, useState } from 'react'
+import FullCalendar from '@fullcalendar/react' // must go before plugins
+import dayGridPlugin from '@fullcalendar/daygrid' // a plugin!
+import { services } from '../../service'
+import { AppContent } from '../../components'
 
-import "./style.css";
+import './style.css'
+import { toast } from 'react-toastify'
 
 export function Dashboard() {
+  const [schedule, setSchedule] = useState([])
+
+  const getSchedule = useCallback(async () => {
+    const response = await services.exame.schedule({
+      date: '2021-12-23 08:00:00',
+    })
+
+    if (response?.data?.success) {
+      setSchedule(
+        response?.data?.payload.map(
+          ({ medicamento, date_input, status_rgb }) => ({
+            title: medicamento,
+            date: date_input,
+            backgroundColor: status_rgb,
+            borderColor: status_rgb,
+          }),
+        ) ?? [],
+      )
+    } else toast.warning('Falha ao carregar as consultas!')
+  }, [setSchedule])
+
+  useEffect(() => {
+    getSchedule()
+  }, [getSchedule])
+
+  console.log('teste=> ', 2)
+
   return (
     <AppContent>
       <div className="calanderChart">
         <div className="chartParent">
-          <div className="mainText">Todas as consultas</div>
-          <div className="calanderHeader">
-            <div className="calanderButtons">
-              <a className="calanderBtn active" href="https://teste.com.br">
-                Hoje
-              </a>
-              <a className="calanderBtn" href="https://teste.com.br">
-                Ontem
-              </a>
-              <a className="calanderBtn" href="https://teste.com.br">
-                Amanhã
-              </a>
-            </div>
-            <div className="oddText">Semana 06/12 - 10/12</div>
-            <div className="calanderButtons rightBtns">
-              <a className="calanderBtn" href="https://teste.com.br">
-                Mês
-              </a>
-              <a className="calanderBtn" href="https://teste.com.br">
-                Semana
-              </a>
-              <a className="calanderBtn" href="https://teste.com.br">
-                Dia
-              </a>
-              <a className="calanderBtn active" href="https://teste.com.br">
-                Agenda
-              </a>
-            </div>
+          <div className="mainText title-header-consultation">
+            Todas as consultas
           </div>
-          <div className="linesCalandar">
-            <div className="numbersRow">
-              <div className="line"></div>
-              <div className="line">6h00</div>
-              <div className="line"></div>
-              <div className="line">7h00</div>
-              <div className="line"></div>
-              <div className="line">8h00</div>
-              <div className="line"></div>
-              <div className="line">9h00</div>
-              <div className="line"></div>
-              <div className="line">10h00</div>
-              <div className="line"></div>
-              <div className="line">11h00</div>
-              <div className="line"></div>
-              <div className="line">12h00</div>
-              <div className="line"></div>
-              <div className="line">13h00</div>
-              <div className="line"></div>
-              <div className="line">14h00</div>
-              <div className="line"></div>
-              <div className="line">15h00</div>
-              <div className="line"></div>
-              <div className="line">16h00</div>
-              <div className="line"></div>
-              <div className="line">17h00</div>
-              <div className="line"></div>
-              <div className="line">18h00</div>
-              <div className="line"></div>
-              <div className="line">19h00</div>
-              <div className="line"></div>
-              <div className="line">20h00</div>
-            </div>
-            <div className="dateRow active secondRow">
-              <div className="line">Segunda-feira 06/12</div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="pactente">Pactente XXX</div>
-              <div className="pactente green">Pactente XPTO</div>
-            </div>
-            <div className="dateRow thirdRow">
-              <div className="line">Terça-feira 06/12</div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="pactente">Pactente XXX</div>
-              <div className="pactente green">Pactente XPTO</div>
-            </div>
-            <div className="dateRow">
-              <div className="line">Quarta-feira 06/12</div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-            </div>
-            <div className="dateRow fourthRow">
-              <div className="line">Quinta-feira 06/12</div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="pactente green">Pactente XPTO</div>
-            </div>
-            <div className="dateRow fifthRow">
-              <div className="line">Sexta-feira 06/12</div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="pactente">Pactente XXX</div>
-            </div>
-            <div className="dateRow">
-              <div className="line">Sábado 06/12</div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-            </div>
-            <div className="dateRow">
-              <div className="line">Domingo 06/12</div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-              <div className="line"></div>
-            </div>
-          </div>
+          <FullCalendar
+            buttonText={{
+              today: 'Hoje',
+            }}
+            locale="pt-br"
+            plugins={[dayGridPlugin]}
+            initialView="dayGridMonth"
+            events={schedule}
+          />
         </div>
       </div>
     </AppContent>
-  );
+  )
 }
