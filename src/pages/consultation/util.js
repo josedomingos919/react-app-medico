@@ -1,44 +1,45 @@
-import { Status } from "../../components";
-import { formatDate } from "../../utilities/functions";
+import { Status } from '../../components'
+import { formatDate } from '../../utilities/functions'
 
 export const tableData = {
-  title: "Consulta em lista",
-  subTitle: "Verificar todas as consultas",
+  title: 'Consulta em lista',
+  subTitle: 'Verificar todas as consultas',
   fields: [
     {
-      label: "ID",
-      name: "exame_id",
+      label: 'ID',
+      name: 'exame_id',
     },
     {
-      label: "Paciente",
-      name: "patient_name",
+      label: 'Paciente',
+      name: 'patient_name',
     },
     {
-      label: "Equipe",
-      name: "equipe_name",
+      label: 'Equipe',
+      name: 'equipe_name',
     },
     {
-      label: "Data/Hora",
-      name: "date_input",
+      label: 'Data/Hora',
+      name: 'date_input',
     },
     {
-      label: "Medicamento",
-      name: "medicamento",
+      label: 'Medicamento',
+      name: 'medicamento',
     },
     {
-      label: "Estado",
-      name: "status_name",
+      label: 'Estado',
+      name: 'status_name',
     },
   ],
   optios: {
     edit: {
-      label: "Editar",
+      label: 'Editar',
     },
     add: {
-      label: "Nova Consulta",
+      label: 'Nova Consulta',
+      path: '/dashboard/consultation/add',
     },
   },
-};
+}
 
 export const formatData = (data = []) => {
   return data.map((item) => ({
@@ -50,5 +51,5 @@ export const formatData = (data = []) => {
     name_plan: item?.plan?.name_plan,
     address_name: item?.address?.address ?? item.address,
     date_start: formatDate(item?.date_start),
-  }));
-};
+  }))
+}
