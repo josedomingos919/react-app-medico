@@ -1,8 +1,8 @@
-import { Avatar, Logo } from "../../assets";
-import { useAuth } from "./../../context/auth";
+import { Avatar, Logo } from '../../assets'
+import { useAuth } from './../../context/auth'
 
 export function DashboardHeader() {
-  const { singOut } = useAuth();
+  const { singOut, user } = useAuth()
 
   return (
     <>
@@ -22,7 +22,7 @@ export function DashboardHeader() {
             aria-haspopup="true"
             aria-expanded="false"
           >
-            Administrador <i className="fas fa-chevron-down"></i>
+            {user?.payload?.user_name} <i className="fas fa-chevron-down"></i>
             <img src={Avatar} alt="" />
           </button>
           <div className="dropdown-menu" aria-labelledby="triggerId">
@@ -33,5 +33,5 @@ export function DashboardHeader() {
         </div>
       </div>
     </>
-  );
+  )
 }
