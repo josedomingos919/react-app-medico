@@ -1,10 +1,30 @@
 .div-title {
-    color: #43425D; 
-    margin-bottom: 15px;
-    font-size: 22px;
-    display: flex;
+  color: #43425d;
+  margin-bottom: 15px;
+  font-size: 22px;
+  display: flex;
 }
 
 .div-title h1 {
-    font-weight: bold;
+  font-weight: bold;
+}
+
+.container-radio-button.text-center {
+  padding: 0px;
+}
+
+.label-input-file {
+  display: flex;
+  width: 100%;
+}
+
+.label-input-file * {
+  cursor: pointer;
+}
+
+.label-input-file input {
+  margin-right: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
