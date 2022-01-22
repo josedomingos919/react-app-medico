@@ -1,14 +1,16 @@
+import Select from 'react-select'
 import { useCallback, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import Select from 'react-select'
-
-import { AppContent, Loader } from '../../components'
 import { useNavigate } from 'react-router-dom'
 
-import './style.css'
+import { AppContent, Loader } from '../../components'
 import { periodData } from './util'
 import { isEmpty } from '../../utilities/functions'
+import { services } from './../../service'
 import { UpIcon } from './components/upIcon'
+
+import './style.css'
+import { toast } from 'react-toastify'
 
 export function AddConsultation() {
   const { id: userId } = useParams()
@@ -41,13 +43,15 @@ export function AddConsultation() {
   ])
   const [formData, __setFormData] = useState({
     token: '',
-    name: '',
-    cellphone: '',
-    email: '',
+    user_name: '',
+    user_cellphone: '',
+    user_mail: '',
     address: 1,
     plan: 1,
     period: '',
   })
+  const [userData, setUserData] = useState(null)
+  const [waitingToken, setWaitingToken] = useState(true)
 
   const [image, setImage] = useState(null)
   const [imageName, setImageName] = useState('')
@@ -70,6 +74,63 @@ export function AddConsultation() {
   }, [])
 
   useEffect(() => {}, [])
+
+  useEffect(() => {
+    if (!isEmpty(userData)) {
+      setFormData('user_name', userData?.user_name)
+      setFormData('user_cellphone', userData?.user_cellphone)
+      setFormData('user_mail', userData?.user_mail)
+    }
+  }, [userData, setFormData])
+
+  const getUserAddress = useCallback(async () => {
+    if (userData?.user_id) {
+      setAddressData([])
+
+      const response = await services.user.getAddress(userData?.user_id)
+      console.log('adress=> ', response)
+
+      if (response?.data?.success) {
+        if (isEmpty(response?.data?.payload))
+          toast.warning('Nenhum endereço encontrado, pode criar um!')
+        else setAddressData(response?.data?.payload)
+      } else {
+        setWaitingToken(false)
+
+        toast.error('Erro ao carregar os endereços do usário!')
+      }
+    }
+  }, [userData?.user_id])
+
+  useEffect(() => {
+    getUserAddress()
+  }, [userData, getUserAddress])
+
+  const handleChangeToken = useCallback(
+    async (token) => {
+      if (!token) {
+        toast.warning('Não digitou o token!!')
+        return
+      }
+
+      setUserData({})
+
+      const response = await services.auth.getUserInfoByAccessToken(token)
+      console.log('response=> ', response)
+
+      if (response?.data?.success) {
+        setUserData(response?.data?.payload)
+        setWaitingToken(true)
+
+        toast.success('Usuário encontrado com sucesso!')
+      } else {
+        setWaitingToken(false)
+
+        toast.error('Nenhum usuário encontrado!')
+      }
+    },
+    [setWaitingToken, setUserData],
+  )
 
   return (
     <AppContent activePath="/dashboard/colaborators">
@@ -99,12 +160,15 @@ export function AddConsultation() {
                     type="text"
                     className="registerInput"
                     placeholder="Digite o token"
+                    onBlur={(e) => handleChangeToken(e?.target?.value)}
                   />
                   <span className="span-error"></span>
                 </div>
                 <div className="col-lg-3 my-3 my-lg-0">
                   <input
-                    disabled={true}
+                    value={formData?.user_name}
+                    onChange={(e) => setFormData('user_name', e?.target?.value)}
+                    disabled={waitingToken}
                     className="registerInput"
                     type="text"
                     placeholder="Nome"
@@ -113,25 +177,29 @@ export function AddConsultation() {
                 </div>
                 <div className="col-lg-3">
                   <input
-                    disabled={true}
+                    value={formData?.user_cellphone}
+                    onChange={(e) =>
+                      setFormData('user_cellphone', e?.target?.value)
+                    }
+                    disabled={waitingToken}
                     className="registerInput"
-                    type="number"
+                    type="text"
                     placeholder="Telefone"
                   />
                   <span className="span-error"></span>
                 </div>
 
-                {!userId && (
-                  <div className="col-lg-3">
-                    <input
-                      disabled={true}
-                      className="registerInput"
-                      type="email"
-                      placeholder="Email"
-                    />
-                    <span className="span-error"></span>
-                  </div>
-                )}
+                <div className="col-lg-3">
+                  <input
+                    disabled={waitingToken}
+                    value={formData?.user_mail}
+                    onChange={(e) => setFormData('user_mail', e?.target?.value)}
+                    className="registerInput"
+                    type="email"
+                    placeholder="Email"
+                  />
+                  <span className="span-error"></span>
+                </div>
               </div>
             </div>
 

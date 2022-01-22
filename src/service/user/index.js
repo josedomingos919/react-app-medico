@@ -1,9 +1,9 @@
 import { api } from './../api'
 
-export function add(data = {}) {
+export function getAddress(userId = '') {
   try {
     return api()
-      .post('exame', data)
+      .get(`user/${userId}/address`)
       .catch((error) => console.log(error))
   } catch (error) {
     console.log('error=> ', error)
@@ -11,16 +11,10 @@ export function add(data = {}) {
   }
 }
 
-export function upload(data = {}) {
-  const form = new FormData()
-
-  Object.keys(data).forEach((key) => form.append(key, data[key]))
-
+export function addAddress(data = {}) {
   try {
     return api()
-      .post('exame/upload', form, {
-        headers: {},
-      })
+      .post('user/address/add', data)
       .catch((error) => console.log(error))
   } catch (error) {
     console.log('error=> ', error)
@@ -28,10 +22,10 @@ export function upload(data = {}) {
   }
 }
 
-export function schedule(data = {}) {
+export function getPlan(userId = '') {
   try {
     return api()
-      .post('exame/schedule', data)
+      .get(`user/${userId}/plan`)
       .catch((error) => console.log(error))
   } catch (error) {
     console.log('error=> ', error)
@@ -39,21 +33,10 @@ export function schedule(data = {}) {
   }
 }
 
-export function get() {
+export function addAddPlan(data = {}) {
   try {
     return api()
-      .get('exame/list')
-      .catch((error) => console.log(error))
-  } catch (error) {
-    console.log('error=> ', error)
-    return error
-  }
-}
-
-export function getUploadDocumentType() {
-  try {
-    return api()
-      .get(`exame/upload/document-type`)
+      .post('user/plan', data)
       .catch((error) => console.log(error))
   } catch (error) {
     console.log('error=> ', error)
