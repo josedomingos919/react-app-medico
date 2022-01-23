@@ -1,5 +1,5 @@
 import Select from 'react-select'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useState, useRef } from 'react'
 import { useParams } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 
@@ -11,12 +11,12 @@ import { UpIcon } from './components/upIcon'
 import { toast } from 'react-toastify'
 
 import './style.css'
-import { formatData } from '../consultation/util'
+import { ModalAddAddress } from './components/addAddress'
 
 export function AddConsultation() {
   const { id: userId } = useParams()
   const navigate = useNavigate()
-
+  const modalControlRef = useRef()
   const [canValidate, setCanValidate] = useState(false)
   const [isLoadingAddress, setIsLoadingAddress] = useState(false)
   const [isLoadingPlan, setIsLoadingPlan] = useState(false)
@@ -103,7 +103,7 @@ export function AddConsultation() {
   }
 
   const handleAddNewAddress = useCallback(() => {
-    alert('novo endereco')
+    modalControlRef?.current?.click()
   }, [])
 
   const handleChangeToken = useCallback(
@@ -201,9 +201,14 @@ export function AddConsultation() {
     if (formData?.completedConsultation && formData?.completedUpload)
       navigate('/dashboard/consultas')
   }, [formData])
-
+ 
   return (
     <AppContent activePath="/dashboard/colaborators">
+      <ModalAddAddress
+        userId={userData?.user_id}
+        openAddressRef={modalControlRef}
+      />
+
       <div className=" registerMedi odd">
         <div className="row odd">
           <div className="col-6">

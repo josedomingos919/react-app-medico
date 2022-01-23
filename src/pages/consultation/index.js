@@ -1,34 +1,33 @@
-import { useCallback, useEffect, useState } from "react";
-import { toast } from "react-toastify";
-import { AppContent, Table } from "../../components";
-import { useApp } from "../../context/app";
-import { services } from "../../service";
-import { getPagination } from "../../utilities/functions";
-import { formatData, tableData } from "./util";
+import { useCallback, useEffect, useState } from 'react'
+import { toast } from 'react-toastify'
+import { AppContent, Table } from '../../components'
+import { useApp } from '../../context/app'
+import { services } from '../../service'
+import { getPagination } from '../../utilities/functions'
+import { formatData, tableData } from './util'
 
 export function Consultation() {
-  const { medicalExameData, setMedicalExameData } = useApp();
-  const [isLoading, setIsLoading] = useState(false);
-  const [exams, setExams] = useState([]);
-  const [limit, setLimit] = useState(5);
-  const [page, setPage] = useState(1);
+  const { medicalExameData, setMedicalExameData } = useApp()
+  const [isLoading, setIsLoading] = useState(false)
+  const [exams, setExams] = useState([])
+  const [limit, setLimit] = useState(5)
+  const [page, setPage] = useState(1)
 
   const getMedicalExames = useCallback(async () => {
-    setIsLoading(true);
-    setExams([]);
+    setIsLoading(true)
+    setExams([])
 
     const responseData = await services.exame.schedule({
-      date: "2021-12-23 08:00:00",
-    });
+      date: '',
+    })
 
-    console.log("responseData ", responseData);
+    console.log('responseData ', responseData)
 
-    if (!responseData?.data?.success)
-      toast.error("Falha ao carregar os dados!");
-    else setExams(responseData?.data?.payload ?? []);
+    if (!responseData?.data?.success) toast.error('Falha ao carregar os dados!')
+    else setExams(responseData?.data?.payload ?? [])
 
-    setIsLoading(false);
-  }, [setExams, setIsLoading]);
+    setIsLoading(false)
+  }, [setExams, setIsLoading])
 
   useEffect(() => {
     setMedicalExameData(
@@ -36,13 +35,13 @@ export function Consultation() {
         data: exams,
         limit,
         page,
-      })
-    );
-  }, [exams, limit, page]);
+      }),
+    )
+  }, [exams, limit, page])
 
   useEffect(() => {
-    getMedicalExames();
-  }, [getMedicalExames]);
+    getMedicalExames()
+  }, [getMedicalExames])
 
   return (
     <AppContent>
@@ -61,5 +60,5 @@ export function Consultation() {
         optios={tableData.optios}
       />
     </AppContent>
-  );
+  )
 }
