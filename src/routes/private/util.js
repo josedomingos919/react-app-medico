@@ -3,6 +3,7 @@ import { AddConsultation } from '../../pages/addConsultation'
 import { AddMedication } from '../../pages/addMedication'
 import { AddPatient } from '../../pages/addPatient'
 import { AddTreatment } from '../../pages/addTreatment'
+import { PrintRequests } from '../../pages/requests/print'
 
 export const routes = [
   {
@@ -36,5 +37,9 @@ export const routes = [
   {
     path: '/dashboard/consultation/add',
     element: AddConsultation,
+  },
+  {
+    path: '/dashboard/requests/print',
+    element: PrintRequests,
   },
 ]

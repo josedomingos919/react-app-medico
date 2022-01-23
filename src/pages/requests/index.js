@@ -59,7 +59,7 @@ export function Requests() {
             name: csvInfo.name,
           })
         }
-        onExportPDF={() => printPdf('/dashboard/requests')}
+        onExportPDF={() => printPdf('/dashboard/requests/print')}
         page={page}
         limit={limit}
         totalData={requestData?.totalData}
