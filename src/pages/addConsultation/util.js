@@ -12,3 +12,10 @@ export const periodData = [
     value: 'Noite',
   },
 ]
+
+export const planInitialState = [
+  {
+    label: 'Particular',
+    value: 0,
+  },
+]

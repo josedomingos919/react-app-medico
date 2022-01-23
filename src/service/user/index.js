@@ -3,7 +3,7 @@ import { api } from './../api'
 export function getAddress(userId = '') {
   try {
     return api()
-      .get(`user/${userId}/address`)
+      .get(`user/${userId}/addresslist`)
       .catch((error) => console.log(error))
   } catch (error) {
     console.log('error=> ', error)
