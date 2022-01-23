@@ -7,6 +7,7 @@ import { PrintRequests } from '../../pages/requests/print'
 import { PrintPatients } from '../../pages/patients/print'
 import { PrintMedications } from '../../pages/medication/print'
 import { PrintConsultation } from '../../pages/consultation/print'
+import { PrintEmployees } from '../../pages/employees/print'
 
 export const routes = [
   {
@@ -56,5 +57,9 @@ export const routes = [
   {
     path: '/dashboard/consultation/print',
     element: PrintConsultation,
+  },
+  {
+    path: '/dashboard/employees/print',
+    element: PrintEmployees,
   },
 ]
