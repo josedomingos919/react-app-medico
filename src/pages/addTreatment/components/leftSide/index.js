@@ -1,110 +1,109 @@
-import { useCallback, useEffect, useRef, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import { Loader } from "../../../../components";
-import { services } from "../../../../service";
-import { baseURL } from "../../../../service/api/util";
-import { formatDate } from "../../../../utilities/functions";
+import { useCallback, useEffect, useRef, useState } from 'react'
+import { useParams, useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
+import { Loader } from '../../../../components'
+import { services } from '../../../../service'
+import { baseURL } from '../../../../service/api/util'
+import { formatDate } from '../../../../utilities/functions'
 
-import "../../style.css";
+import '../../style.css'
 
 export const LeftSide = () => {
-  const buttonCloseModal = useRef();
-  const navigate = useNavigate();
-  const { id: exame_id } = useParams();
+  const buttonCloseModal = useRef()
+  const navigate = useNavigate()
+  const { id: exame_id } = useParams()
 
-  const [error, setError] = useState("");
-  const [reason, setReason] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const [isLoadingReative, setIsLoadingReative] = useState(false);
-  const [exameData, setExameData] = useState([]);
-
-  console.log("exameData=> ", exameData);
+  const [error, setError] = useState('')
+  const [reason, setReason] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
+  const [isLoadingReative, setIsLoadingReative] = useState(false)
+  const [exameData, setExameData] = useState([])
 
   const handleRefused = useCallback(async () => {
-    setError("");
+    setError('')
 
     if (!reason) {
-      setError("*Campo obrigatório!");
-      return;
+      setError('*Campo obrigatório!')
+      return
     }
 
-    setIsLoading(true);
+    setIsLoading(true)
     const response = await services.waiting.refuse({
       exame_id,
       reason,
-    });
-    setIsLoading(false);
+    })
+    setIsLoading(false)
 
     if (response?.data?.success) {
-      toast.success("Tratamento recusado com sucesso!");
-      buttonCloseModal.current.click();
-      navigate("/dashboard/requests");
+      toast.success('Tratamento recusado com sucesso!')
+      buttonCloseModal.current.click()
+      navigate('/dashboard/requests')
     } else {
-      toast.error("Falha ao recusar o medicamentos!");
+      toast.error('Falha ao recusar o medicamentos!')
     }
-  }, [reason, setIsLoading, navigate, setError, exame_id]);
+  }, [reason, setIsLoading, navigate, setError, exame_id])
 
   const getExameInfo = useCallback(async () => {
-    const response = await services.waiting.getOne(exame_id);
-    console.log("response=> ", response);
+    const response = await services.waiting.getOne(exame_id)
+    console.log('response=> ', response)
     if (response?.data?.success) {
-      setExameData(response?.data?.payload ?? {});
+      setExameData(response?.data?.payload ?? {})
     } else {
-      toast.error("Falha informações do tratamento!");
+      toast.error('Falha informações do tratamento!')
     }
-  }, [setExameData, exame_id]);
+  }, [setExameData, exame_id])
 
   const reactTiveExame = useCallback(async () => {
-    setIsLoadingReative(true);
-    const response = await services.waiting.enable({ exame_id });
-    setIsLoadingReative(false);
+    setIsLoadingReative(true)
+    const response = await services.waiting.enable({ exame_id })
+    setIsLoadingReative(false)
 
     if (response?.data?.success) {
-      toast.success("Tratamento reativado com sucesso!!");
-      getExameInfo();
+      toast.success('Tratamento reativado com sucesso!!')
+      getExameInfo()
     } else {
-      toast.error("Falha ao reativar!");
+      toast.error('Falha ao reativar!')
     }
-  }, [getExameInfo, exame_id]);
+  }, [getExameInfo, exame_id])
 
   useEffect(() => {
-    getExameInfo();
-  }, [getExameInfo]);
+    getExameInfo()
+  }, [getExameInfo])
 
   return (
     <div className="col-3 left-side-menu">
       <div className="mb-5">
         <h2 className="green-text mb-2">Dados da solicitação</h2>
         <p className="dark-text">
-          Nome: {exameData?.user?.user_name ?? ""}
+          Nome: {exameData?.user?.user_name ?? ''}
           <br />
-          Email: {exameData?.user?.user_mail ?? ""}
+          Email: {exameData?.user?.user_mail ?? ''}
           <br />
-          Telefone: {exameData?.user?.user_cellphone ?? ""}
+          Telefone: {exameData?.user?.user_cellphone ?? ''}
         </p>
       </div>
       <div className="mb-5">
         <h2 className="green-text mb-2">Convênio</h2>
-        <p className="dark-text">Plano: {exameData?.plan?.name_plan ?? ""} </p>
+        <p className="dark-text">Plano: {exameData?.plan?.name_plan ?? ''} </p>
       </div>
       <div className="mb-5">
         <h2 className="green-text mb-2">Exames e Reituários</h2>
         <p className="dark-text">
-          {exameData?.uploads?.map(({ description, url_image = "" }) => (
-            <>
-              {description}
-              <br></br>
-              <a
-                rel="noreferrer"
-                target="_blank"
-                className="light-green"
-                href={`${baseURL}${url_image}`}
-              >
-                {url_image.substring(url_image.lastIndexOf("/") + 1)}
-              </a>
-            </>
-          ))}
+          {Array.isArray(exameData?.uploads) &&
+            exameData?.uploads?.map(({ description, url_image = '' }) => (
+              <>
+                {description}
+                <br></br>
+                <a
+                  rel="noreferrer"
+                  target="_blank"
+                  className="light-green"
+                  href={`${baseURL}${url_image}`}
+                >
+                  {url_image.substring(url_image.lastIndexOf('/') + 1)}
+                </a>
+              </>
+            ))}
         </p>
       </div>
       <div className="mb-5">
@@ -112,28 +111,28 @@ export const LeftSide = () => {
         <p className="dark-text">
           {exameData?.address
             ? `${exameData?.address?.city}, ${exameData?.address?.neighborhood}, ${exameData?.address?.address},  ${exameData?.address?.complement}`
-            : ""}
+            : ''}
         </p>
       </div>
       <div className="mb-5">
         <h2 className="green-text mb-2">Informações Adicionais</h2>
         <p className="dark-text">
-          Périodo de preferencia: {exameData?.preference ?? ""}{" "}
+          Périodo de preferencia: {exameData?.preference ?? ''}{' '}
         </p>
         <p className="dark-text">
-          Data do priméiro período:{" "}
-          {exameData?.date_start ? formatDate(exameData?.date_start) : ""}
+          Data do priméiro período:{' '}
+          {exameData?.date_start ? formatDate(exameData?.date_start) : ''}
         </p>
       </div>
       <div className="mb-5">
         {exameData?.status_name ? (
-          exameData?.status_name === "Recusado" ? (
+          exameData?.status_name === 'Recusado' ? (
             <button
               onClick={() => reactTiveExame()}
               type="button"
               class="btn btn-success"
             >
-              {isLoadingReative ? <Loader /> : "Reativar"}
+              {isLoadingReative ? <Loader /> : 'Reativar'}
             </button>
           ) : (
             <button
@@ -141,8 +140,8 @@ export const LeftSide = () => {
               data-toggle="modal"
               data-target="#exampleModal"
               style={{
-                border: "none",
-                background: "#dc4245",
+                border: 'none',
+                background: '#dc4245',
               }}
               className="btn btn-danger"
             >
@@ -206,7 +205,7 @@ export const LeftSide = () => {
                   type="button"
                   class="btn btn-danger"
                 >
-                  {isLoading ? <Loader /> : "Recusar"}
+                  {isLoading ? <Loader /> : 'Recusar'}
                 </button>
               </div>
             </div>
@@ -214,5 +213,5 @@ export const LeftSide = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
