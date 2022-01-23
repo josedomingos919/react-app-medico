@@ -53,3 +53,8 @@
   display: flex;
   justify-content: space-between;
 }
+
+.tableLinkTab,
+.tableLinkTab * {
+  cursor: pointer;
+}
