@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from 'react'
 import { services } from '../../service'
 import { formatDate } from '../../utilities/functions'
 import { tableData } from './util'
+import { Logo } from './../../assets'
 
 export function PrintRequests() {
   const [requests, setRequests] = useState([])
@@ -28,6 +29,15 @@ export function PrintRequests() {
 
   return (
     <div className="p-5">
+      <div className="d-flex flex-row justify-content-center mb-3">
+        <img
+          style={{
+            width: 180,
+          }}
+          src={Logo}
+          alt="Logo"
+        />
+      </div>
       <h2 className="mb-4 text-center">{tableData.title}</h2>
       <table className="table">
         <thead>

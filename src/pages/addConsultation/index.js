@@ -201,9 +201,9 @@ export function AddConsultation() {
     if (formData?.completedConsultation && formData?.completedUpload)
       navigate('/dashboard/consultas')
   }, [formData])
- 
+
   return (
-    <AppContent activePath="/dashboard/colaborators">
+    <AppContent activePath="/dashboard/consultas">
       <ModalAddAddress
         userId={userData?.user_id}
         openAddressRef={modalControlRef}
