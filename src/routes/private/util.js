@@ -6,6 +6,7 @@ import { AddTreatment } from '../../pages/addTreatment'
 import { PrintRequests } from '../../pages/requests/print'
 import { PrintPatients } from '../../pages/patients/print'
 import { PrintMedications } from '../../pages/medication/print'
+import { PrintConsultation } from '../../pages/consultation/print'
 
 export const routes = [
   {
@@ -51,5 +52,9 @@ export const routes = [
   {
     path: '/dashboard/medications/print',
     element: PrintMedications,
+  },
+  {
+    path: '/dashboard/consultation/print',
+    element: PrintConsultation,
   },
 ]

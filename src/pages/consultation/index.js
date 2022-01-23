@@ -3,8 +3,10 @@ import { toast } from 'react-toastify'
 import { AppContent, Table } from '../../components'
 import { useApp } from '../../context/app'
 import { services } from '../../service'
+import { generateCsvLink, generateXlsLink } from '../../utilities/csv'
 import { getPagination } from '../../utilities/functions'
-import { formatData, tableData } from './util'
+import { printPdf } from '../../utilities/pdf'
+import { csvInfo, formatData, formatForCSV, tableData } from './util'
 
 export function Consultation() {
   const { medicalExameData, setMedicalExameData } = useApp()
@@ -46,6 +48,21 @@ export function Consultation() {
   return (
     <AppContent>
       <Table
+        onExportCSV={() =>
+          generateCsvLink({
+            data: formatForCSV(exams),
+            header: csvInfo.header,
+            name: csvInfo.name,
+          })
+        }
+        onExportXLS={() =>
+          generateXlsLink({
+            data: formatForCSV(exams),
+            header: csvInfo.header,
+            name: csvInfo.name,
+          })
+        }
+        onExportPDF={() => printPdf('/dashboard/consultation/print')}
         page={page}
         limit={limit}
         isLoading={isLoading}

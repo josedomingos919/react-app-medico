@@ -31,9 +31,6 @@ export const tableData = {
     },
   ],
   optios: {
-    edit: {
-      label: 'Editar',
-    },
     add: {
       label: 'Nova Consulta',
       path: '/dashboard/consultation/add',
@@ -53,3 +50,27 @@ export const formatData = (data = []) => {
     date_start: formatDate(item?.date_start),
   }))
 }
+
+export const csvInfo = {
+  header: tableData.fields.map(({ label }) => label),
+  name: 'consultas',
+}
+
+export const formatForCSV = (data = []) =>
+  data.map(
+    ({
+      exame_id,
+      patient_name,
+      equipe_name,
+      date_input,
+      medicamento,
+      status_name,
+    }) => [
+      exame_id,
+      patient_name,
+      equipe_name,
+      date_input ? formatDate(date_input) : '',
+      medicamento,
+      status_name,
+    ],
+  )
