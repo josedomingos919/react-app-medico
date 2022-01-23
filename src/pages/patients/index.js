@@ -1,60 +1,61 @@
-import { useCallback, useEffect, useState } from "react";
-import { confirmAlert } from "react-confirm-alert";
-import { toast } from "react-toastify";
+import { useCallback, useEffect, useState } from 'react'
+import { confirmAlert } from 'react-confirm-alert'
+import { toast } from 'react-toastify'
 
-import { AppContent, Table } from "../../components";
-import { useApp } from "../../context/app";
-import { services } from "../../service";
-import { getPagination } from "../../utilities/functions";
-import { formatData, tableData } from "./util";
+import { AppContent, Table } from '../../components'
+import { useApp } from '../../context/app'
+import { services } from '../../service'
+import { generateCsvLink, generateXlsLink } from '../../utilities/csv'
+import { getPagination } from '../../utilities/functions'
+import { printPdf } from '../../utilities/pdf'
+import { csvInfo, formatData, tableData, formatForCSV } from './util'
 
 export function Patient() {
-  const { patientData, setPatientData } = useApp();
-  const [patients, setPatients] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(5);
+  const { patientData, setPatientData } = useApp()
+  const [patients, setPatients] = useState([])
+  const [isLoading, setIsLoading] = useState(false)
+  const [page, setPage] = useState(1)
+  const [limit, setLimit] = useState(5)
 
   const getPatients = useCallback(async () => {
-    setIsLoading(true);
-    setPatientData({});
+    setIsLoading(true)
+    setPatientData({})
 
-    const responseData = await services.patient.get();
+    const responseData = await services.patient.get()
 
-    if (!responseData?.data?.success)
-      toast.error("Falha ao carregar os dados!");
-    else setPatients(responseData?.data?.payload ?? []);
+    if (!responseData?.data?.success) toast.error('Falha ao carregar os dados!')
+    else setPatients(responseData?.data?.payload ?? [])
 
-    setIsLoading(false);
-  }, [setPatientData, setIsLoading]);
+    setIsLoading(false)
+  }, [setPatientData, setIsLoading])
 
   const handleDelete = useCallback(
-    ({ user_id = "", user_name = "" }) => {
+    ({ user_id = '', user_name = '' }) => {
       confirmAlert({
-        title: "Atenção",
+        title: 'Atenção',
         message: `Está presta a eliminar um paciente: '${user_name}' ?`,
         buttons: [
           {
-            label: "Sim",
+            label: 'Sim',
             onClick: async () => {
-              const response = await services.patient.destroy({ user_id });
+              const response = await services.patient.destroy({ user_id })
 
               if (response?.data?.success) {
-                toast.success("Paciente eliminado com sucesso!");
-                getPatients();
+                toast.success('Paciente eliminado com sucesso!')
+                getPatients()
               } else {
-                toast.error("Falha ao eliminar o paciente!");
+                toast.error('Falha ao eliminar o paciente!')
               }
             },
           },
           {
-            label: "Não",
+            label: 'Não',
           },
         ],
-      });
+      })
     },
-    [getPatients]
-  );
+    [getPatients],
+  )
 
   useEffect(() => {
     setPatientData(
@@ -62,17 +63,32 @@ export function Patient() {
         data: patients,
         limit,
         page,
-      })
-    );
-  }, [patients, page, limit]);
+      }),
+    )
+  }, [patients, page, limit])
 
   useEffect(() => {
-    getPatients();
-  }, [getPatients]);
+    getPatients()
+  }, [getPatients])
 
   return (
     <AppContent>
       <Table
+        onExportCSV={() =>
+          generateCsvLink({
+            data: formatForCSV(patients),
+            header: csvInfo.header,
+            name: csvInfo.name,
+          })
+        }
+        onExportXLS={() =>
+          generateXlsLink({
+            data: formatForCSV(patients),
+            header: csvInfo.header,
+            name: csvInfo.name,
+          })
+        }
+        onExportPDF={() => printPdf('/dashboard/patients/print')}
         page={page}
         limit={limit}
         onChangeLimit={setLimit}
@@ -88,5 +104,5 @@ export function Patient() {
         onDelete={handleDelete}
       />
     </AppContent>
-  );
+  )
 }
