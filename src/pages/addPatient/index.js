@@ -1,20 +1,20 @@
 import { useCallback, useEffect, useState } from "react";
+import { MaskedInput } from 'react-hook-mask';
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { useParams } from "react-router-dom";
-
 import { AppContent, Loader } from "../../components";
 import { services } from "../../service";
-import {} from "./util";
 import { validation } from "./validation";
-import { isEmpty } from "../../utilities/functions";
+import { getPhoneMask, isEmpty } from "../../utilities/functions";
 import { useNavigate } from "react-router-dom";
 
 export function AddPatient() {
   const { id: userId } = useParams();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState();
-
+  const [cellphone, setCellphone] = useState()
+ 
   const {
     register,
     handleSubmit,
@@ -117,12 +117,12 @@ export function AddPatient() {
                 <span className="span-error">{errors?.email?.message}</span>
               </div>
               <div className="col-lg-4">
-                <input
-                  className="registerInput"
-                  type="number"
-                  {...register("cellphone", validation.cellphone)}
+                <MaskedInput
                   placeholder="Telefone"
-                />
+                  className="registerInput"
+                  maskGenerator={getPhoneMask()}
+                  {...register("cellphone", validation.cellphone)} 
+                /> 
                 <span className="span-error">{errors?.cellphone?.message}</span>
               </div>
 

@@ -30,8 +30,8 @@ export const validation = {
       message: "*Campo telefone é obrigatório!",
     },
     minLength: {
-      value: 9,
-      message: "*Pelomenos 9 caractéres!",
+      value: 11,
+      message: "*Pelomenos 11 caractéres!",
     },
   },
   password: {

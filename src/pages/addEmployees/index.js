@@ -10,10 +10,12 @@ import {
   getDayWeek,
   getUserProfileValue,
   getUserProfileValueByString,
+  validateDayWeeks,
 } from "./util";
 import { validateInput, validation } from "./validation";
-import { isEmpty } from "../../utilities/functions";
+import { getPhoneMask, isEmpty } from "../../utilities/functions";
 import { useNavigate } from "react-router-dom";
+import { MaskedInput } from "react-hook-mask";
 
 export function AddEmployees() {
   const { id: userId } = useParams();
@@ -58,12 +60,12 @@ export function AddEmployees() {
     let doctorsResponse = {};
     setErrosDayWeek({});
 
-    /*
+   
     const validationResponse = validateDayWeeks(dayWeeks);
     if (validationResponse) {
       setErrosDayWeek(validationResponse);
       return;
-    } */
+    } 
 
     data.user_perfil = getUserProfileValue(data.user_perfil);
     data.day_weeks = dayWeeks;
@@ -162,12 +164,12 @@ export function AddEmployees() {
                 </span>
               </div>
               <div className="col-lg-3">
-                <input
+                <MaskedInput 
                   className="registerInput"
-                  type="number"
+                  maskGenerator={getPhoneMask()}   
                   {...register("user_cellphone", validation.user_cellphone)}
                   placeholder="Telefone"
-                />
+                />   
                 <span className="span-error">
                   {validateInput("user_cellphone", errors?.user_cellphone)}
                 </span>

@@ -44,9 +44,13 @@ export const validateDayWeeks = (data = []) => {
   data.forEach(({ day_week, time_start, time_end }) => {
     const obj = {};
 
-    if (isEmpty(time_start)) obj.time_start = "*Obrigatório!";
+    //if (isEmpty(time_start)) obj.time_start = "*Obrigatório!";
+    //if (isEmpty(time_end)) obj.time_end = "*Obrigatório!";
 
-    if (isEmpty(time_end)) obj.time_end = "*Obrigatório!";
+    if(new Date(`2001-02-10 ${ time_start}`) >= new Date(`2001-02-10 ${ time_end}`)){
+      obj.time_start = "*Deve ser menor!";
+      obj.time_end = "*Deve ser maior!";
+    }
 
     if (!isEmpty(obj)) erros[day_week] = obj;
   });

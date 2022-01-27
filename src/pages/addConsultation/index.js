@@ -5,13 +5,14 @@ import { useNavigate } from 'react-router-dom'
 
 import { AppContent, Loader } from '../../components'
 import { periodData, planInitialState } from './util'
-import { isEmpty } from '../../utilities/functions'
+import { getPhoneMask, isEmpty } from '../../utilities/functions'
 import { services } from './../../service'
 import { UpIcon } from './components/upIcon'
 import { toast } from 'react-toastify'
 
 import './style.css'
 import { ModalAddAddress } from './components/addAddress'
+import { MaskedInput } from 'react-hook-mask'
 
 export function AddConsultation() {
   const { id: userId } = useParams()
@@ -253,17 +254,17 @@ export function AddConsultation() {
                     '*Campo nome é obrigatório!'}
                 </span>
               </div>
-              <div className="col-lg-3">
-                <input
-                  value={formData?.user_cellphone}
-                  onChange={(e) =>
-                    setFormData('user_cellphone', e?.target?.value)
-                  }
-                  disabled={waitingToken}
+              <div className="col-lg-3"> 
+                <MaskedInput
+                  placeholder="Telefone"
                   className="registerInput"
+                  maskGenerator={getPhoneMask()}  
+                  value={formData?.user_cellphone}
+                  onChange={(e)=>setFormData('user_cellphone', e )}
+                  disabled={waitingToken} 
                   type="text"
                   placeholder="Telefone"
-                />
+                />  
                 <span className="span-error">
                   {canValidate &&
                     isEmpty(formData?.user_cellphone) &&
