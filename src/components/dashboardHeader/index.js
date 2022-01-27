@@ -23,7 +23,7 @@ export function DashboardHeader() {
             aria-expanded="false"
           >
             {user?.payload?.user_name} <i className="fas fa-chevron-down"></i>
-            <img src={Avatar} alt="" />
+            {/*<img src={Avatar} alt="" />*/}
           </button>
           <div className="dropdown-menu" aria-labelledby="triggerId">
             <button onClick={() => singOut()} className="dropdown-item">

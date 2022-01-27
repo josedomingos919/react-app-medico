@@ -4,6 +4,8 @@ import { limits } from './util'
 import './style.css'
 
 export function Table({
+  search = '',
+  setSearch = '',
   fields = [],
   data = [],
   title = '',
@@ -111,6 +113,8 @@ export function Table({
             </select>
 
             <input
+              value={search}
+              onChange={(e)=>setSearch(e?.target?.value ?? '')}
               style={{
                 width: '100%',
               }}

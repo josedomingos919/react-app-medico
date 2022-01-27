@@ -41,9 +41,7 @@ export function Employees() {
 
   const handleDisabled = useCallback(
     ({ user_id = '', user_name = '' , user_status ='A', ...prps}) => {
-
-   
-
+ 
       confirmAlert({
         title: 'Atenção',
         message: `Está presta a  ${ user_status === 'A' ? 'desabilitar' : 'habilitar' } um colaborador: '${user_name}' ?`,
