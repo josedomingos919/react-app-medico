@@ -4,7 +4,7 @@ import { AppContent, Table } from '../../components'
 import { useApp } from '../../context/app'
 import { services } from '../../service'
 import { generateCsvLink, generateXlsLink } from '../../utilities/csv'
-import { getPagination } from '../../utilities/functions'
+import { containWord, getPagination } from '../../utilities/functions'
 import { printPdf } from '../../utilities/pdf'
 import { csvInfo, formatData, formatForCSV, tableData } from './util'
 
@@ -14,8 +14,8 @@ export function Requests() {
   const [isLoading, setIsLoading] = useState(false)
   const [limit, setLimit] = useState(5)
   const [page, setPage] = useState(1)
+  const [search, setSearch] = useState('')
 
-  console.log('requests=> ', requests)
   const getPatients = useCallback(async () => {
     setIsLoading(true)
     setRequests([])
@@ -29,6 +29,19 @@ export function Requests() {
   }, [setRequestData, setIsLoading])
 
   useEffect(() => {
+    if (search) {
+      setRequestData(
+        getPagination({
+          data: requests.filter(({ user_name }) =>
+            containWord(user_name, search),
+          ),
+          limit,
+          page,
+        }),
+      )
+      return
+    }
+
     setRequestData(
       getPagination({
         data: requests,
@@ -36,7 +49,7 @@ export function Requests() {
         page,
       }),
     )
-  }, [requests, limit, page])
+  }, [search, requests, limit, page])
 
   useEffect(() => {
     getPatients()
@@ -72,6 +85,8 @@ export function Requests() {
         data={formatData(requestData?.data)}
         onChangeLimit={setLimit}
         onChangePage={setPage}
+        search={search}
+        setSearch={setSearch}
       />
     </AppContent>
   )

@@ -5,7 +5,7 @@ import { tableData, formatData, csvInfo, formatForCSV } from './util'
 import { useApp } from './../../context/app'
 import { toast } from 'react-toastify'
 import { confirmAlert } from 'react-confirm-alert'
-import { getPagination } from '../../utilities/functions'
+import { containWord, getPagination } from '../../utilities/functions'
 import { printPdf } from '../../utilities/pdf'
 import { generateCsvLink, generateXlsLink } from '../../utilities/csv'
 
@@ -15,6 +15,7 @@ export function Medication() {
   const [medications, setMedications] = useState([])
   const [limit, setLimit] = useState(5)
   const [page, setPage] = useState(1)
+  const [search, setSearch] = useState('')
 
   const getMedicines = useCallback(async () => {
     setIsLoading(true)
@@ -57,6 +58,20 @@ export function Medication() {
   )
 
   useEffect(() => {
+    if (search) {
+      setMedicineData(
+        getPagination({
+          data: medications.filter(({ medicamento }) =>
+            containWord(medicamento, search),
+          ),
+          limit,
+          page,
+        }),
+      )
+
+      return
+    }
+
     setMedicineData(
       getPagination({
         data: medications,
@@ -64,7 +79,7 @@ export function Medication() {
         page,
       }),
     )
-  }, [medications, limit, page])
+  }, [search, medications, limit, page])
 
   useEffect(() => {
     getMedicines()
@@ -101,6 +116,8 @@ export function Medication() {
         onDelete={handleDelete}
         onChangeLimit={setLimit}
         onChangePage={setPage}
+        search={search}
+        setSearch={setSearch}
       />
     </AppContent>
   )

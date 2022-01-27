@@ -5,7 +5,7 @@ import { AppContent, Table } from '../../components'
 import { useApp } from '../../context/app'
 import { services } from '../../service'
 import { generateCsvLink, generateXlsLink } from '../../utilities/csv'
-import { getPagination } from '../../utilities/functions'
+import { containWord, getPagination } from '../../utilities/functions'
 import { printPdf } from '../../utilities/pdf'
 import { csvInfo, formatData, formatForCSV, tableData } from './util'
 
@@ -15,6 +15,7 @@ export function Employees() {
   const [isLoading, setIsLoading] = useState(false)
   const [limit, setLimit] = useState(5)
   const [page, setPage] = useState(1)
+  const [search, setSearch] = useState('')
 
   const getEmployees = useCallback(async () => {
     setIsLoading(true)
@@ -30,6 +31,19 @@ export function Employees() {
   }, [setDoctors, setIsLoading])
 
   useEffect(() => {
+    if (search) {
+      setDoctorsData(
+        getPagination({
+          data: doctors.filter(({ user_name }) =>
+            containWord(user_name, search),
+          ),
+          limit,
+          page,
+        }),
+      )
+      return
+    }
+
     setDoctorsData(
       getPagination({
         data: doctors,
@@ -37,14 +51,15 @@ export function Employees() {
         page,
       }),
     )
-  }, [doctors, page, limit])
+  }, [search, doctors, page, limit])
 
   const handleDisabled = useCallback(
-    ({ user_id = '', user_name = '' , user_status ='A', ...prps}) => {
- 
+    ({ user_id = '', user_name = '', user_status = 'A', ...prps }) => {
       confirmAlert({
         title: 'Atenção',
-        message: `Está presta a  ${ user_status === 'A' ? 'desabilitar' : 'habilitar' } um colaborador: '${user_name}' ?`,
+        message: `Está presta a  ${
+          user_status === 'A' ? 'desabilitar' : 'habilitar'
+        } um colaborador: '${user_name}' ?`,
         buttons: [
           {
             label: 'Sim',
@@ -52,7 +67,11 @@ export function Employees() {
               const response = await services.doctors.disable({ user_id })
 
               if (response?.status === 200) {
-                toast.success(`${ user_status === 'A' ? 'Desabilitado' : 'Habilitado' } com sucesso!`)
+                toast.success(
+                  `${
+                    user_status === 'A' ? 'Desabilitado' : 'Habilitado'
+                  } com sucesso!`,
+                )
                 getEmployees()
               } else {
                 toast.error('Falha!, tente novamente.')
@@ -102,6 +121,8 @@ export function Employees() {
         onDelete={handleDisabled}
         onChangeLimit={setLimit}
         onChangePage={setPage}
+        search={search}
+        setSearch={setSearch}
       />
     </AppContent>
   )
