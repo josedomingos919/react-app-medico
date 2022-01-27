@@ -33,7 +33,7 @@ export function Patient() {
     ({ user_id = '', user_name = '' }) => {
       confirmAlert({
         title: 'Atenção',
-        message: `Está presta a eliminar um paciente: '${user_name}' ?`,
+        message: `Está presta a desabilitar um paciente: '${user_name}' ?`,
         buttons: [
           {
             label: 'Sim',

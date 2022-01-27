@@ -40,10 +40,13 @@ export function Employees() {
   }, [doctors, page, limit])
 
   const handleDisabled = useCallback(
-    ({ user_id = '', user_name = '' }) => {
+    ({ user_id = '', user_name = '' , user_status ='A', ...prps}) => {
+
+   
+
       confirmAlert({
         title: 'Atenção',
-        message: `Está presta a desabilitar um colaborador: '${user_name}' ?`,
+        message: `Está presta a  ${ user_status === 'A' ? 'desabilitar' : 'habilitar' } um colaborador: '${user_name}' ?`,
         buttons: [
           {
             label: 'Sim',
@@ -51,10 +54,10 @@ export function Employees() {
               const response = await services.doctors.disable({ user_id })
 
               if (response?.status === 200) {
-                toast.success('Desabilitado com sucesso!')
+                toast.success(`${ user_status === 'A' ? 'Desabilitado' : 'Habilitado' } com sucesso!`)
                 getEmployees()
               } else {
-                toast.error('Falha ao desabilitar!')
+                toast.error('Falha!, tente novamente.')
               }
             },
           },

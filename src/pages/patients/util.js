@@ -33,10 +33,11 @@ export const tableData = {
       path: '/dashboard/patient/add',
     },
     edit: {
-      label: 'Editar',
+      label: 'Editar', 
     },
     delete: {
-      label: 'Eliminar',
+      label: 'Desabilitar',
+      iconName: 'fa fa-ban',
     },
   },
 }
