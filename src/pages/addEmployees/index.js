@@ -181,7 +181,7 @@ export function AddEmployees() {
                     className="registerInput"
                     type="password"
                     {...register("user_password", validation.user_password)}
-                    placeholder="Password"
+                    placeholder="Senha"
                   />
                   <span className="span-error">
                     {validateInput("user_password", errors?.user_password)}
@@ -196,7 +196,7 @@ export function AddEmployees() {
               <div className="col-lg-2">
                 <label className="reisterLabel">Segunda-feira</label>
               </div>
-              <div className="col-lg-1 px-0">
+              <div className="col-lg-2 px-0">
                 <input
                   className="registerInput"
                   type="time"
@@ -213,7 +213,7 @@ export function AddEmployees() {
               <div className="col-lg-1">
                 <div className="smText">até</div>
               </div>
-              <div className="col-lg-1 px-0">
+              <div className="col-lg-2 px-0">
                 <input
                   className="registerInput"
                   onChange={(e) =>
@@ -232,7 +232,7 @@ export function AddEmployees() {
               <div className="col-lg-2">
                 <label className="reisterLabel">Terça-feira</label>
               </div>
-              <div className="col-lg-1 px-0">
+              <div className="col-lg-2 px-0">
                 <input
                   className="registerInput"
                   type="time"
@@ -249,7 +249,7 @@ export function AddEmployees() {
               <div className="col-lg-1">
                 <div className="smText">até</div>
               </div>
-              <div className="col-lg-1 px-0">
+              <div className="col-lg-2 px-0">
                 <input
                   className="registerInput"
                   type="time"
@@ -268,7 +268,7 @@ export function AddEmployees() {
               <div className="col-lg-2">
                 <label className="reisterLabel">Quarta-feira</label>
               </div>
-              <div className="col-lg-1 px-0">
+              <div className="col-lg-2 px-0">
                 <input
                   className="registerInput"
                   type="time"
@@ -285,7 +285,7 @@ export function AddEmployees() {
               <div className="col-lg-1">
                 <div className="smText">até</div>
               </div>
-              <div className="col-lg-1 px-0">
+              <div className="col-lg-2 px-0">
                 <input
                   className="registerInput"
                   type="time"
@@ -304,7 +304,7 @@ export function AddEmployees() {
               <div className="col-lg-2">
                 <label className="reisterLabel">Quinta-feira</label>
               </div>
-              <div className="col-lg-1 px-0">
+              <div className="col-lg-2 px-0">
                 <input
                   className="registerInput"
                   type="time"
@@ -321,7 +321,7 @@ export function AddEmployees() {
               <div className="col-lg-1">
                 <div className="smText">até</div>
               </div>
-              <div className="col-lg-1 px-0">
+              <div className="col-lg-2 px-0">
                 <input
                   className="registerInput"
                   type="time"
@@ -340,7 +340,7 @@ export function AddEmployees() {
               <div className="col-lg-2">
                 <label className="reisterLabel">Sexta-feira</label>
               </div>
-              <div className="col-lg-1 px-0">
+              <div className="col-lg-2 px-0">
                 <input
                   className="registerInput"
                   type="time"
@@ -357,7 +357,7 @@ export function AddEmployees() {
               <div className="col-lg-1">
                 <div className="smText">até</div>
               </div>
-              <div className="col-lg-1 px-0">
+              <div className="col-lg-2 px-0">
                 <input
                   className="registerInput"
                   type="time"
@@ -376,7 +376,7 @@ export function AddEmployees() {
               <div className="col-lg-2">
                 <label className="reisterLabel">Sábado</label>
               </div>
-              <div className="col-lg-1 px-0">
+              <div className="col-lg-2 px-0">
                 <input
                   className="registerInput"
                   type="time"
@@ -393,7 +393,7 @@ export function AddEmployees() {
               <div className="col-lg-1">
                 <div className="smText">até</div>
               </div>
-              <div className="col-lg-1 px-lg-0">
+              <div className="col-lg-2 px-lg-0">
                 <input
                   className="registerInput"
                   type="time"
@@ -412,7 +412,7 @@ export function AddEmployees() {
               <div className="col-lg-2">
                 <label className="reisterLabel">Domingo</label>
               </div>
-              <div className="col-lg-1 px-0">
+              <div className="col-lg-2 px-0">
                 <input
                   className="registerInput"
                   type="time"
@@ -429,7 +429,7 @@ export function AddEmployees() {
               <div className="col-lg-1">
                 <div className="smText">até</div>
               </div>
-              <div className="col-lg-1 px-0">
+              <div className="col-lg-2 px-0">
                 <input
                   className="registerInput"
                   type="time"

@@ -151,7 +151,7 @@ export function AddPatient() {
                       className="registerInput"
                       type="password"
                       {...register("password", validation.password)}
-                      placeholder="Password"
+                      placeholder="Senha"
                     />
                     <span className="span-error">
                       {errors?.password?.message}
