@@ -2,8 +2,8 @@ import { Status } from '../../components'
 import { formatDate } from '../../utilities/functions'
 
 export const tableData = {
-  title: 'Visualizar os dados do recituário e exames',
-  subTitle: 'Verificar dados do recituário e exames',
+  title: 'Visualizar os dados do Receituário e Exames',
+  subTitle: 'Verificar dados do Receituário e Exames',
   fields: [
     {
       label: 'ID',

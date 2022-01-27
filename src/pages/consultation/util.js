@@ -26,7 +26,7 @@ export const tableData = {
       name: 'medicamento',
     },
     {
-      label: 'Estado',
+      label: 'Andamento',
       name: 'status_name',
     },
   ],
@@ -47,7 +47,7 @@ export const formatData = (data = []) => {
     ),
     name_plan: item?.plan?.name_plan,
     address_name: item?.address?.address ?? item.address,
-    date_start: formatDate(item?.date_start),
+    date_input:  item?.date_input ? new Date(item?.date_input).toLocaleString() : ''
   }))
 }
 
