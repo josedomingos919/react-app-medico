@@ -26,8 +26,12 @@ export const isEmpty = (val) => {
   }
 };
 
-export const formatDate = (stringDate = "") =>
-  new Date(stringDate).toLocaleString();
+export const formatDate = (stringDate = "") =>{
+  const date = new Date(stringDate).toLocaleDateString()
+
+  return date ===   'Invalid Date' ? '' : date ;
+}  
+
 
 export const getPagination = ({ data = [], limit = 5, page = 1 }) => {
   const startIndex = (page - 1) * limit;

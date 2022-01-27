@@ -36,6 +36,9 @@ export function Login() {
 
     setIsLoading(false);
 
+    console.log("loginResponse=> ", loginResponse)
+
+
     if (loginResponse?.status !== 200) {
       toast.error("Usuário ou senha não encontrado!");
       return;

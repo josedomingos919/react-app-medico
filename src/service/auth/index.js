@@ -3,7 +3,7 @@ import { api } from "../api";
 export const login = async (data = {}) => {
   try {
     return api()
-      .post("auth/login", data)
+      .post("dashboard/auth/login", data)
       .catch((error) => console.log(error));
   } catch (error) {
     console.log("error=> ", error);

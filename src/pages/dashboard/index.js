@@ -12,7 +12,7 @@ export function Dashboard() {
 
   const getSchedule = useCallback(async () => {
     const response = await services.exame.schedule({
-      date: '2021-12-23 08:00:00',
+      date: '',
     })
 
     if (response?.data?.success) {

@@ -75,7 +75,7 @@ export function AddMedication() {
         </div>
         <div className="tableContents">
           <div className="row">
-            <div className="col-lg-3">
+            <div className="col-lg-12">
               <input
                 className="registerInput"
                 type="text"
