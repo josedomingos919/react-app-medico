@@ -254,17 +254,17 @@ export function AddConsultation() {
                     '*Campo nome é obrigatório!'}
                 </span>
               </div>
-              <div className="col-lg-3"> 
+              <div className="col-lg-3">
                 <MaskedInput
                   placeholder="Telefone"
                   className="registerInput"
-                  maskGenerator={getPhoneMask()}  
+                  maskGenerator={getPhoneMask()}
                   value={formData?.user_cellphone}
-                  onChange={(e)=>setFormData('user_cellphone', e )}
-                  disabled={waitingToken} 
+                  onChange={(e) => setFormData('user_cellphone', e)}
+                  disabled={waitingToken}
                   type="text"
                   placeholder="Telefone"
-                />  
+                />
                 <span className="span-error">
                   {canValidate &&
                     isEmpty(formData?.user_cellphone) &&
@@ -318,7 +318,7 @@ export function AddConsultation() {
               <div className="col-lg-4 mt-3 mt-lg-0">
                 <div onClick={handleAddNewAddress} className="registerRadioBtn">
                   <label className="container-radio-button text-center">
-                    Adicionar novo endereço
+                    {userId ? 'Editar' : 'Adicionar'} novo endereço
                   </label>
                 </div>
               </div>
