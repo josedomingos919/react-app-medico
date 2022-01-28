@@ -15,14 +15,23 @@ export function Dashboard() {
       date: '',
     })
 
+    console.log('response=> ', response)
+
     if (response?.data?.success) {
       setSchedule(
         response?.data?.payload.map(
-          ({ medicamento, date_input, status_rgb }) => ({
-            title: medicamento,
+          ({
+            medicamento,
+            patient_name,
+            equipe_name,
+            doctor_name,
+            date_input,
+            user_rgb,
+          }) => ({
+            title: `${patient_name}-${equipe_name}-${doctor_name}-${medicamento}`,
             date: date_input,
-            backgroundColor: status_rgb,
-            borderColor: status_rgb,
+            backgroundColor: user_rgb,
+            borderColor: user_rgb,
           }),
         ) ?? [],
       )
@@ -32,8 +41,6 @@ export function Dashboard() {
   useEffect(() => {
     getSchedule()
   }, [getSchedule])
-
-  console.log('teste=> ', 2)
 
   return (
     <AppContent>
