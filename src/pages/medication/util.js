@@ -16,7 +16,7 @@ export const tableData = {
       label: 'Editar',
     },
     add: {
-      label: 'Nava Medicação',
+      label: 'Nova Medicação',
       path: '/dashboard/medication/add',
     },
     delete: {
