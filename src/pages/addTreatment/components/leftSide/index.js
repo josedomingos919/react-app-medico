@@ -45,7 +45,7 @@ export const LeftSide = () => {
 
   const getExameInfo = useCallback(async () => {
     const response = await services.waiting.getOne(exame_id)
-    console.log('response=> ', response)
+
     if (response?.data?.success) {
       setExameData(response?.data?.payload ?? {})
     } else {
@@ -70,7 +70,6 @@ export const LeftSide = () => {
     getExameInfo()
   }, [getExameInfo])
 
-  console.log('exameData?.plan?.name_plan=> ', exameData?.plan?.name_plan)
   return (
     <div className="col-3 left-side-menu">
       <div className="mb-5">

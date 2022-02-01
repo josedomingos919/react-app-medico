@@ -4,9 +4,10 @@ import { isEmpty } from '../../utilities/functions'
 import { Loader } from '../../components'
 import { services } from '../../service'
 import { toast } from 'react-toastify'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 
 export function AddMedication() {
+  const navigate = useNavigate()
   const { id: medicamentoId } = useParams()
   const [medicine, setMedicine] = useState('')
   const [error, setError] = useState('')
@@ -50,6 +51,7 @@ export function AddMedication() {
     toast.success('Medicação salva com sucesso!')
     setMedicine('')
     setIsLoading(false)
+    navigate('/dashboard/medication')
   }, [medicine, medicamentoId])
 
   useEffect(() => {
