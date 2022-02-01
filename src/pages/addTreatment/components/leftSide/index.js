@@ -88,14 +88,27 @@ export const LeftSide = () => {
         <p className="dark-text">
           Plano: {exameData?.plan?.name_plan ?? ''}
           <br />
-          Tipo: {exameData?.plan?.type_plan ?? ''}
-          <br />
-          Número do Cartão: {exameData?.plan?.card_number ?? ''}
-          <br />
-          Venci em:{' '}
-          {exameData?.plan?.venc_number
-            ? formatDate(exameData?.plan?.venc_number)
-            : ''}
+          {exameData?.plan?.type_plan && (
+            <>
+              {' '}
+              Tipo: {exameData?.plan?.type_plan ?? ''}
+              <br />
+            </>
+          )}
+          {exameData?.plan?.card_number && (
+            <>
+              Número do Cartão: {exameData?.plan?.card_number ?? ''}
+              <br />
+            </>
+          )}
+          {exameData?.plan?.venc_number && (
+            <>
+              Venci em:{' '}
+              {exameData?.plan?.venc_number
+                ? formatDate(exameData?.plan?.venc_number)
+                : ''}
+            </>
+          )}
         </p>
       </div>
       <div className="mb-5">
