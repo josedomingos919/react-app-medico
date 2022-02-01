@@ -131,7 +131,7 @@ export const LeftSide = () => {
         </p>
       </div>
       <div className="mb-5">
-        <h2 className="green-text mb-2">Endereço informádio</h2>
+        <h2 className="green-text mb-2">Endereço Informado</h2>
         <p className="dark-text">
           {exameData?.address
             ? `${exameData?.address?.city}, ${exameData?.address?.neighborhood}, ${exameData?.address?.address},  ${exameData?.address?.complement}`
