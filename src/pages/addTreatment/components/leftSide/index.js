@@ -70,6 +70,7 @@ export const LeftSide = () => {
     getExameInfo()
   }, [getExameInfo])
 
+  console.log('exameData?.plan?.name_plan=> ', exameData?.plan?.name_plan)
   return (
     <div className="col-3 left-side-menu">
       <div className="mb-5">
@@ -84,7 +85,18 @@ export const LeftSide = () => {
       </div>
       <div className="mb-5">
         <h2 className="green-text mb-2">Convênio</h2>
-        <p className="dark-text">Plano: {exameData?.plan?.name_plan ?? ''} </p>
+        <p className="dark-text">
+          Plano: {exameData?.plan?.name_plan ?? ''}
+          <br />
+          Tipo: {exameData?.plan?.type_plan ?? ''}
+          <br />
+          Número do Cartão: {exameData?.plan?.card_number ?? ''}
+          <br />
+          Venci em:{' '}
+          {exameData?.plan?.venc_number
+            ? formatDate(exameData?.plan?.venc_number)
+            : ''}
+        </p>
       </div>
       <div className="mb-5">
         <h2 className="green-text mb-2">Exames e Reituários</h2>
