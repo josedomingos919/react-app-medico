@@ -35,6 +35,10 @@ export const tableData = {
     },
   ],
   optios: {
+    add: {
+      label: 'Nova Consulta',
+      path: '/dashboard/consultation/add',
+    },
     edit: {
       label: 'Editar',
     },

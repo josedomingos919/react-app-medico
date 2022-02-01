@@ -30,12 +30,7 @@ export const tableData = {
       name: 'status_name',
     },
   ],
-  optios: {
-    add: {
-      label: 'Nova Consulta',
-      path: '/dashboard/consultation/add',
-    },
-  },
+  optios: {},
 }
 
 export const formatData = (data = []) => {
@@ -47,7 +42,9 @@ export const formatData = (data = []) => {
     ),
     name_plan: item?.plan?.name_plan,
     address_name: item?.address?.address ?? item.address,
-    date_input:  item?.date_input ? new Date(item?.date_input).toLocaleString() : ''
+    date_input: item?.date_input
+      ? new Date(item?.date_input).toLocaleString()
+      : '',
   }))
 }
 
