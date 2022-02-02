@@ -1,24 +1,27 @@
-import { useState, useMemo, useContext, createContext } from "react";
+import { useState, useMemo, useContext, createContext } from 'react'
 
-const AppContext = createContext();
+const AppContext = createContext()
 
 export function AppProvider({ children }) {
   //list
-  const [medicineData, setMedicineData] = useState({});
-  const [doctorsData, setDoctorsData] = useState({});
-  const [patientData, setPatientData] = useState({});
-  const [requestData, setRequestData] = useState({});
-  const [medicalExameData, setMedicalExameData] = useState({});
+  const [medicineData, setMedicineData] = useState({})
+  const [doctorsData, setDoctorsData] = useState({})
+  const [patientData, setPatientData] = useState({})
+  const [requestData, setRequestData] = useState({})
+  const [medicalExameData, setMedicalExameData] = useState({})
 
   //forms
-  const [medicines, setMedicines] = useState([]);
-  const [teams, setTeams] = useState([]);
-  const [doctors, setDoctors] = useState([]);
-  const [treatment, setTreatment] = useState([{}]);
-  const [treatmentError, setTreatmentError] = useState(false);
+  const [statusData, setStatusData] = useState([])
+  const [medicines, setMedicines] = useState([])
+  const [teams, setTeams] = useState([])
+  const [doctors, setDoctors] = useState([])
+  const [treatment, setTreatment] = useState([{}])
+  const [treatmentError, setTreatmentError] = useState(false)
 
   const providerValue = useMemo(
     () => ({
+      statusData,
+      setStatusData,
       treatment,
       setTreatment,
       doctors,
@@ -41,6 +44,8 @@ export function AppProvider({ children }) {
       setMedicalExameData,
     }),
     [
+      statusData,
+      setStatusData,
       treatment,
       setTreatment,
       doctors,
@@ -61,14 +66,14 @@ export function AppProvider({ children }) {
       setTreatmentError,
       medicalExameData,
       setMedicalExameData,
-    ]
-  );
+    ],
+  )
 
   return (
     <AppContext.Provider value={providerValue}>{children}</AppContext.Provider>
-  );
+  )
 }
 
 export function useApp() {
-  return useContext(AppContext);
+  return useContext(AppContext)
 }

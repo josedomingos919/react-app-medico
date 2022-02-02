@@ -1,6 +1,14 @@
 import { Status } from '../../components'
 import { formatDate } from '../../utilities/functions'
 
+export const initialFormData = {
+  date_input: '',
+  equipe_id: {},
+  doctor_id: {},
+  medicine_id: {},
+  status_id: {},
+}
+
 export const tableData = {
   title: 'Consulta em lista',
   subTitle: 'Verificar todas as consultas',
@@ -30,13 +38,17 @@ export const tableData = {
       name: 'status_name',
     },
   ],
-  optios: {},
+  optios: {
+    edit: {
+      label: 'Editar',
+    },
+  },
 }
 
 export const formatData = (data = []) => {
   return data.map((item) => ({
     ...item,
-    edit: `/dashboard/treatment/add/${item?.exame_id}`,
+    status_name_clone: item?.status_name,
     status_name: (
       <Status backgroundColor={item?.status_rgb} label={item?.status_name} />
     ),

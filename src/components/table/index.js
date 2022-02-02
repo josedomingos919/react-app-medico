@@ -18,6 +18,7 @@ export function Table({
   page = 0,
   totalData = 0,
   onDelete = () => {},
+  onEdit = () => {},
   onChangePage = () => {},
   onChangeLimit = () => {},
   onExportCSV = () => {},
@@ -114,7 +115,7 @@ export function Table({
 
             <input
               value={search}
-              onChange={(e)=>setSearch(e?.target?.value ?? '')}
+              onChange={(e) => setSearch(e?.target?.value ?? '')}
               style={{
                 width: '100%',
               }}
@@ -148,8 +149,11 @@ export function Table({
                   ))}
                   {edit ? (
                     <td>
-                      <a className="tableLink" href={item?.edit}>
-                        <i className={edit?.iconName ?? 'far fa-edit'}></i>
+                      <a className="tableLink edit" href={item?.edit}>
+                        <i
+                          onClick={() => onEdit(data?.[index])}
+                          className={edit?.iconName ?? 'far fa-edit'}
+                        ></i>
                       </a>
                     </td>
                   ) : (

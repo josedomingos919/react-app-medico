@@ -11,6 +11,17 @@ export function add(data = {}) {
   }
 }
 
+export function update(data = {}) {
+  try {
+    return api()
+      .post('exame/update', data)
+      .catch((error) => console.log(error))
+  } catch (error) {
+    console.log('error=> ', error)
+    return error
+  }
+}
+
 export function upload(data = {}) {
   const form = new FormData()
 
@@ -36,6 +47,17 @@ export function schedule(data = {}) {
   try {
     return api()
       .post('exame/schedule', data)
+      .catch((error) => console.log(error))
+  } catch (error) {
+    console.log('error=> ', error)
+    return error
+  }
+}
+
+export function getStatus() {
+  try {
+    return api()
+      .get('exame/list-status')
       .catch((error) => console.log(error))
   } catch (error) {
     console.log('error=> ', error)

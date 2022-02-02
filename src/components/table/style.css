@@ -54,6 +54,7 @@
   justify-content: space-between;
 }
 
+.tableLink.edit,
 .tableLinkTab,
 .tableLinkTab * {
   cursor: pointer;
