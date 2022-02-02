@@ -22,12 +22,12 @@ export const RightSide = () => {
         <Row key={index} index={index} />
       ))}
       <div className="footer-btn">
-        <button
+        {/* <button
           onClick={(e) => handleClick(e)}
           className="btn btn-success btn-add green"
         >
           +
-        </button>
+        </button> */}
 
         {treatment.length > 1 && (
           <button onClick={handleRemove} className="ml-3 btn btn-danger danger">
