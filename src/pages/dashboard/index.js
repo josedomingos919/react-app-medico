@@ -1,6 +1,22 @@
 import React, { useCallback, useEffect, useState } from 'react'
+
 import FullCalendar from '@fullcalendar/react' // must go before plugins
 import dayGridPlugin from '@fullcalendar/daygrid' // a plugin!
+import listPlugin from '@fullcalendar/list';
+import timeGridPlugin from '@fullcalendar/timegrid';
+
+/*
+import interactionPlugin from "@fullcalendar/interaction";
+import timeGridPlugin from "@fullcalendar/timegrid";
+import resourceTimeGridPlugin from "@fullcalendar/resource-timegrid";
+
+import "@fullcalendar/core/main.css";
+import "@fullcalendar/daygrid/main.css";
+import "@fullcalendar/core/main.css";
+import "@fullcalendar/daygrid/main.css";
+*/
+
+
 import { services } from '../../service'
 import { AppContent } from '../../components'
 import Select from 'react-select'
@@ -45,7 +61,7 @@ export function Dashboard() {
   useEffect(() => {
     getSchedule()
   }, [getSchedule])
-
+ 
   return (
     <AppContent>
       <div className="calanderChart">
@@ -62,18 +78,20 @@ export function Dashboard() {
             </div>
           </div>
 
-          <FullCalendar
+          <FullCalendar 
             key={calendarType?.value}
             buttonText={{
               today: 'Hoje',
-            }}
+            }} 
             locale="pt-br"
-            plugins={[dayGridPlugin]}
-            initialView={calendarType?.value}
+            plugins={[dayGridPlugin, listPlugin, timeGridPlugin]}
+            initialView={ calendarType?.value }
             events={schedule}
-          />
+          />   
         </div>
       </div>
     </AppContent>
   )
 }
+ 
+  

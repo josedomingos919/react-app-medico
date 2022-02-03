@@ -4,15 +4,15 @@ export const calendarTypeData = [
     value: 'dayGridWeek',
   },
   {
-    label: 'Dias',
+    label: 'Mês',
     value: 'dayGridMonth',
   },
-  /*{
-    label: 'Lista de Semanas',
+  {
+    label: 'Lista',
     value: 'listWeek',
-  }, */
-  /*{
-    label: 'Horas',
+  },  
+ {
+    label: 'Dias',
     value: 'timeGridDay',
-  },*/
+  },
 ]
