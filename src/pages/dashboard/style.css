@@ -1,6 +1,6 @@
 @font-face {
-  font-family: "perpetua";
-  src: url("../../assets/fonts/perpetua.TTF");
+  font-family: 'perpetua';
+  src: url('../../assets/fonts/perpetua.TTF');
 }
 
 :root {
@@ -8,7 +8,7 @@
 }
 
 body {
-  font-family: "Source Sans Pro", sans-serif;
+  font-family: 'Source Sans Pro', sans-serif;
   font-size: 1em;
   background-color: #f0f7f6;
 }
@@ -87,7 +87,7 @@ body {
 }
 .pageContents .mainText {
   color: #4d4f5c;
-  font-family: "perpetua";
+  font-family: 'perpetua';
 }
 .pageContents .bodyContents {
   padding: 1.2em;
@@ -290,7 +290,7 @@ body {
   color: var(--themeColor);
 }
 .tableContents .dataTable {
-  font-family: "Open Sans", sans-serif;
+  font-family: 'Open Sans', sans-serif;
   width: 100%;
   color: #a3a6b4;
   font-size: 0.9em;
@@ -356,13 +356,13 @@ body {
 .pageContents .smHeading {
   color: var(--themeColor);
   margin-bottom: 0.4em;
-  font-family: "Open Sans", sans-serif;
+  font-family: 'Open Sans', sans-serif;
 }
 .pageContents .smText {
   font-size: 0.9em;
   color: #919191;
   line-height: 1.4;
-  font-family: "Open Sans", sans-serif;
+  font-family: 'Open Sans', sans-serif;
 }
 .pageContents .treatmentContents {
   margin-bottom: 2.5em;
@@ -388,7 +388,7 @@ body {
 .pageContents .allInputs .commonLabel {
   color: var(--themeColor);
   margin-bottom: 0.5em;
-  font-family: "Open Sans", sans-serif;
+  font-family: 'Open Sans', sans-serif;
   font-size: 0.9em;
 }
 .pageContents .allInputs .commonInput {
@@ -448,7 +448,7 @@ body {
   padding: 0.4em 1.3em;
   border-radius: 0.3em;
   margin-right: 0.4em;
-  font-family: "Open Sans", sans-serif;
+  font-family: 'Open Sans', sans-serif;
   font-size: 0.9em;
 }
 .pageContents .tableContents .tableInput {
@@ -519,7 +519,7 @@ body {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  font-family: "Open Sans", sans-serif;
+  font-family: 'Open Sans', sans-serif;
   font-size: 14px;
   font-weight: 400;
   color: black;
@@ -551,7 +551,7 @@ body {
   background-color: var(--themeColor);
 }
 .checkmark:after {
-  content: "";
+  content: '';
   position: absolute;
   display: none;
 }
@@ -575,7 +575,7 @@ body {
 .subHeading.odd {
   font-size: 1em;
   color: #43425d;
-  font-family: "Open Sans", sans-serif;
+  font-family: 'Open Sans', sans-serif;
 }
 .registerInput.odd {
   background-color: #eeeeee;
@@ -622,7 +622,7 @@ body {
 .hideTable .collapseContents .carouselHeading {
   font-weight: 700;
   color: #a3a6b4;
-  font-family: "Open Sans", sans-serif;
+  font-family: 'Open Sans', sans-serif;
 }
 .hideTable .collapseContents .carouselText {
   color: #a3a6b4;
@@ -630,7 +630,7 @@ body {
 .hideTable .hideTableHeading {
   display: inline-block;
   color: #a3a6b4;
-  font-family: "Open Sans", sans-serif;
+  font-family: 'Open Sans', sans-serif;
   width: 140px;
 }
 .hideTable .collapseLink {
@@ -665,9 +665,9 @@ body {
   transition: max-height 0.2s ease-out;
 }
 .hideTable button.accordion:after {
-  font-family: "Font Awesome 5 Free";
+  font-family: 'Font Awesome 5 Free';
   font-weight: 900;
-  content: "\f077";
+  content: '\f077';
   color: black;
   font-size: 1em;
   float: right;
@@ -683,8 +683,8 @@ body {
   padding-bottom: 6px;
 }
 .hideTable button.accordion.active:after {
-  content: "\f078";
-  font-family: "Font Awesome 5 Free";
+  content: '\f078';
+  font-family: 'Font Awesome 5 Free';
   font-weight: 900;
   color: black;
 }
@@ -866,4 +866,21 @@ input::placeholder {
   padding-bottom: 4px;
   border-bottom: 1px solid #4d4f5c26;
   margin-bottom: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.div-calendar-options {
+  width: 30%;
+  z-index: 499;
+}
+
+.div-calendar-options .css-1s2u09g-control {
+  border: none;
+}
+
+.div-calendar-options .css-1pahdxg-control {
+  border: none;
+  border-color: transparent !important;
 }

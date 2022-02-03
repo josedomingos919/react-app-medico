@@ -3,12 +3,16 @@ import FullCalendar from '@fullcalendar/react' // must go before plugins
 import dayGridPlugin from '@fullcalendar/daygrid' // a plugin!
 import { services } from '../../service'
 import { AppContent } from '../../components'
+import Select from 'react-select'
 
 import './style.css'
 import { toast } from 'react-toastify'
+import { calendarTypeData } from './util'
+import { isEmpty } from '../../utilities/functions'
 
 export function Dashboard() {
   const [schedule, setSchedule] = useState([])
+  const [calendarType, setCalendarType] = useState(calendarTypeData[0])
 
   const getSchedule = useCallback(async () => {
     const response = await services.exame.schedule({
@@ -47,15 +51,25 @@ export function Dashboard() {
       <div className="calanderChart">
         <div className="chartParent">
           <div className="mainText title-header-consultation">
-            Todas as consultas
+            <div>Todas as consultas</div>
+            <div className="div-calendar-options">
+              <Select
+                value={calendarType}
+                onChange={(val) => setCalendarType(val)}
+                isDisabled={isEmpty(calendarTypeData)}
+                options={calendarTypeData}
+              />
+            </div>
           </div>
+
           <FullCalendar
+            key={calendarType?.value}
             buttonText={{
               today: 'Hoje',
             }}
             locale="pt-br"
             plugins={[dayGridPlugin]}
-            initialView="dayGridWeek" //dayGridMonth,'dayGridWeek', 'timeGridDay', 'listWeek' .
+            initialView={calendarType?.value}
             events={schedule}
           />
         </div>
