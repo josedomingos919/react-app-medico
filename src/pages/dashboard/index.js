@@ -55,7 +55,7 @@ export function Dashboard() {
             }}
             locale="pt-br"
             plugins={[dayGridPlugin]}
-            initialView="dayGridMonth"
+            initialView="dayGridWeek" //dayGridMonth,'dayGridWeek', 'timeGridDay', 'listWeek' .
             events={schedule}
           />
         </div>
