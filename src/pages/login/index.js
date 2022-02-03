@@ -36,8 +36,7 @@ export function Login() {
 
     setIsLoading(false);
 
-    console.log("loginResponse=> ", loginResponse)
-
+    console.log("loginResponse=> ", loginResponse);
 
     if (loginResponse?.status !== 200) {
       toast.error("Usuário ou senha não encontrado!");
@@ -84,9 +83,9 @@ export function Login() {
                     Lembrar-se
                   </label>
                 </div>
-                <a className="commonText" href="http://#">
+                {/* <a className="commonText" href="http://#">
                   Esqueci minha senha
-                </a>
+                </a> */}
               </div>
               <button
                 onClick={() => {
