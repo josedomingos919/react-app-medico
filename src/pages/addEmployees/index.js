@@ -102,7 +102,7 @@ export function AddEmployees() {
 
     if (responseDoctor?.data?.success) {
       const formData = responseDoctor?.data?.payload
-
+  
       __setDayWeeks(formData.day_weeks)
       delete formData.day_weeks
 

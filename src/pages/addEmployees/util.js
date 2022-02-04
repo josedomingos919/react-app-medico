@@ -47,7 +47,7 @@ export const validateDayWeeks = (data = []) => {
     //if (isEmpty(time_start)) obj.time_start = "*Obrigatório!";
     //if (isEmpty(time_end)) obj.time_end = "*Obrigatório!";
 
-    if (time_start || time_end)
+    if (time_start && time_start !== "00:00:00" || time_end && time_end !== "00:00:00")
       if (
         new Date(`2001-02-10 ${time_start}`) >=
         new Date(`2001-02-10 ${time_end}`)
