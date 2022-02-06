@@ -1,1 +1,1 @@
-export const baseURL = "http://caiu.com.br/appmedico/";
+export const baseURL = "http://api.imunoamericas.com.br/";
