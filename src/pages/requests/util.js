@@ -1,49 +1,49 @@
-import { Status } from '../../components'
-import { formatDate } from '../../utilities/functions'
+import { Status } from "../../components";
+import { formatDate } from "../../utilities/functions";
 
 export const tableData = {
-  title: 'Visualizar os dados do Receituário e Exames',
-  subTitle: 'Verificar dados do Receituário e Exames',
+  title: "Visualizar os dados do Receituário e Exames",
+  subTitle: "Verificar dados do Receituário e Exames",
   fields: [
     {
-      label: 'ID',
-      name: 'exame_id',
+      label: "ID",
+      name: "exame_id",
     },
     {
-      label: 'Paciente',
-      name: 'user_name',
+      label: "Paciente",
+      name: "user_name",
     },
     {
-      label: 'Convênio',
-      name: 'name_plan',
+      label: "Convênio",
+      name: "name_plan",
     },
     {
-      label: 'Preferência',
-      name: 'preference',
+      label: "Preferência",
+      name: "preference",
     },
     {
-      label: 'Endereço',
-      name: 'address_name',
+      label: "Endereço",
+      name: "address_name",
     },
     {
-      label: 'Data/Hora',
-      name: 'date_start',
+      label: "Data/Hora",
+      name: "date_start",
     },
     {
-      label: 'Estado',
-      name: 'status_name',
+      label: "Estado",
+      name: "status_name",
     },
   ],
   optios: {
     add: {
-      label: 'Nova Consulta',
-      path: '/dashboard/consultation/add',
+      label: "Nova Solicitação",
+      path: "/dashboard/requests/add",
     },
     edit: {
-      label: 'Editar',
+      label: "Editar",
     },
   },
-}
+};
 
 export const formatData = (data = []) => {
   return data.map((item) => ({
@@ -55,21 +55,21 @@ export const formatData = (data = []) => {
     name_plan: item?.plan?.name_plan,
     address_name: item?.address?.address ?? item.address,
     date_start: formatDate(item?.date_start),
-  }))
-}
+  }));
+};
 
 export const csvInfo = {
   header: [
-    'ID',
-    'Paciente',
-    'Convênio',
-    'Preferência',
-    'Endereço',
-    'Data/Hora',
-    'Estado',
+    "ID",
+    "Paciente",
+    "Convênio",
+    "Preferência",
+    "Endereço",
+    "Data/Hora",
+    "Estado",
   ],
-  name: 'solicitacoes',
-}
+  name: "solicitacoes",
+};
 
 export const formatForCSV = (data = []) =>
   data.map(
@@ -87,7 +87,7 @@ export const formatForCSV = (data = []) =>
       plan?.name_plan,
       preference,
       address?.address ?? address,
-      date_start ? formatDate(date_start) : '',
+      date_start ? formatDate(date_start) : "",
       status_name,
-    ],
-  )
+    ]
+  );

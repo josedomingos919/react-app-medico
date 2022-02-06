@@ -1,21 +1,17 @@
 export const periodData = [
   {
-    label: 'Manhã',
-    value: 'Manhã',
+    label: "Manhã",
+    value: "Manhã",
   },
   {
-    label: 'Tarde',
-    value: 'Tarde',
+    label: "Tarde",
+    value: "Tarde",
   },
-  {
-    label: 'Noite',
-    value: 'Noite',
-  },
-]
+];
 
 export const planInitialState = [
   {
-    label: 'Particular',
+    label: "Particular",
     value: 0,
   },
-]
+];

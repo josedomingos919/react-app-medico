@@ -28,3 +28,10 @@
   align-items: center;
   justify-content: center;
 }
+
+.tableContents {
+  min-height: 120vh;
+}
+.disabled-cursor {
+  cursor: default;
+}

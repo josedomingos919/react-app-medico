@@ -1,63 +1,59 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { toast } from 'react-toastify'
-import { Loader } from '../../../../components'
-import { services } from '../../../../service'
-import { isEmpty } from '../../../../utilities/functions'
-import { fromDataInitialState } from './util'
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import { toast } from "react-toastify";
+import { Loader } from "../../../../components";
+import { services } from "../../../../service";
+import { isEmpty } from "../../../../utilities/functions";
+import { fromDataInitialState } from "./util";
 
 export const ModalAddAddress = ({
   openAddressRef = React.createRef(),
-  userId = '',
+  userId = "",
 }) => {
-  const [formData, __setFormData] = useState({ ...fromDataInitialState })
-  const buttonCloseRef = useRef()
+  const [formData, __setFormData] = useState({ ...fromDataInitialState });
+  const buttonCloseRef = useRef();
 
-  const setFormData = (key = '', value) =>
-    __setFormData((prev) => ({ ...prev, [key]: value }))
+  const setFormData = (key = "", value) =>
+    __setFormData((prev) => ({ ...prev, [key]: value }));
 
-  const [isLoading, setIsLoading] = useState(false)
-  const [canValidate, setCanValidate] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
+  const [canValidate, setCanValidate] = useState(false);
 
   const handleSave = useCallback(async () => {
-    setCanValidate(true)
+    setCanValidate(true);
 
     if (!userId) {
-      toast.warning('Não selecionou um ususário!')
-      return
+      toast.warning("Não selecionou um ususário!");
+      return;
     }
 
-    for (let keys of Object.keys(formData)) if (isEmpty(formData[keys])) return
+    for (let keys of Object.keys(formData))
+      if (keys !== "complement") {
+        if (isEmpty(formData[keys])) return;
+      }
 
-    setIsLoading(true)
+    setIsLoading(true);
     const response = await services.user.addAddress({
       userid: userId,
       ...formData,
-    })
-    setIsLoading(false)
-    console.log('response_Address=> ', response)
+    });
+    setIsLoading(false);
+    console.log("response_Address=> ", response);
     if (response?.data?.success) {
-      toast.success('Endereço registrado com sucesso!')
-      setCanValidate(false)
-      __setFormData({ ...fromDataInitialState })
-      buttonCloseRef?.current?.click()
+      toast.success("Endereço registrado com sucesso!");
+      setCanValidate(false);
+      __setFormData({ ...fromDataInitialState });
+      buttonCloseRef?.current?.click();
     } else {
-      toast.error('Falha ao registrar o endereço!')
+      toast.error("Falha ao registrar o endereço!");
     }
-  }, [
-    userId,
-    buttonCloseRef,
-    formData,
-    setIsLoading,
-    setCanValidate,
-    setFormData,
-  ])
+  }, [userId, buttonCloseRef, formData, setIsLoading, setCanValidate]);
 
   return (
     <>
       <button
         ref={openAddressRef}
         style={{
-          display: 'none',
+          display: "none",
         }}
         type="button"
         class="btn btn-primary"
@@ -96,7 +92,7 @@ export const ModalAddAddress = ({
                   <input
                     value={formData?.address}
                     onChange={(e) => {
-                      setFormData('address', e?.target?.value)
+                      setFormData("address", e?.target?.value);
                     }}
                     disabled={isLoading}
                     className="registerInput"
@@ -106,29 +102,29 @@ export const ModalAddAddress = ({
                   <span className="span-error">
                     {canValidate &&
                       isEmpty(formData?.address) &&
-                      '*Campo endereço é obrigatório!'}
+                      "*Campo endereço é obrigatório!"}
                   </span>
                 </div>
                 <div className="col-lg-12 mb-3">
                   <input
                     value={formData?.zipcode}
-                    onChange={(e) => setFormData('zipcode', +e?.target?.value)}
+                    onChange={(e) => setFormData("zipcode", +e?.target?.value)}
                     disabled={isLoading}
                     className="registerInput"
                     type="number"
-                    placeholder="Zip-code"
+                    placeholder="CEP"
                   />
                   <span className="span-error">
                     {canValidate &&
                       isEmpty(formData?.zipcode) &&
-                      '*Campo zipcode é obrigatório!'}
+                      "*Campo CEP é obrigatório!"}
                   </span>
                 </div>
 
                 <div className="col-lg-12 mb-3">
                   <input
                     value={formData?.number}
-                    onChange={(e) => setFormData('number', +e?.target?.value)}
+                    onChange={(e) => setFormData("number", +e?.target?.value)}
                     disabled={isLoading}
                     className="registerInput"
                     type="number"
@@ -137,7 +133,7 @@ export const ModalAddAddress = ({
                   <span className="span-error">
                     {canValidate &&
                       isEmpty(formData?.number) &&
-                      '*Campo número é obrigatório!'}
+                      "*Campo número é obrigatório!"}
                   </span>
                 </div>
 
@@ -145,25 +141,25 @@ export const ModalAddAddress = ({
                   <input
                     value={formData?.complement}
                     onChange={(e) =>
-                      setFormData('complement', e?.target?.value)
+                      setFormData("complement", e?.target?.value)
                     }
                     disabled={isLoading}
                     className="registerInput"
                     type="text"
                     placeholder="Complemento"
                   />
-                  <span className="span-error">
+                  {/* <span className="span-error">
                     {canValidate &&
                       isEmpty(formData?.complement) &&
-                      '*Campo complemento é obrigatório!'}
-                  </span>
+                      "*Campo complemento é obrigatório!"}
+                  </span> */}
                 </div>
 
                 <div className="col-lg-12 mb-3">
                   <input
                     value={formData?.neighborhood}
                     onChange={(e) =>
-                      setFormData('neighborhood', e?.target?.value)
+                      setFormData("neighborhood", e?.target?.value)
                     }
                     disabled={isLoading}
                     className="registerInput"
@@ -173,14 +169,14 @@ export const ModalAddAddress = ({
                   <span className="span-error">
                     {canValidate &&
                       isEmpty(formData?.neighborhood) &&
-                      '*Campo bairro é obrigatório!'}
+                      "*Campo bairro é obrigatório!"}
                   </span>
                 </div>
 
                 <div className="col-lg-12 mb-3">
                   <input
                     value={formData?.city}
-                    onChange={(e) => setFormData('city', e?.target?.value)}
+                    onChange={(e) => setFormData("city", e?.target?.value)}
                     disabled={isLoading}
                     className="registerInput"
                     type="text"
@@ -189,14 +185,14 @@ export const ModalAddAddress = ({
                   <span className="span-error">
                     {canValidate &&
                       isEmpty(formData?.city) &&
-                      '*Campo cidade é obrigatório!'}
+                      "*Campo cidade é obrigatório!"}
                   </span>
                 </div>
 
                 <div className="col-lg-12 mb-3">
                   <input
                     value={formData?.state}
-                    onChange={(e) => setFormData('state', e?.target?.value)}
+                    onChange={(e) => setFormData("state", e?.target?.value)}
                     disabled={isLoading}
                     className="registerInput"
                     type="text"
@@ -206,7 +202,7 @@ export const ModalAddAddress = ({
                   <span className="span-error">
                     {canValidate &&
                       isEmpty(formData?.state) &&
-                      '*Campo estado é obrigatório!'}
+                      "*Campo estado é obrigatório!"}
                   </span>
                 </div>
               </div>
@@ -227,12 +223,12 @@ export const ModalAddAddress = ({
                 type="button"
                 class="btn btn-success"
               >
-                {isLoading ? <Loader /> : 'Salvar'}
+                {isLoading ? <Loader /> : "Salvar"}
               </button>
             </div>
           </div>
         </div>
       </div>
     </>
-  )
-}
+  );
+};
