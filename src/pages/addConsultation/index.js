@@ -53,7 +53,7 @@ export function AddConsultation() {
     [__setFormData]
   );
 
-  const handleUpload = async () => {
+  const handleUpload = async (exame_id) => {
     setFormData("isLoadingUpload", true);
 
     try {
@@ -62,6 +62,7 @@ export function AddConsultation() {
           user_id: userData?.user_id,
           description: images[i]?.description,
           fileSend: images[i]?.fileSend,
+          exame_id,
         });
       }
 
@@ -78,12 +79,10 @@ export function AddConsultation() {
     setCanValidate(true);
 
     if (
-      !formData?.user_name ||
-      !formData.user_mail ||
-      !formData.user_cellphone ||
       !formData.preference ||
       !formData.date_start ||
       !formData.plan ||
+      !formData.address_id ||
       !userData.user_id
     )
       return;
@@ -105,7 +104,7 @@ export function AddConsultation() {
 
     setFormData("completedConsultation", true);
     toast.success("Consulta agendada com sucesso!");
-    handleUpload();
+    handleUpload(response?.data?.payload?.exame_id);
   };
 
   const handleAddNewAddress = useCallback(() => {
@@ -363,11 +362,6 @@ export function AddConsultation() {
                   type="text"
                   placeholder="Nome"
                 />
-                <span className="span-error">
-                  {canValidate &&
-                    isEmpty(formData?.user_name) &&
-                    "*Campo nome é obrigatório!"}
-                </span>
               </div>
               <div className="col-lg-2">
                 <MaskedInput
@@ -380,11 +374,6 @@ export function AddConsultation() {
                   type="text"
                   placeholder="Telefone"
                 />
-                <span className="span-error">
-                  {canValidate &&
-                    isEmpty(formData?.user_cellphone) &&
-                    "*Campo telefone é obrigatório!"}
-                </span>
               </div>
 
               <div className="col-lg-2">
@@ -396,11 +385,6 @@ export function AddConsultation() {
                   type="email"
                   placeholder="Email"
                 />
-                <span className="span-error">
-                  {canValidate &&
-                    isEmpty(formData?.user_mail) &&
-                    "*Campo mail é obrigatório!"}
-                </span>
               </div>
 
               {!waitingToken && (
@@ -573,18 +557,18 @@ export function AddConsultation() {
                 <div className="div-title">
                   <h1 className="mr-3">Upload de imagens:</h1>
                 </div>
-                {imagesInputs.map((i, index) => (
-                  <div className="row" key={index}>
+                {imagesInputs.map((i, imgIndex) => (
+                  <div className="row" key={imgIndex}>
                     <div className="col-lg-4">
                       <Select
                         value={currentImageDescriptions.find(
-                          (desc, idx) => desc.index === index
+                          (desc, idx) => desc.index === imgIndex
                         )}
                         onChange={(selectedValue) => {
                           setCurrentImageDescriptions((prevState) => {
                             let newState = [...prevState];
                             const foundDesc = newState.find(
-                              (desc, idx) => desc.index === index
+                              (desc, idx) => desc.index === imgIndex
                             );
                             if (foundDesc) {
                               foundDesc.label = selectedValue.label;
@@ -594,7 +578,7 @@ export function AddConsultation() {
                                 ...newState,
                                 {
                                   ...selectedValue,
-                                  index,
+                                  index: imgIndex,
                                 },
                               ];
                             }
@@ -618,8 +602,8 @@ export function AddConsultation() {
                           type="text"
                           readOnly={true}
                           value={
-                            images.find((img, idx) => idx === index)?.fileSend
-                              ?.name
+                            images.find((img, idx) => idx === imgIndex)
+                              ?.fileSend?.name
                           }
                           disabled={true}
                           placeholder="Nome do arquivo"
@@ -633,39 +617,12 @@ export function AddConsultation() {
                           id="inputFile"
                           type="file"
                           hidden={true}
-                          onChange={(e) => handleImageSelection(e, index)}
+                          onChange={(e) =>
+                            handleImageSelection(e, imagesInputs.length - 1)
+                          }
                         />
                       </label>
-                      {/* <span className="span-error">
-                        {canValidate &&
-                          isEmpty(formData?.fileSend) &&
-                          "*Campo é obrigatório!"}
-                      </span> */}
                     </div>
-                    {/* {canValidate && !formData?.isLoadingUpload && (
-                      <div className="col-lg-4 mt-3 mt-lg-0">
-                        <button
-                          onClick={() => {
-                            if (
-                              isEmpty(formData?.fileSend) ||
-                              isEmpty(formData?.description)
-                            ) {
-                              toast.warning("Nenhum ficheiro ou descrição!");
-                              return;
-                            }
-                            handleUpload();
-                          }}
-                          disabled={isLoadingAddress}
-                          type="button"
-                          className="btn btn-outline-secondary"
-                        >
-                          {(formData?.isLoadingUpload && (
-                            <Loader style="text-success" />
-                          )) ||
-                            "Tentar Novamente"}
-                        </button>
-                      </div>
-                    )} */}
                   </div>
                 ))}
               </div>

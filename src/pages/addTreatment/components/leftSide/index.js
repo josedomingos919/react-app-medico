@@ -111,24 +111,22 @@ export const LeftSide = () => {
         </p>
       </div>
       <div className="mb-5">
-        <h2 className="green-text mb-2">Exames e Reituários</h2>
-        <p className="dark-text">
-          {Array.isArray(exameData?.uploads) &&
-            exameData?.uploads?.map(({ description, url_image = "" }) => (
-              <>
-                {description}
-                <br></br>
-                <a
-                  rel="noreferrer"
-                  target="_blank"
-                  className="light-green"
-                  href={`${baseURL}${url_image}`}
-                >
-                  {url_image.substring(url_image.lastIndexOf("/") + 1)}
-                </a>
-              </>
-            ))}
-        </p>
+        <h2 className="green-text mb-2">Exames e Receituários</h2>
+        {Array.isArray(exameData?.uploads) &&
+          exameData?.uploads?.map(({ description, url_image = "" }) => (
+            <div style={{ display: "flex" }}>
+              <p className="dark-text">{description}:</p>
+              <a
+                rel="noreferrer"
+                target="_blank"
+                className="light-green"
+                style={{ marginLeft: ".6rem" }}
+                href={`${baseURL}${url_image}`}
+              >
+                {url_image.substring(url_image.lastIndexOf("/") + 1)}
+              </a>
+            </div>
+          ))}
       </div>
       <div className="mb-5">
         <h2 className="green-text mb-2">Endereço Informado</h2>
