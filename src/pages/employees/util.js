@@ -1,56 +1,70 @@
 export const tableData = {
-  title: 'Todos os colaboradores cadastrados',
+  title: "Todos os colaboradores cadastrados",
   fields: [
     {
-      label: 'ID',
-      name: 'user_id',
+      label: "ID",
+      name: "user_id",
     },
     {
-      label: 'Nome',
-      name: 'user_name',
+      label: "Nome",
+      name: "user_name",
     },
     {
-      label: 'E-mail',
-      name: 'user_mail',
+      label: "E-mail",
+      name: "user_mail",
     },
     {
-      label: 'Telefone',
-      name: 'user_cellphone',
+      label: "Telefone",
+      name: "user_cellphone",
     },
     {
-      label: 'Perfil',
-      name: 'perfil_name',
+      label: "Perfil",
+      name: "perfil_name",
     },
     {
-      label: 'Tipo',
-      name: 'user_status',
+      label: "Tipo",
+      name: "user_status",
+    },
+  ],
+  shortFields: [
+    {
+      label: "ID",
+      name: "user_id",
+    },
+    {
+      label: "Nome",
+      name: "user_name",
+    },
+    {
+      label: "E-mail",
+      name: "user_mail",
     },
   ],
   optios: {
     edit: {
-      label: 'Editar',
+      label: "Editar",
     },
     add: {
-      label: 'Novo colaborador',
-      path: '/dashboard/colaborators/add',
+      label: "Novo colaborador",
+      path: "/dashboard/colaborators/add",
     },
     delete: {
-      label: 'Desabilitar',
-      iconName: 'fa fa-ban',
+      label: "Desabilitar",
+      iconName: "fa fa-ban",
     },
   },
-}
+};
 
 export const formatData = (data = []) =>
   data?.map((item) => ({
     ...item,
     edit: `colaborators/add/${item?.user_id}`,
-  })) ?? []
+  })) ?? [];
 
 export const csvInfo = {
   header: tableData.fields.map(({ label }) => label),
-  name: 'colaboradores',
-}
+  name: "colaboradores",
+};
 
 export const formatForCSV = (data = []) =>
   data.map(
@@ -68,5 +82,5 @@ export const formatForCSV = (data = []) =>
       user_cellphone,
       perfil_name,
       user_status,
-    ],
-  )
+    ]
+  );

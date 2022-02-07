@@ -1,15 +1,16 @@
-import { isEmpty } from '../../utilities/functions'
-import { limits } from './util'
+import { isEmpty } from "../../utilities/functions";
+import { limits } from "./util";
 
-import './style.css'
+import "./style.css";
 
 export function Table({
-  search = '',
-  setSearch = '',
+  search = "",
+  setSearch = "",
   fields = [],
+  shortFields = [],
   data = [],
-  title = '',
-  subTitle = '',
+  title = "",
+  subTitle = "",
   limit = 5,
   hasBody = false,
   isLoading = false,
@@ -24,31 +25,32 @@ export function Table({
   onExportCSV = () => {},
   onExportXLS = () => {},
   onExportPDF = () => {},
+  setDataProp = () => {},
 }) {
-  const { edit, add } = optios
+  const { edit, add } = optios;
 
   const renderPagination = () => {
-    const results = []
+    const results = [];
 
-    if (totalPage <= 1) return <></>
+    if (totalPage <= 1) return <></>;
 
     for (let i = 0; i < totalPage; i++) {
       results.push(
         <li className="page-item" key={i}>
           <label
-            className={`page-link ${page == i + 1 && 'active'}`}
+            className={`page-link ${page == i + 1 && "active"}`}
             onClick={() => onChangePage(i + 1)}
           >
             {i + 1}
           </label>
-        </li>,
-      )
+        </li>
+      );
     }
 
     return (
       <nav aria-label="...">
         <ul className="pagination">
-          <li className={`page-item ${page - 1 <= 0 && 'disabled'}`}>
+          <li className={`page-item ${page - 1 <= 0 && "disabled"}`}>
             <label
               onClick={() => onChangePage(page - 1)}
               className="page-link"
@@ -58,15 +60,15 @@ export function Table({
             </label>
           </li>
           {results}
-          <li className={`page-item ${page + 1 > totalPage && 'disabled'}`}>
+          <li className={`page-item ${page + 1 > totalPage && "disabled"}`}>
             <label className="page-link" onClick={() => onChangePage(page + 1)}>
               Próximo
             </label>
           </li>
         </ul>
       </nav>
-    )
-  }
+    );
+  };
 
   const getTableContent = () => (
     <>
@@ -85,7 +87,7 @@ export function Table({
       <div className="tableContents">
         <div className="smHeading">{subTitle}</div>
         <div className="row odd">
-          <div className="col-lg-6">
+          <div className="col-lg-6 table-options">
             <label onClick={() => onExportPDF()} className="tableLinkTab">
               PDF
             </label>
@@ -96,7 +98,7 @@ export function Table({
               XLS
             </label>
           </div>
-          <div className="col-lg-6 d-flex text-right">
+          <div className="col-lg-6 d-flex text-right div-options-value">
             <select
               style={{
                 width: 80,
@@ -115,9 +117,9 @@ export function Table({
 
             <input
               value={search}
-              onChange={(e) => setSearch(e?.target?.value ?? '')}
+              onChange={(e) => setSearch(e?.target?.value ?? "")}
               style={{
-                width: '100%',
+                width: "100%",
               }}
               className="tableInput"
               type="text"
@@ -127,32 +129,32 @@ export function Table({
         </div>
         <table className="dataTable">
           <colgroup>
-            {fields.map(({ width = '' }, index) => (
+            {fields.map(({ width = "" }, index) => (
               <col width={width} key={index} />
             ))}
           </colgroup>
           <thead>
             <tr>
-              {fields.map(({ label = '' }, index) => (
+              {fields.map(({ label = "" }, index) => (
                 <th key={index}>{label}</th>
               ))}
-              {edit ? <th>{edit?.label}</th> : ''}
-              {optios?.delete ? <th>{optios?.delete?.label}</th> : ''}
+              {edit ? <th>{edit?.label}</th> : ""}
+              {optios?.delete ? <th>{optios?.delete?.label}</th> : ""}
             </tr>
           </thead>
           <tbody>
             {data?.map((item, index) => {
               return (
                 <tr key={index}>
-                  {fields.map(({ name = '' }, index) => (
-                    <td key={index}>{item?.[name] ?? '-'}</td>
+                  {fields.map(({ name = "" }, index) => (
+                    <td key={index}>{item?.[name] ?? "-"}</td>
                   ))}
                   {edit ? (
                     <td>
                       <a className="tableLink edit" href={item?.edit}>
                         <i
                           onClick={() => onEdit(data?.[index])}
-                          className={edit?.iconName ?? 'far fa-edit'}
+                          className={edit?.iconName ?? "far fa-edit"}
                         ></i>
                       </a>
                     </td>
@@ -167,7 +169,7 @@ export function Table({
                       >
                         <i
                           className={
-                            optios?.delete?.iconName ?? 'fa fa-trash fa-4'
+                            optios?.delete?.iconName ?? "fa fa-trash fa-4"
                           }
                         ></i>
                       </label>
@@ -176,10 +178,73 @@ export function Table({
                     <></>
                   )}
                 </tr>
-              )
+              );
             })}
           </tbody>
         </table>
+
+        <div class="hideTable">
+          <div class="hideTableHeader">
+            {shortFields.map(({ label = "" }) => (
+              <span class="hideTableHeading"> {label}</span>
+            ))}
+          </div>
+
+          {data.map((item, index) => {
+            return (
+              <div class="custom-collapse">
+                <button
+                  class={`accordion ${item?.activeView ? "active" : ""}`}
+                  onClick={() => {
+                    setDataProp(index, {
+                      activeView: item?.activeView ? false : true,
+                    });
+                  }}
+                >
+                  <span class="hideTableHeading">
+                    {item?.[shortFields?.[0]?.name] ?? ""}
+                  </span>
+                  <span class="hideTableHeading">
+                    {item?.[shortFields?.[1]?.name] ?? ""}
+                  </span>
+                  <span class="hideTableHeading">
+                    {item?.[shortFields?.[2]?.name] ?? ""}
+                  </span>
+                </button>
+
+                <div
+                  class="panel"
+                  style={{
+                    maxHeight: item?.activeView ? 300 : 0,
+                  }}
+                >
+                  {fields.map((fieldItem, index) =>
+                    !shortFields.find((e) => e?.name === fieldItem?.name) ? (
+                      <div class="collapseContents">
+                        <div class="carouselHeading">{fieldItem?.label}</div>
+                        <div class="carouselText">
+                          {item?.[fieldItem?.name]}
+                        </div>
+                      </div>
+                    ) : (
+                      <></>
+                    )
+                  )}
+
+                  <div class="collapseContents">
+                    <div class="carouselHeading">Editar</div>
+                    <div class="carouselText">
+                      <a class="collapseLink" href="#">
+                        <i class="far fa-edit"></i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
         {isLoading ? (
           <div className="table-loading">
             <div className="spinner-border text-success" role="status">
@@ -189,12 +254,13 @@ export function Table({
           </div>
         ) : !isLoading && isEmpty(data) ? (
           <div className="no-table-data">
-            <i className="fas fa-box-open large-tb-icon"></i>{' '}
+            <i className="fas fa-box-open large-tb-icon"></i>{" "}
             <span>Nenhum dado encontrado!...</span>
           </div>
         ) : (
           <></>
         )}
+
         <div className="mt-4 footer-pagination">
           {renderPagination()}
           <div className="d-flex">
@@ -203,8 +269,8 @@ export function Table({
         </div>
       </div>
     </>
-  )
+  );
 
-  if (hasBody) return <div className="bodyContents">{getTableContent()}</div>
-  else return getTableContent()
+  if (hasBody) return <div className="bodyContents">{getTableContent()}</div>;
+  else return getTableContent();
 }
