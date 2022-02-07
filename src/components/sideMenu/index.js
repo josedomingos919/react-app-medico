@@ -1,9 +1,9 @@
-import { Avatar, Logo } from '../../assets'
-import { useAuth } from '../../context/auth'
-import { isActiveRoute, menuData } from './util'
+import { Avatar, Logo } from "../../assets";
+import { useAuth } from "../../context/auth";
+import { isActiveRoute, menuData } from "./util";
 
 export function SideMenu({ activePath }) {
-  const { user = {} } = useAuth()
+  const { user = {} } = useAuth();
 
   return (
     <div id="pageSideMenu" className="sideMenu">
@@ -12,11 +12,11 @@ export function SideMenu({ activePath }) {
           <i id="closedMenuBtn" className="far fa-times-circle"></i>
           <img src={Avatar} alt="" />
           <div>
-            <div className="name">{user?.payload?.user_name ?? ''}</div>
-            <div className="emailText"> {user?.payload?.user_mail ?? ''} </div>
+            <div className="name">{user?.payload?.user_name ?? ""}</div>
+            <div className="emailText"> {user?.payload?.user_mail ?? ""} </div>
           </div>
         </div>
-        <a className="brandLink" href="https://teste.com.br">
+        <a className="brandLink" href="/dashboard/home">
           <img src={Logo} alt="" />
         </a>
       </div>
@@ -26,10 +26,10 @@ export function SideMenu({ activePath }) {
             key={Math.random().toString()}
             className={`sideMenuLink ${
               activePath === path
-                ? 'active'
+                ? "active"
                 : isActiveRoute(path)
-                ? 'active'
-                : ''
+                ? "active"
+                : ""
             }`}
             href={path}
           >
@@ -41,5 +41,5 @@ export function SideMenu({ activePath }) {
         ))}
       </div>
     </div>
-  )
+  );
 }

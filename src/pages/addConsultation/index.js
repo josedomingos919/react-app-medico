@@ -335,7 +335,7 @@ export function AddConsultation() {
             </button>
           </div>
         </div>
-        <div className="tableContents">
+        <div className="tableContents add-consultation">
           <div>
             <div className="div-title">
               <h1 className="mr-3">

@@ -1,9 +1,9 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from "react";
 
-import FullCalendar from '@fullcalendar/react' // must go before plugins
-import dayGridPlugin from '@fullcalendar/daygrid' // a plugin!
-import listPlugin from '@fullcalendar/list';
-import timeGridPlugin from '@fullcalendar/timegrid';
+import FullCalendar from "@fullcalendar/react"; // must go before plugins
+import dayGridPlugin from "@fullcalendar/daygrid"; // a plugin!
+import listPlugin from "@fullcalendar/list";
+import timeGridPlugin from "@fullcalendar/timegrid";
 
 /*
 import interactionPlugin from "@fullcalendar/interaction";
@@ -16,52 +16,60 @@ import "@fullcalendar/core/main.css";
 import "@fullcalendar/daygrid/main.css";
 */
 
+import { services } from "../../service";
+import { AppContent } from "../../components";
+import Select from "react-select";
 
-import { services } from '../../service'
-import { AppContent } from '../../components'
-import Select from 'react-select'
-
-import './style.css'
-import { toast } from 'react-toastify'
-import { calendarTypeData } from './util'
-import { isEmpty } from '../../utilities/functions'
+import "./style.css";
+import { toast } from "react-toastify";
+import { calendarTypeData } from "./util";
+import { isEmpty } from "../../utilities/functions";
 
 export function Dashboard() {
-  const [schedule, setSchedule] = useState([])
-  const [calendarType, setCalendarType] = useState(calendarTypeData[0])
+  const [schedule, setSchedule] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [calendarType, setCalendarType] = useState(calendarTypeData[0]);
 
   const getSchedule = useCallback(async () => {
     const response = await services.exame.schedule({
-      date: '',
-    })
+      date: "",
+    });
 
-    console.log('response=> ', response)
+    console.log("response=> ", response.data);
 
     if (response?.data?.success) {
-      setSchedule(
+      const loadedSchedule =
         response?.data?.payload.map(
           ({
             medicamento,
             patient_name,
             equipe_name,
             doctor_name,
-            date_input,
+            schedule_event,
             user_rgb,
           }) => ({
             title: `${patient_name}-${equipe_name}-${doctor_name}-${medicamento}`,
-            date: date_input,
+            date: schedule_event,
             backgroundColor: user_rgb,
             borderColor: user_rgb,
-          }),
-        ) ?? [],
-      )
-    } else toast.warning('Falha ao carregar as consultas!')
-  }, [setSchedule])
+          })
+        ) ?? [];
+
+      setSchedule(loadedSchedule);
+
+      console.log(loadedSchedule);
+      setLoading(false);
+    } else toast.warning("Falha ao carregar as consultas!");
+  }, []);
 
   useEffect(() => {
-    getSchedule()
-  }, [getSchedule])
- 
+    getSchedule();
+  }, [getSchedule]);
+
+  if (loading) {
+    return <h1>Loading...</h1>;
+  }
+
   return (
     <AppContent>
       <div className="calanderChart">
@@ -78,20 +86,21 @@ export function Dashboard() {
             </div>
           </div>
 
-          <FullCalendar 
-            key={calendarType?.value}
-            buttonText={{
-              today: 'Hoje',
-            }} 
-            locale="pt-br"
-            plugins={[dayGridPlugin, listPlugin, timeGridPlugin]}
-            initialView={ calendarType?.value }
-            events={schedule}
-          />   
+          {schedule.length > 0 && (
+            <FullCalendar
+              key={calendarType?.value}
+              buttonText={{
+                today: "Hoje",
+              }}
+              allDayText="Dia todo"
+              locale="pt-Br"
+              plugins={[dayGridPlugin, listPlugin, timeGridPlugin]}
+              initialView={calendarType?.value}
+              events={schedule}
+            />
+          )}
         </div>
       </div>
     </AppContent>
-  )
+  );
 }
- 
-  

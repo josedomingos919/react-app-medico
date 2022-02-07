@@ -30,7 +30,13 @@
 }
 
 .tableContents {
-  min-height: 120vh;
+  overflow-x: auto;
+
+  min-height: 80vh;
+}
+
+.tableContents.add-consultation {
+  min-height: 120vh !important;
 }
 .disabled-cursor {
   cursor: default;

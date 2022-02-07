@@ -111,16 +111,21 @@ export const LeftSide = () => {
         </p>
       </div>
       <div className="mb-5">
-        <h2 className="green-text mb-2">Exames e Receituários</h2>
+        <h2 className="green-text mb-2">Exames e Receituário</h2>
         {Array.isArray(exameData?.uploads) &&
           exameData?.uploads?.map(({ description, url_image = "" }) => (
-            <div style={{ display: "flex" }}>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                marginBottom: ".6rem",
+              }}
+            >
               <p className="dark-text">{description}:</p>
               <a
                 rel="noreferrer"
                 target="_blank"
                 className="light-green"
-                style={{ marginLeft: ".6rem" }}
                 href={`${baseURL}${url_image}`}
               >
                 {url_image.substring(url_image.lastIndexOf("/") + 1)}
@@ -201,7 +206,7 @@ export const LeftSide = () => {
               <div class="modal-body">
                 <div class="form-group">
                   <label for="exampleFormControlTextarea1">
-                    Qual é o motivo que o atendimento será recusado ?
+                    Por qual motivo o atendimento está sendo recusado?
                   </label>
                   <textarea
                     onChange={(e) => setReason(e?.target?.value)}
