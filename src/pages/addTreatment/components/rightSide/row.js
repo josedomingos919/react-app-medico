@@ -24,7 +24,7 @@ export const Row = ({ index }) => {
 
   return (
     <div className="col-12 mb-5">
-      <div className="row div row">
+      <div className="row div row row-container-treatment">
         <div className="col-4 mb-3 ">
           <h2 className="green-text mb-2">Horários</h2>
           <input

@@ -58,4 +58,34 @@
         text-align: center;
         margin-top: 14px;
     }
+
+    .content-add {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+    }
+
+    .left-side-menu {
+        padding-top: 14px;
+        width: 100%;
+        max-width: 100% !important;
+        display: grid;
+        grid-template-columns: auto auto;
+    }
+
+    .row-container-treatment {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .main-right-container ,
+    .row-container-treatment > div {
+        max-width: 100%; 
+    }
+
+    .row-container-treatment {
+        padding: 0px;
+        margin: 0px;
+    }
 }

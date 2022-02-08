@@ -1,23 +1,23 @@
-import { useApp } from '../../../../context/app'
-import { Row } from './row'
+import { useApp } from "../../../../context/app";
+import { Row } from "./row";
 
 export const RightSide = () => {
-  const { treatment, setTreatment } = useApp()
+  const { treatment, setTreatment } = useApp();
 
   const handleClick = (e) => {
-    e.preventDefault()
-    setTreatment((prev) => [...prev, {}])
-  }
+    e.preventDefault();
+    setTreatment((prev) => [...prev, {}]);
+  };
 
   const handleRemove = () =>
     setTreatment((prev) =>
       prev.length >= 2
         ? prev.filter((_, index) => index < prev.length - 1)
-        : prev,
-    )
+        : prev
+    );
 
   return (
-    <div className="col-9">
+    <div className="col-9 main-right-container">
       {treatment.map((_, index) => (
         <Row key={index} index={index} />
       ))}
@@ -36,5 +36,5 @@ export const RightSide = () => {
         )}
       </div>
     </div>
-  )
-}
+  );
+};

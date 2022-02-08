@@ -105,7 +105,7 @@ export function AddTreatment() {
         </div>
         <div className="tableContents">
           <div className="col-12">
-            <div className="row">
+            <div className="row content-add">
               <LeftSide />
               <RightSide />
             </div>
