@@ -761,7 +761,7 @@ body {
   .pageContents .mainHeading {
     padding: 1em 1.5em;
     color: #4d4f5c;
-    background-color: white;
+    /* background-color: white; */
   }
   .tableContents {
     overflow-x: auto;

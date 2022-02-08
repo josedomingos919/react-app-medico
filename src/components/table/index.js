@@ -231,14 +231,37 @@ export function Table({
                     )
                   )}
 
-                  <div class="collapseContents">
-                    <div class="carouselHeading">Editar</div>
-                    <div class="carouselText">
-                      <a class="collapseLink" href="#">
-                        <i class="far fa-edit"></i>
-                      </a>
+                  {optios?.delete && (
+                    <div class="collapseContents">
+                      <div class="carouselHeading">{optios?.delete?.label}</div>
+                      <div class="carouselText">
+                        <label
+                          className="collapseLink"
+                          onClick={() => onDelete(item)}
+                        >
+                          <i
+                            className={
+                              optios?.delete?.iconName ?? "fa fa-trash fa-4"
+                            }
+                          ></i>
+                        </label>
+                      </div>
                     </div>
-                  </div>
+                  )}
+
+                  {edit && (
+                    <div class="collapseContents">
+                      <div class="carouselHeading">{edit?.label}</div>
+                      <div class="carouselText">
+                        <a class="collapseLink" href={item?.edit}>
+                          <i
+                            onClick={() => onEdit(data?.[index])}
+                            className={edit?.iconName ?? "far fa-edit"}
+                          ></i>
+                        </a>
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
             );

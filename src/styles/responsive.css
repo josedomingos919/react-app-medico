@@ -41,4 +41,8 @@
         flex-direction: column;
         overflow-x: auto;
     }
+
+    .mainHeading {
+        background-color: transparent;
+    }
 }
