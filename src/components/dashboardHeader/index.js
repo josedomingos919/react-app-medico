@@ -1,13 +1,16 @@
-import { Avatar, Logo } from '../../assets'
-import { useAuth } from './../../context/auth'
+import { Avatar, Logo } from "../../assets";
+import { useAuth } from "./../../context/auth";
 
 export function DashboardHeader() {
-  const { singOut, user } = useAuth()
+  const { singOut, user } = useAuth();
 
   return (
     <>
       <div className="hideHeader">
-        <i id="sideMenuBtn" className="fas fa-bars"></i>
+        <label
+          htmlFor="sideMenuBtn"
+          className="fas fa-bars sideMenuBtn"
+        ></label>
         <a className="hideHeaderLogo" href="https://teste.com.br">
           <img src={Logo} alt="" />
         </a>
@@ -33,5 +36,5 @@ export function DashboardHeader() {
         </div>
       </div>
     </>
-  )
+  );
 }

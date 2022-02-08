@@ -45,4 +45,12 @@
     .mainHeading {
         background-color: transparent;
     }
+
+    #sideMenuBtn ~ div {
+        left: -100%;
+    }
+
+    #sideMenuBtn:checked ~ div {
+        left: 0%;
+    }
 }

@@ -240,7 +240,7 @@ body {
 .pageContents .hideHeader .hideHeaderLogo img {
   height: 50px;
 }
-.hideHeader #sideMenuBtn {
+.hideHeader .sideMenuBtn {
   position: absolute;
   color: white;
   left: 25px;
