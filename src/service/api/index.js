@@ -15,18 +15,18 @@ export const api = (props = {}) => {
     timeout: 9000,
     headers,
   });
- 
+
   instance.interceptors.response.use(
-    res => res,
-    err => {
-      console.log("err?.response?.data=> ",err?.response?.data)
-      if (err?.response?.data?.error === 403) {
+    (res) => res,
+    (err) => {
+      console.log("err?.response?.data=> ", err?.response?.data);
+      if (err?.response?.data?.error === 403 || err.response.status === 403) {
         session.clear();
-        window.location.reload()
-      } 
-      return err
+        window.location.reload();
+      }
+      return err;
     }
-  ); 
+  );
 
   return instance;
 };
