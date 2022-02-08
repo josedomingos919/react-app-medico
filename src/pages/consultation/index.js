@@ -1,29 +1,29 @@
-import { useCallback, useEffect, useState, useRef } from 'react'
-import { toast } from 'react-toastify'
-import { AppContent, Loader, Table } from '../../components'
-import { useApp } from '../../context/app'
-import { services } from '../../service'
-import { generateCsvLink, generateXlsLink } from '../../utilities/csv'
+import { useCallback, useEffect, useState, useRef } from "react";
+import { toast } from "react-toastify";
+import { AppContent, Loader, Table } from "../../components";
+import { useApp } from "../../context/app";
+import { services } from "../../service";
+import { generateCsvLink, generateXlsLink } from "../../utilities/csv";
 import {
   containWord,
   getPagination,
   getSelectData,
   isEmpty,
-} from '../../utilities/functions'
-import { printPdf } from '../../utilities/pdf'
+} from "../../utilities/functions";
+import { printPdf } from "../../utilities/pdf";
 import {
   csvInfo,
   formatData,
   formatForCSV,
   initialFormData,
   tableData,
-} from './util'
+} from "./util";
 
-import Select from 'react-select'
+import Select from "react-select";
 
 export function Consultation() {
-  const openModalRef = useRef()
-  const buttonCloseRef = useRef()
+  const openModalRef = useRef();
+  const buttonCloseRef = useRef();
 
   const {
     medicalExameData,
@@ -36,34 +36,35 @@ export function Consultation() {
     doctors = [],
     statusData = [],
     setStatusData,
-  } = useApp()
+  } = useApp();
 
-  const [isLoadingUpdate, setIsloadingUpdate] = useState(false)
-  const [validate, setValidate] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
-  const [exams, setExams] = useState([])
-  const [limit, setLimit] = useState(5)
-  const [page, setPage] = useState(1)
-  const [search, setSearch] = useState('')
-  const [selectedItem, setSelectedItem] = useState()
+  const [isLoadingUpdate, setIsloadingUpdate] = useState(false);
+  const [validate, setValidate] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [exams, setExams] = useState([]);
+  const [limit, setLimit] = useState(5);
+  const [page, setPage] = useState(1);
+  const [search, setSearch] = useState("");
+  const [selectedItem, setSelectedItem] = useState();
 
-  const [formData, __setFormData] = useState({ ...initialFormData })
-  const setFormData = (key = '', val) =>
-    __setFormData((prevState) => ({ ...prevState, [key]: val }))
+  const [formData, __setFormData] = useState({ ...initialFormData });
+  const setFormData = (key = "", val) =>
+    __setFormData((prevState) => ({ ...prevState, [key]: val }));
 
   const getMedicalExames = useCallback(async () => {
-    setIsLoading(true)
-    setExams([])
+    setIsLoading(true);
+    setExams([]);
 
     const responseData = await services.exame.schedule({
-      date: '',
-    })
+      date: "",
+    });
 
-    if (!responseData?.data?.success) toast.error('Falha ao carregar os dados!')
-    else setExams(responseData?.data?.payload ?? [])
+    if (!responseData?.data?.success)
+      toast.error("Falha ao carregar os dados!");
+    else setExams(responseData?.data?.payload ?? []);
 
-    setIsLoading(false)
-  }, [setExams, setIsLoading])
+    setIsLoading(false);
+  }, [setExams, setIsLoading]);
 
   useEffect(() => {
     if (search) {
@@ -72,14 +73,14 @@ export function Consultation() {
           data: exams.filter(
             ({ patient_name, equipe_name }) =>
               containWord(patient_name, search) ||
-              containWord(equipe_name, search),
+              containWord(equipe_name, search)
           ),
           limit,
           page,
-        }),
-      )
+        })
+      );
 
-      return
+      return;
     }
 
     setMedicalExameData(
@@ -87,57 +88,52 @@ export function Consultation() {
         data: exams,
         limit,
         page,
-      }),
-    )
-  }, [search, exams, limit, page])
+      })
+    );
+  }, [search, exams, limit, page]);
 
   useEffect(() => {
-    getMedicalExames()
-  }, [getMedicalExames])
+    getMedicalExames();
+  }, [getMedicalExames]);
 
   const getMedicines = useCallback(async () => {
-    const response = await services.medicine.get()
-    if (response?.data?.success) setMedicines(response.data.payload ?? [])
-    else toast.error('Falha ao carregar os medicamentos!')
-  }, [setMedicines])
+    const response = await services.medicine.get();
+    if (response?.data?.success) setMedicines(response.data.payload ?? []);
+    else toast.error("Falha ao carregar os medicamentos!");
+  }, [setMedicines]);
 
   const getTeam = useCallback(async () => {
-    const response = await services.waiting.getTeam()
-    if (response?.data?.success) setTeams(response.data.payload ?? [])
-    else toast.error('Falha ao carregar a equipe!')
-  }, [setTeams])
+    const response = await services.waiting.getTeam();
+    if (response?.data?.success) setTeams(response.data.payload ?? []);
+    else toast.error("Falha ao carregar a equipe!");
+  }, [setTeams]);
 
   const getDoctors = useCallback(async () => {
-    const response = await services.waiting.getDoctors()
+    const response = await services.waiting.getDoctors();
 
-    if (response?.data?.success) setDoctors(response.data.payload ?? [])
-    else toast.error('Falha ao carregar os médicos plantonista!')
-  }, [setDoctors])
+    if (response?.data?.success) setDoctors(response.data.payload ?? []);
+    else toast.error("Falha ao carregar os médicos plantonista!");
+  }, [setDoctors]);
 
   const getStatus = useCallback(async () => {
-    const response = await services.exame.getStatus()
+    const response = await services.exame.getStatus();
 
-    if (response?.data?.success) setStatusData(response.data.payload ?? [])
-    else toast.error('Falha ao carregar os estados!')
-  }, [setDoctors])
+    if (response?.data?.success) setStatusData(response.data.payload ?? []);
+    else toast.error("Falha ao carregar os estados!");
+  }, [setDoctors]);
 
   useEffect(() => {
-    getStatus()
-    getTeam()
-    getDoctors()
-    getMedicines()
-  }, [getMedicines, getDoctors, getTeam])
+    getStatus();
+    getTeam();
+    getDoctors();
+    getMedicines();
+  }, [getMedicines, getDoctors, getTeam]);
 
   const handleUpdate = async () => {
-    setValidate(true)
+    setValidate(true);
 
-    const {
-      date_input,
-      doctor_id,
-      medicine_id,
-      equipe_id,
-      status_id,
-    } = formData
+    const { date_input, doctor_id, medicine_id, equipe_id, status_id } =
+      formData;
 
     if (
       !date_input ||
@@ -146,7 +142,7 @@ export function Consultation() {
       !equipe_id?.value ||
       !status_id?.value
     )
-      return
+      return;
 
     const data = {
       date_input,
@@ -155,18 +151,18 @@ export function Consultation() {
       status_id: status_id?.value,
       medicine_id: medicine_id?.value,
       treatment_id: selectedItem?.treatment_id,
-    }
+    };
 
-    setIsloadingUpdate(true)
-    const response = await services.exame.update(data)
-    setIsloadingUpdate(false)
+    setIsloadingUpdate(true);
+    const response = await services.exame.update(data);
+    setIsloadingUpdate(false);
 
     if (response?.data?.success) {
-      toast.success('Consulta atualizada com sucesso!')
-      getMedicalExames()
-      buttonCloseRef.current.click()
-    } else toast.error('Falha ao atualizar consulta!')
-  }
+      toast.success("Consulta atualizada com sucesso!");
+      getMedicalExames();
+      buttonCloseRef.current.click();
+    } else toast.error("Falha ao atualizar consulta!");
+  };
 
   const renderUpdateModal = () => {
     return (
@@ -216,13 +212,13 @@ export function Consultation() {
                         type="datetime-local"
                         value={formData?.date_input}
                         onChange={(e) =>
-                          setFormData('date_input', e?.target?.value)
+                          setFormData("date_input", e?.target?.value)
                         }
                       />
                       <span className="span-error">
                         {validate &&
                           !formData?.date_input &&
-                          '*Campo obrigatório!'}
+                          "*Campo obrigatório!"}
                       </span>
                     </div>
                     <div className="col-6">
@@ -230,19 +226,19 @@ export function Consultation() {
                       <Select
                         disabled={isLoadingUpdate}
                         value={formData?.equipe_id}
-                        onChange={(val) => setFormData('equipe_id', val)}
+                        onChange={(val) => setFormData("equipe_id", val)}
                         isDisabled={isEmpty(teams)}
                         options={getSelectData({
                           data: teams,
-                          labelKey: 'user_name',
-                          valueKey: 'user_id',
+                          labelKey: "user_name",
+                          valueKey: "user_id",
                         })}
                       />
 
                       <span className="span-error">
                         {validate &&
                           !formData?.equipe_id?.value &&
-                          '*Campo obrigatório!'}
+                          "*Campo obrigatório!"}
                       </span>
                     </div>
                   </div>
@@ -252,18 +248,18 @@ export function Consultation() {
                       <Select
                         disabled={isLoadingUpdate}
                         value={formData?.doctor_id}
-                        onChange={(val) => setFormData('doctor_id', val)}
+                        onChange={(val) => setFormData("doctor_id", val)}
                         isDisabled={isEmpty(doctors)}
                         options={getSelectData({
                           data: doctors,
-                          labelKey: 'user_name',
-                          valueKey: 'user_id',
+                          labelKey: "user_name",
+                          valueKey: "user_id",
                         })}
                       />
                       <span className="span-error">
                         {validate &&
                           !formData?.doctor_id?.value &&
-                          '*Campo obrigatório!'}
+                          "*Campo obrigatório!"}
                       </span>
                     </div>
                     <div className="col-6">
@@ -271,17 +267,17 @@ export function Consultation() {
                       <Select
                         disabled={isLoadingUpdate}
                         value={formData?.medicine_id}
-                        onChange={(val) => setFormData('medicine_id', val)}
+                        onChange={(val) => setFormData("medicine_id", val)}
                         isDisabled={isEmpty(medicines)}
                         options={getSelectData({
                           data: medicines,
-                          labelKey: 'medicamento',
+                          labelKey: "medicamento",
                         })}
                       />
                       <span className="span-error">
                         {validate &&
                           !formData?.medicine_id?.value &&
-                          '*Campo obrigatório!'}
+                          "*Campo obrigatório!"}
                       </span>
                     </div>
                   </div>
@@ -291,18 +287,18 @@ export function Consultation() {
                       <Select
                         disabled={isLoadingUpdate}
                         value={formData?.status_id}
-                        onChange={(val) => setFormData('status_id', val)}
+                        onChange={(val) => setFormData("status_id", val)}
                         isDisabled={isEmpty(medicines)}
                         options={getSelectData({
                           data: statusData,
-                          labelKey: 'status_name',
-                          valueKey: 'id',
+                          labelKey: "status_name",
+                          valueKey: "id",
                         })}
                       />
                       <span className="span-error">
                         {validate &&
                           !formData?.medicine_id?.value &&
-                          '*Campo obrigatório!'}
+                          "*Campo obrigatório!"}
                       </span>
                     </div>
                   </div>
@@ -323,15 +319,15 @@ export function Consultation() {
                   type="button"
                   class="btn btn-success"
                 >
-                  {isLoadingUpdate ? <Loader /> : 'Salvar'}
+                  {isLoadingUpdate ? <Loader /> : "Salvar"}
                 </button>
               </div>
             </div>
           </div>
         </div>
       </>
-    )
-  }
+    );
+  };
 
   return (
     <AppContent>
@@ -350,7 +346,7 @@ export function Consultation() {
             name: csvInfo.name,
           })
         }
-        onExportPDF={() => printPdf('/dashboard/consultation/print')}
+        onExportPDF={() => printPdf("/dashboard/consultation/print")}
         page={page}
         limit={limit}
         isLoading={isLoading}
@@ -361,6 +357,7 @@ export function Consultation() {
         title={tableData?.title}
         subTitle={tableData?.subTitle}
         fields={tableData.fields}
+        shortFields={tableData.shortFields}
         data={formatData(medicalExameData?.data)}
         optios={tableData.optios}
         search={search}
@@ -372,39 +369,45 @@ export function Consultation() {
             doctor_name,
             medicamento,
             status_name_clone,
-          } = item
+          } = item;
 
-          setValidate(false)
+          setValidate(false);
 
           __setFormData({
-            date_input: new Date(date_input)?.toJSON()?.split('.')?.[0],
+            date_input: new Date(date_input)?.toJSON()?.split(".")?.[0],
             equipe_id: getSelectData({
               data: teams,
-              labelKey: 'user_name',
-              valueKey: 'user_id',
+              labelKey: "user_name",
+              valueKey: "user_id",
             }).find(({ label }) => label === equipe_name),
             doctor_id: getSelectData({
               data: doctors,
-              labelKey: 'user_name',
-              valueKey: 'user_id',
+              labelKey: "user_name",
+              valueKey: "user_id",
             }).find(({ label }) => label === doctor_name),
             medicine_id: getSelectData({
               data: medicines,
-              labelKey: 'medicamento',
+              labelKey: "medicamento",
             }).find(({ label }) => label === medicamento),
             status_id: getSelectData({
               data: statusData,
-              labelKey: 'status_name',
-              valueKey: 'id',
+              labelKey: "status_name",
+              valueKey: "id",
             }).find(({ label }) => label === status_name_clone),
-          })
+          });
 
-          openModalRef.current.click()
-          setSelectedItem(item)
+          openModalRef.current.click();
+          setSelectedItem(item);
+        }}
+        setDataProp={(index, value = {}) => {
+          setExams((prev) => {
+            prev[index] = { ...prev[index], ...value };
+            return [...prev];
+          });
         }}
       />
 
       {renderUpdateModal()}
     </AppContent>
-  )
+  );
 }

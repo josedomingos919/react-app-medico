@@ -1,49 +1,63 @@
-import { Status } from '../../components'
-import { formatDate } from '../../utilities/functions'
+import { Status } from "../../components";
+import { formatDate } from "../../utilities/functions";
 
 export const initialFormData = {
-  date_input: '',
+  date_input: "",
   equipe_id: {},
   doctor_id: {},
   medicine_id: {},
   status_id: {},
-}
+};
 
 export const tableData = {
-  title: 'Consulta em lista',
-  subTitle: 'Verificar todas as consultas',
+  title: "Consulta em lista",
+  subTitle: "Verificar todas as consultas",
   fields: [
     {
-      label: 'ID',
-      name: 'exame_id',
+      label: "ID",
+      name: "exame_id",
     },
     {
-      label: 'Paciente',
-      name: 'patient_name',
+      label: "Paciente",
+      name: "patient_name",
     },
     {
-      label: 'Equipe',
-      name: 'equipe_name',
+      label: "Equipe",
+      name: "equipe_name",
     },
     {
-      label: 'Data/Hora',
-      name: 'date_input',
+      label: "Data/Hora",
+      name: "date_input",
     },
     {
-      label: 'Medicamento',
-      name: 'medicamento',
+      label: "Medicamento",
+      name: "medicamento",
     },
     {
-      label: 'Andamento',
-      name: 'status_name',
+      label: "Andamento",
+      name: "status_name",
+    },
+  ],
+  shortFields: [
+    {
+      label: "ID",
+      name: "exame_id",
+    },
+    {
+      label: "Paciente",
+      name: "patient_name",
+    },
+    {
+      label: "Equipe",
+      name: "equipe_name",
     },
   ],
   optios: {
     edit: {
-      label: 'Editar',
+      label: "Editar",
     },
   },
-}
+};
 
 export const formatData = (data = []) => {
   return data.map((item) => ({
@@ -56,14 +70,14 @@ export const formatData = (data = []) => {
     address_name: item?.address?.address ?? item.address,
     date_input: item?.date_input
       ? new Date(item?.date_input).toLocaleString()
-      : '',
-  }))
-}
+      : "",
+  }));
+};
 
 export const csvInfo = {
   header: tableData.fields.map(({ label }) => label),
-  name: 'consultas',
-}
+  name: "consultas",
+};
 
 export const formatForCSV = (data = []) =>
   data.map(
@@ -78,8 +92,8 @@ export const formatForCSV = (data = []) =>
       exame_id,
       patient_name,
       equipe_name,
-      date_input ? formatDate(date_input) : '',
+      date_input ? formatDate(date_input) : "",
       medicamento,
       status_name,
-    ],
-  )
+    ]
+  );

@@ -31,6 +31,20 @@ export const tableData = {
       name: "perfil_name",
     },
   ],
+  shortFields: [
+    {
+      label: "ID",
+      name: "user_id",
+    },
+    {
+      label: "Nome",
+      name: "user_name",
+    },
+    {
+      label: "Telefone",
+      name: "user_cellphone",
+    },
+  ],
   optios: {
     add: {
       label: "Novo Paciente",

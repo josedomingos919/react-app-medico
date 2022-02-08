@@ -1,40 +1,50 @@
 export const tableData = {
-  title: 'Listas de medicação',
-  subTitle: 'Verificar todas as medicações',
+  title: "Listas de medicação",
+  subTitle: "Verificar todas as medicações",
   fields: [
     {
-      label: 'ID',
-      name: 'id',
+      label: "ID",
+      name: "id",
     },
     {
-      label: 'Medicação',
-      name: 'medicamento',
+      label: "Medicação",
+      name: "medicamento",
+    },
+  ],
+  shortFields: [
+    {
+      label: "ID",
+      name: "id",
+    },
+    {
+      label: "Medicação",
+      name: "medicamento",
     },
   ],
   optios: {
     edit: {
-      label: 'Editar',
+      label: "Editar",
     },
     add: {
-      label: 'Nova Medicação',
-      path: '/dashboard/medication/add',
+      label: "Nova Medicação",
+      path: "/dashboard/medication/add",
     },
     delete: {
-      label: 'Eliminar',
+      label: "Eliminar",
     },
   },
-}
+};
 
 export const csvInfo = {
-  header: ['ID', 'Medicação'],
-  name: 'medicação',
-}
+  header: ["ID", "Medicação"],
+  name: "medicação",
+};
 
 export const formatData = (data = []) =>
   data?.map((item) => ({
     ...item,
     edit: `medication/add/${item?.id}`,
-  })) ?? []
+  })) ?? [];
 
 export const formatForCSV = (data = []) =>
-  data.map(({ id, medicamento }) => [id, medicamento])
+  data.map(({ id, medicamento }) => [id, medicamento]);

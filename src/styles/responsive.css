@@ -22,7 +22,7 @@
     }
 
     .pagination{
-        margin-bottom: 14px;
+        margin-bottom: 14px; 
     }
 
     .div-options-value select {
@@ -52,5 +52,10 @@
 
     #sideMenuBtn:checked ~ div {
         left: 0%;
+    }
+
+    .tableContents .smHeading {
+        text-align: center;
+        margin-top: 14px;
     }
 }

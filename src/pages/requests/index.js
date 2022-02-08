@@ -1,45 +1,46 @@
-import { useState, useEffect, useCallback } from 'react'
-import { toast } from 'react-toastify'
-import { AppContent, Table } from '../../components'
-import { useApp } from '../../context/app'
-import { services } from '../../service'
-import { generateCsvLink, generateXlsLink } from '../../utilities/csv'
-import { containWord, getPagination } from '../../utilities/functions'
-import { printPdf } from '../../utilities/pdf'
-import { csvInfo, formatData, formatForCSV, tableData } from './util'
+import { useState, useEffect, useCallback } from "react";
+import { toast } from "react-toastify";
+import { AppContent, Table } from "../../components";
+import { useApp } from "../../context/app";
+import { services } from "../../service";
+import { generateCsvLink, generateXlsLink } from "../../utilities/csv";
+import { containWord, getPagination } from "../../utilities/functions";
+import { printPdf } from "../../utilities/pdf";
+import { csvInfo, formatData, formatForCSV, tableData } from "./util";
 
 export function Requests() {
-  const { requestData, setRequestData } = useApp()
-  const [requests, setRequests] = useState([])
-  const [isLoading, setIsLoading] = useState(false)
-  const [limit, setLimit] = useState(5)
-  const [page, setPage] = useState(1)
-  const [search, setSearch] = useState('')
+  const { requestData, setRequestData } = useApp();
+  const [requests, setRequests] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [limit, setLimit] = useState(5);
+  const [page, setPage] = useState(1);
+  const [search, setSearch] = useState("");
 
   const getPatients = useCallback(async () => {
-    setIsLoading(true)
-    setRequests([])
+    setIsLoading(true);
+    setRequests([]);
 
-    const responseData = await services.waiting.get()
+    const responseData = await services.waiting.get();
 
-    if (!responseData?.data?.success) toast.error('Falha ao carregar os dados!')
-    else setRequests(responseData?.data?.payload ?? [])
+    if (!responseData?.data?.success)
+      toast.error("Falha ao carregar os dados!");
+    else setRequests(responseData?.data?.payload ?? []);
 
-    setIsLoading(false)
-  }, [setRequestData, setIsLoading])
+    setIsLoading(false);
+  }, [setRequestData, setIsLoading]);
 
   useEffect(() => {
     if (search) {
       setRequestData(
         getPagination({
           data: requests.filter(({ user_name }) =>
-            containWord(user_name, search),
+            containWord(user_name, search)
           ),
           limit,
           page,
-        }),
-      )
-      return
+        })
+      );
+      return;
     }
 
     setRequestData(
@@ -47,13 +48,13 @@ export function Requests() {
         data: requests,
         limit,
         page,
-      }),
-    )
-  }, [search, requests, limit, page])
+      })
+    );
+  }, [search, requests, limit, page]);
 
   useEffect(() => {
-    getPatients()
-  }, [getPatients])
+    getPatients();
+  }, [getPatients]);
 
   return (
     <AppContent>
@@ -72,7 +73,7 @@ export function Requests() {
             name: csvInfo.name,
           })
         }
-        onExportPDF={() => printPdf('/dashboard/requests/print')}
+        onExportPDF={() => printPdf("/dashboard/requests/print")}
         page={page}
         limit={limit}
         totalData={requestData?.totalData}
@@ -81,13 +82,20 @@ export function Requests() {
         title={tableData.title}
         subTitle={tableData.subTitle}
         fields={tableData.fields}
+        shortFields={tableData.shortFields}
         optios={tableData.optios}
         data={formatData(requestData?.data)}
         onChangeLimit={setLimit}
         onChangePage={setPage}
         search={search}
         setSearch={setSearch}
+        setDataProp={(index, value = {}) => {
+          setRequests((prev) => {
+            prev[index] = { ...prev[index], ...value };
+            return [...prev];
+          });
+        }}
       />
     </AppContent>
-  )
+  );
 }
