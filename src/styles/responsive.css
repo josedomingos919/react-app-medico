@@ -1,7 +1,28 @@
 .div-content-header .mainHeading {
     background-color: transparent;
 }
- 
+
+
+
+@media only screen and (max-width: 463px) { 
+    .pageContents .row.odd{
+        text-align: center;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 34px;
+    }
+
+    .left-side-menu {
+        margin-top: 20px;
+        display: flex !important;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+}
+
 @media only screen and (max-width: 756px) {
     .div-content-header {
         display: flex;
