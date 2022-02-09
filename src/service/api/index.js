@@ -19,8 +19,13 @@ export const api = (props = {}) => {
   instance.interceptors.response.use(
     (res) => res,
     (err) => {
-      console.log("err?.response?.data=> ", err?.response?.data);
-      if (err?.response?.data?.error === 403 || err.response.status === 403) {
+      console.log("err?.response?.data=> ", err);
+      if (
+        err?.response?.data?.error === 403 ||
+        err?.response?.status === 403 ||
+        !err.status ||
+        (typeof err === "object" && err.message === "Network Error")
+      ) {
         session.clear();
         window.location.reload();
       }
