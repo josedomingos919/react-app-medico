@@ -34,8 +34,21 @@ export function Employees() {
     if (search) {
       setDoctorsData(
         getPagination({
-          data: doctors.filter(({ user_name }) =>
-            containWord(user_name, search)
+          data: doctors.filter(
+            ({
+              user_id,
+              user_name,
+              user_mail,
+              user_cellphone,
+              perfil_name,
+              user_status,
+            }) =>
+              user_id?.toLowerCase().includes(search?.toLowerCase()) ||
+              user_name?.toLowerCase().includes(search?.toLowerCase()) ||
+              user_mail?.toLowerCase().includes(search?.toLowerCase()) ||
+              user_cellphone?.toLowerCase().includes(search?.toLowerCase()) ||
+              perfil_name?.toLowerCase().includes(search?.toLowerCase()) ||
+              user_status?.toLowerCase().includes(search?.toLowerCase())
           ),
           limit,
           page,

@@ -62,8 +62,10 @@ export function Medication() {
     if (search) {
       setMedicineData(
         getPagination({
-          data: medications.filter(({ medicamento }) =>
-            containWord(medicamento, search)
+          data: medications.filter(
+            ({ id, medicamento }) =>
+              id?.toLowerCase().includes(search?.toLowerCase()) ||
+              medicamento?.toLowerCase().includes(search?.toLowerCase())
           ),
           limit,
           page,

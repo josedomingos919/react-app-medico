@@ -71,9 +71,23 @@ export function Consultation() {
       setMedicalExameData(
         getPagination({
           data: exams.filter(
-            ({ patient_name, equipe_name }) =>
-              containWord(patient_name, search) ||
-              containWord(equipe_name, search)
+            ({
+              exame_id,
+              patient_name,
+              equipe_name,
+              date_input,
+              medicamento,
+              status_name,
+            }) =>
+              exame_id?.toLowerCase().includes(search?.toLowerCase()) ||
+              patient_name?.toLowerCase().includes(search?.toLowerCase()) ||
+              equipe_name?.toLowerCase().includes(search?.toLowerCase()) ||
+              new Date(date_input)
+                .toLocaleString()
+                ?.toLowerCase()
+                .includes(search?.toLowerCase()) ||
+              medicamento?.toLowerCase().includes(search?.toLowerCase()) ||
+              status_name?.toLowerCase().includes(search?.toLowerCase())
           ),
           limit,
           page,
@@ -90,7 +104,7 @@ export function Consultation() {
         page,
       })
     );
-  }, [search, exams, limit, page]);
+  }, [search, exams, limit, page, setMedicalExameData]);
 
   useEffect(() => {
     getMedicalExames();
@@ -209,6 +223,7 @@ export function Consultation() {
                       <input
                         disabled={isLoadingUpdate}
                         className="registerInput"
+                        max="9999-12-31T23:59"
                         type="datetime-local"
                         value={formData?.date_input}
                         onChange={(e) =>
@@ -373,8 +388,21 @@ export function Consultation() {
 
           setValidate(false);
 
+          const [day, month, year_and_hour] = date_input.split("/");
+          const [year, full_time] = year_and_hour.split(" ");
+          const [hours, minutes, seconds] = full_time.split(":");
+
           __setFormData({
-            date_input: new Date(date_input)?.toJSON()?.split(".")?.[0],
+            date_input: new Date(
+              year,
+              Number(month - 1),
+              day,
+              Number(hours - 3),
+              minutes,
+              seconds
+            )
+              ?.toJSON()
+              ?.split(".")?.[0],
             equipe_id: getSelectData({
               data: teams,
               labelKey: "user_name",

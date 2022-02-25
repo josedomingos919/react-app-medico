@@ -76,17 +76,17 @@ export function Login() {
                 onFocus={() => setFormError({ password: "" })}
               />
 
-              <div className="formFooter">
+              {/* <div className="formFooter">
                 <div>
                   <input type="checkbox" name="" id="lambrar" />
                   <label className="commonText" htmlFor="lambrar">
                     Lembrar-se
                   </label>
                 </div>
-                {/* <a className="commonText" href="http://#">
+                <a className="commonText" href="http://#">
                   Esqueci minha senha
-                </a> */}
-              </div>
+                </a> 
+              </div> */}
               <button
                 onClick={() => {
                   setFormError((prev) => prev++);

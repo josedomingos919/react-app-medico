@@ -1,1 +1,1 @@
-export const baseURL = "http://api.imunoamericas.com.br/";
+export const baseURL = "https://api.imunoamericas.com.br/";

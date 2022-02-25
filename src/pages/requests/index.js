@@ -33,8 +33,26 @@ export function Requests() {
     if (search) {
       setRequestData(
         getPagination({
-          data: requests.filter(({ user_name }) =>
-            containWord(user_name, search)
+          data: requests.filter(
+            ({
+              exame_id,
+              status_name,
+              date_start,
+              user_name,
+              address_name,
+              preference,
+              name_plan,
+            }) =>
+              exame_id?.toLowerCase().includes(search?.toLowerCase()) ||
+              status_name?.toLowerCase().includes(search?.toLowerCase()) ||
+              new Date(date_start)
+                .toLocaleString()
+                ?.toLowerCase()
+                .includes(search?.toLowerCase()) ||
+              user_name?.toLowerCase().includes(search?.toLowerCase()) ||
+              address_name?.toLowerCase().includes(search?.toLowerCase()) ||
+              preference?.toLowerCase().includes(search?.toLowerCase()) ||
+              name_plan?.toLowerCase().includes(search?.toLowerCase())
           ),
           limit,
           page,
@@ -50,7 +68,7 @@ export function Requests() {
         page,
       })
     );
-  }, [search, requests, limit, page]);
+  }, [search, requests, limit, page, setRequestData]);
 
   useEffect(() => {
     getPatients();

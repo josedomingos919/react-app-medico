@@ -63,8 +63,23 @@ export function Patient() {
     if (search) {
       setPatientData(
         getPagination({
-          data: patients.filter(({ user_name }) =>
-            containWord(user_name, search)
+          data: patients.filter(
+            ({
+              user_id,
+              user_name,
+              user_cellphone,
+              user_mail,
+              access_token,
+              user_status,
+              perfil_name,
+            }) =>
+              user_id?.toLowerCase().includes(search?.toLowerCase()) ||
+              user_name?.toLowerCase().includes(search?.toLowerCase()) ||
+              user_cellphone?.toLowerCase().includes(search?.toLowerCase()) ||
+              user_mail?.toLowerCase().includes(search?.toLowerCase()) ||
+              access_token?.toLowerCase().includes(search?.toLowerCase()) ||
+              user_status?.toLowerCase().includes(search?.toLowerCase()) ||
+              perfil_name?.toLowerCase().includes(search?.toLowerCase())
           ),
           limit,
           page,

@@ -20,12 +20,7 @@ export const api = (props = {}) => {
     (res) => res,
     (err) => {
       console.log("err?.response?.data=> ", err);
-      if (
-        err?.response?.data?.error === 403 ||
-        err?.response?.status === 403 ||
-        !err.status ||
-        (typeof err === "object" && err.message === "Network Error")
-      ) {
+      if (err?.response?.data?.error === 403 || err?.response?.status === 403) {
         session.clear();
         window.location.reload();
       }

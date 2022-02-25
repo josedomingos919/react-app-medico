@@ -85,12 +85,12 @@ export const LeftSide = () => {
       <div className="mb-5">
         <h2 className="green-text mb-2">Convênio</h2>
         <p className="dark-text">
-          Plano: {exameData?.plan?.name_plan ?? ""}
+          Tipo: {exameData?.plan?.name_plan ?? ""}
           <br />
           {exameData?.plan?.type_plan && (
             <>
               {" "}
-              Tipo: {exameData?.plan?.type_plan ?? ""}
+              Plano: {exameData?.plan?.type_plan ?? ""}
               <br />
             </>
           )}
@@ -135,7 +135,12 @@ export const LeftSide = () => {
       </div>
       <div className="mb-5">
         <h2 className="green-text mb-2">Endereço Informado</h2>
-        <p className="dark-text">
+        <p
+          className="dark-text"
+          style={{
+            overflowWrap: "break-word",
+          }}
+        >
           {exameData?.address
             ? `${exameData?.address?.city}, ${exameData?.address?.neighborhood}, ${exameData?.address?.address},  ${exameData?.address?.complement}`
             : ""}

@@ -30,6 +30,7 @@ export const Row = ({ index }) => {
           <input
             className="registerInput"
             type="datetime-local"
+            max="9999-12-31T23:59"
             value={date_input}
             onChange={(e) => setTreatMent("date_input", e?.target?.value)}
           />

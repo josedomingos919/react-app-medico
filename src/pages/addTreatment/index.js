@@ -1,29 +1,24 @@
-import { useCallback, useState, useEffect } from 'react'
-import { AppContent } from '../../components'
-import { Loader } from '../../components'
-import { services } from '../../service'
-import { toast } from 'react-toastify'
-import { useParams } from 'react-router-dom'
-import { RightSide, LeftSide } from './components'
-import { useApp } from './../../context/app'
-import { useNavigate } from 'react-router-dom'
+import { useCallback, useState, useEffect } from "react";
+import { AppContent } from "../../components";
+import { Loader } from "../../components";
+import { services } from "../../service";
+import { toast } from "react-toastify";
+import { useParams } from "react-router-dom";
+import { RightSide, LeftSide } from "./components";
+import { useApp } from "./../../context/app";
+import { useNavigate } from "react-router-dom";
 
-import './style.css'
+import "./style.css";
 
 export function AddTreatment() {
-  const navigate = useNavigate()
-  const { id: tratmentId } = useParams()
-  const {
-    setMedicines,
-    setTeams,
-    setDoctors,
-    treatment,
-    setTreatmentError,
-  } = useApp()
-  const [isLoading, setIsLoading] = useState(false)
+  const navigate = useNavigate();
+  const { id: tratmentId } = useParams();
+  const { setMedicines, setTeams, setDoctors, treatment, setTreatmentError } =
+    useApp();
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSave = useCallback(async () => {
-    setTreatmentError(true)
+    setTreatmentError(true);
 
     for (let e of treatment)
       if (
@@ -33,7 +28,7 @@ export function AddTreatment() {
         !e?.equipe_id?.value ||
         !e?.medicine_id?.value
       )
-        return
+        return;
 
     const formData = {
       exame_id: tratmentId,
@@ -44,46 +39,48 @@ export function AddTreatment() {
           doctor_id: doctor_id?.value,
           equipe_id: equipe_id?.value,
           medicine_id: medicine_id?.value,
-        }),
+        })
       ),
-    }
+    };
 
-    setIsLoading(true)
-    const response = await services.waiting.create(formData)
-    setIsLoading(false)
+    setIsLoading(true);
+    const response = await services.waiting.create(formData);
+    setIsLoading(false);
+
+    console.log(response?.data);
 
     if (response?.data?.success) {
-      toast.success('Tratamento criado com sucesso!')
-      navigate('/dashboard/requests')
+      toast.success("Tratamento criado com sucesso!");
+      navigate("/dashboard/requests");
     } else {
-      toast.error('Falha ao carregar os medicamentos!')
+      toast.error(response?.data?.payload);
     }
-  }, [treatment, setTreatmentError, navigate, tratmentId])
+  }, [treatment, setTreatmentError, navigate, tratmentId]);
 
   const getMedicines = useCallback(async () => {
-    const response = await services.medicine.get()
-    if (response?.data?.success) setMedicines(response.data.payload ?? [])
-    else toast.error('Falha ao carregar os medicamentos!')
-  }, [setMedicines])
+    const response = await services.medicine.get();
+    if (response?.data?.success) setMedicines(response.data.payload ?? []);
+    else toast.error("Falha ao carregar os medicamentos!");
+  }, [setMedicines]);
 
   const getTeam = useCallback(async () => {
-    const response = await services.waiting.getTeam()
-    if (response?.data?.success) setTeams(response.data.payload ?? [])
-    else toast.error('Falha ao carregar a equipe!')
-  }, [setTeams])
+    const response = await services.waiting.getTeam();
+    if (response?.data?.success) setTeams(response.data.payload ?? []);
+    else toast.error("Falha ao carregar a equipe!");
+  }, [setTeams]);
 
   const getDoctors = useCallback(async () => {
-    const response = await services.waiting.getDoctors()
+    const response = await services.waiting.getDoctors();
 
-    if (response?.data?.success) setDoctors(response.data.payload ?? [])
-    else toast.error('Falha ao carregar os médicos plantonista!')
-  }, [setDoctors])
+    if (response?.data?.success) setDoctors(response.data.payload ?? []);
+    else toast.error("Falha ao carregar os médicos plantonista!");
+  }, [setDoctors]);
 
   useEffect(() => {
-    getTeam()
-    getDoctors()
-    getMedicines()
-  }, [getMedicines, getDoctors, getTeam])
+    getTeam();
+    getDoctors();
+    getMedicines();
+  }, [getMedicines, getDoctors, getTeam]);
 
   return (
     <AppContent activePath="/dashboard/requests">
@@ -99,7 +96,7 @@ export function AddTreatment() {
               type="submit"
               className="mainBtn"
             >
-              {isLoading ? <Loader /> : 'Enviar'}
+              {isLoading ? <Loader /> : "Enviar"}
             </button>
           </div>
         </div>
@@ -113,5 +110,5 @@ export function AddTreatment() {
         </div>
       </div>
     </AppContent>
-  )
+  );
 }

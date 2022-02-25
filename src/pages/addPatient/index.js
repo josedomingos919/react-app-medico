@@ -20,7 +20,6 @@ export function AddPatient() {
     watch,
     reset,
     setValue,
-    clearErrors,
     formState: { errors },
   } = useForm({
     defaultValues: {},
@@ -42,6 +41,7 @@ export function AddPatient() {
         user_name: data.name,
         user_cellphone: data.cellphone,
         user_mail: data.email,
+        password: data.password,
       });
     } else {
       patientResponse = await services.patient.add(data);
@@ -103,7 +103,7 @@ export function AddPatient() {
                   type="text"
                   {...register("name", validation.name)}
                   className="registerInput"
-                  placeholder="Nome do médico"
+                  placeholder="Nome do paciente"
                 />
                 <span className="span-error">{errors?.name?.message}</span>
               </div>

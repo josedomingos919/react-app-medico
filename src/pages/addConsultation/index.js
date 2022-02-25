@@ -412,7 +412,12 @@ export function AddConsultation() {
                         onClick={() => setFormData("address_id", value)}
                         className="registerRadioBtn"
                       >
-                        <label className="container-radio-button">
+                        <label
+                          className="container-radio-button"
+                          style={{
+                            overflowWrap: "break-word",
+                          }}
+                        >
                           {label}
                           <span
                             className={`checkmark  ${
@@ -522,6 +527,7 @@ export function AddConsultation() {
                         setFormData("date_start", e?.target?.value)
                       }
                       value={formData?.date_start}
+                      max="9999-12-31"
                       type="date"
                       className="registerInput"
                     />
